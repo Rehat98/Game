@@ -1,0 +1,14 @@
+# Brainstorming/mockup workspace (local-only)
+.superpowers/
+
+# macOS
+.DS_Store
+
+# Xcode (added pre-emptively for when we scaffold the project)
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
