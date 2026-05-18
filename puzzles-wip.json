@@ -448,5 +448,95 @@
     "category": "Book",
     "subcategory": "Jack London · 1903",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-051",
+    "date": "",
+    "emoji": "🐅🌳",
+    "answer": "TIGER WOODS",
+    "category": "Celeb",
+    "subcategory": "Golfer · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-052",
+    "date": "",
+    "emoji": "👩👶",
+    "answer": "LADY GAGA",
+    "category": "Celeb",
+    "subcategory": "Singer · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-053",
+    "date": "",
+    "emoji": "💰🚪",
+    "answer": "BILL GATES",
+    "category": "Celeb",
+    "subcategory": "Microsoft founder",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-054",
+    "date": "",
+    "emoji": "🐱🇳🇱",
+    "answer": "TOM HOLLAND",
+    "category": "Celeb",
+    "subcategory": "Actor · Spider-Man",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-055",
+    "date": "",
+    "emoji": "📜🔨",
+    "answer": "WILL SMITH",
+    "category": "Celeb",
+    "subcategory": "Actor · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-056",
+    "date": "",
+    "emoji": "5️⃣0️⃣💰",
+    "answer": "50 CENT",
+    "category": "Celeb",
+    "subcategory": "Rapper · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-057",
+    "date": "",
+    "emoji": "👶🌧️",
+    "answer": "LIL WAYNE",
+    "category": "Celeb",
+    "subcategory": "Rapper · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-058",
+    "date": "",
+    "emoji": "🐱🛳️",
+    "answer": "TOM CRUISE",
+    "category": "Celeb",
+    "subcategory": "Actor · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-059",
+    "date": "",
+    "emoji": "🚽🧙",
+    "answer": "JOHN LEGEND",
+    "category": "Celeb",
+    "subcategory": "Singer · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-060",
+    "date": "",
+    "emoji": "🌅🆓👨",
+    "answer": "MORGAN FREEMAN",
+    "category": "Celeb",
+    "subcategory": "Actor · American",
+    "difficulty": "hard"
   }
 ]
