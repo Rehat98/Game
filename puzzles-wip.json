@@ -358,5 +358,95 @@
     "category": "Song",
     "subcategory": "Bruce Springsteen · 1984",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-041",
+    "date": "",
+    "emoji": "⏰🤖",
+    "answer": "THE TIME MACHINE",
+    "category": "Book",
+    "subcategory": "H.G. Wells · 1895",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-042",
+    "date": "",
+    "emoji": "💎🏝️",
+    "answer": "TREASURE ISLAND",
+    "category": "Book",
+    "subcategory": "R.L. Stevenson · 1883",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-043",
+    "date": "",
+    "emoji": "🎮🪑",
+    "answer": "GAME OF THRONES",
+    "category": "Book",
+    "subcategory": "George R.R. Martin · 1996",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-044",
+    "date": "",
+    "emoji": "🤏🤴",
+    "answer": "THE LITTLE PRINCE",
+    "category": "Book",
+    "subcategory": "Saint-Exupéry · 1943",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-045",
+    "date": "",
+    "emoji": "⚪🔊",
+    "answer": "WHITE NOISE",
+    "category": "Book",
+    "subcategory": "Don DeLillo · 1985",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-046",
+    "date": "",
+    "emoji": "⚔️🕊️",
+    "answer": "WAR AND PEACE",
+    "category": "Book",
+    "subcategory": "Leo Tolstoy · 1869",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-047",
+    "date": "",
+    "emoji": "🦁⚖️",
+    "answer": "PRIDE AND PREJUDICE",
+    "category": "Book",
+    "subcategory": "Jane Austen · 1813",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-048",
+    "date": "",
+    "emoji": "👻👨",
+    "answer": "INVISIBLE MAN",
+    "category": "Book",
+    "subcategory": "Ralph Ellison · 1952",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-049",
+    "date": "",
+    "emoji": "❤️🖤",
+    "answer": "HEART OF DARKNESS",
+    "category": "Book",
+    "subcategory": "Joseph Conrad · 1899",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-050",
+    "date": "",
+    "emoji": "📞🌳",
+    "answer": "CALL OF THE WILD",
+    "category": "Book",
+    "subcategory": "Jack London · 1903",
+    "difficulty": "hard"
   }
 ]
