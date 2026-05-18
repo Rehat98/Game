@@ -11,7 +11,8 @@
 <body>
 
 <nav class="topnav">
-  <a class="brand" href="/">
+  <div class="topnav-inner">
+    <a class="brand" href="/">
     <img src="assets/icon.png" alt="">
     Pictok
   </a>
@@ -21,9 +22,12 @@
     <a href="/press.html">Press</a>
     <a href="/privacy.html">Privacy</a>
   </div>
+  </div>
 </nav>
 
-<main class="page">
+<main>
+  <div class="wrap">
+    <article class="page">
 
   <h1>Press kit</h1>
   <p class="lead">Everything you need to cover Pictok. Free to use; attribution appreciated. Reach out for anything else.</p>
@@ -76,20 +80,20 @@
   <p>It's also a deliberate pushback against modern mobile-game design. No daily quests. No premium currency. No "watch ad for hint" loops. No accounts. The app is built so that <strong>shipping minimum, then iterating</strong> is the philosophy, not "monetize from day one."</p>
 
   <h2>Sample puzzles (safe to share)</h2>
-  <div class="puzzle-grid" style="padding: 12px 0 0;">
+  <div class="puzzle-grid">
     <div class="puzzle">
       <div class="puzzle-emoji">🐝🍃</div>
-      <div class="puzzle-answer">BELIEF</div>
+      <div class="puzzle-answer">Belief</div>
       <div class="puzzle-hint">bee + leaf → "be-lief"</div>
     </div>
     <div class="puzzle">
       <div class="puzzle-emoji">🐻🦶</div>
-      <div class="puzzle-answer">BAREFOOT</div>
+      <div class="puzzle-answer">Barefoot</div>
       <div class="puzzle-hint">bear → "bare" + foot</div>
     </div>
     <div class="puzzle">
       <div class="puzzle-emoji">🪡⚡</div>
-      <div class="puzzle-answer">TAYLOR SWIFT</div>
+      <div class="puzzle-answer">Taylor Swift</div>
       <div class="puzzle-hint">tailor + swift</div>
     </div>
   </div>
@@ -120,7 +124,7 @@
     </a>
   </div>
 
-  <p style="margin-top:16px;color:var(--muted);font-size:14px"><em>Screenshots will be added after App Store submission.</em></p>
+  <p class="note"><em>Screenshots will be added after App Store submission.</em></p>
 
   <h2>Developer bio</h2>
   <p>[YOUR_NAME] is a [YOUR_ROLE / "solo iOS developer based in YOUR_CITY"]. Pictok is [YOUR_NAME]'s [first iOS app / Nth indie project / etc.]. Reach out at <a href="mailto:[YOUR_PRESS_EMAIL]">[YOUR_PRESS_EMAIL]</a>.</p>
@@ -130,10 +134,13 @@
 
   <p><a class="cta" href="mailto:[YOUR_PRESS_EMAIL]?subject=Pictok%20press%20inquiry">Email press contact</a></p>
 
+    </article>
+  </div>
 </main>
 
 <footer>
-  <p>
+  <div class="footer-inner">
+    <p>
     <a href="/">Home</a> ·
     <a href="/faq.html">FAQ</a> ·
     <a href="/support.html">Support</a> ·
@@ -141,6 +148,7 @@
     <a href="/privacy.html">Privacy</a>
   </p>
   <p>&copy; 2026 [YOUR_NAME]</p>
+  </div>
 </footer>
 
 </body>
