@@ -88,5 +88,77 @@
     "category": "Celeb",
     "subcategory": "Singer · American",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-011",
+    "date": "",
+    "emoji": "👁️📱",
+    "answer": "IPHONE",
+    "category": "Brand",
+    "subcategory": "Apple smartphone · 2007",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-012",
+    "date": "",
+    "emoji": "🚪🏃",
+    "answer": "DOORDASH",
+    "category": "Brand",
+    "subcategory": "Food delivery · founded 2013",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-013",
+    "date": "",
+    "emoji": "🏝️🔚",
+    "answer": "LANDS END",
+    "category": "Brand",
+    "subcategory": "Mail-order apparel · 1963",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-014",
+    "date": "",
+    "emoji": "🦆🦆🏃",
+    "answer": "DUCKDUCKGO",
+    "category": "Brand",
+    "subcategory": "Search engine · 2008",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-015",
+    "date": "",
+    "emoji": "🛣️🎪",
+    "answer": "WAYFAIR",
+    "category": "Brand",
+    "subcategory": "Home goods · founded 2002",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-016",
+    "date": "",
+    "emoji": "👁️🔑🅰️",
+    "answer": "IKEA",
+    "category": "Brand",
+    "subcategory": "Furniture · founded 1943",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-017",
+    "date": "",
+    "emoji": "⚖️👀",
+    "answer": "WEIGHT WATCHERS",
+    "category": "Brand",
+    "subcategory": "Diet program · founded 1963",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-018",
+    "date": "",
+    "emoji": "🏛️1️⃣",
+    "answer": "CAPITAL ONE",
+    "category": "Brand",
+    "subcategory": "Bank · founded 1994",
+    "difficulty": "hard"
   }
 ]
