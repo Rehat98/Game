@@ -2,8 +2,8 @@ import SwiftUI
 
 struct StickerButton: View {
     let title: String
-    var fill: Color = .pkYellow
     var icon: String? = nil
+    var fill: Color = .pkYellow
     let action: () -> Void
 
     @State private var pressed = false
