@@ -115,26 +115,32 @@ The only re-engagement mechanism in v1, and the primary defense against streak l
   - Suppress today's notification (cancel it) if user has already solved today's puzzle before 9 AM.
 - **No in-app toggle** in v1. Disable is via iOS Settings → Notifications. (Adding an in-app toggle would require a Settings screen, which is otherwise cut from v1.)
 
-### Difficulty curve
+### Difficulty
 
-Each puzzle is tagged Easy / Medium / Hard. Days of the week rotate difficulty so players don't burn out:
+Each puzzle is tagged Medium or Hard. **No "easy" tier in v1** — direct emoji-to-word mappings (e.g., 🦁👑 → "Lion King") feel too straightforward. Every puzzle must require actual thinking.
 
-- Mon–Tue: Easy
-- Wed–Thu: Medium
-- Fri–Sat: Hard
-- Sun: Medium (gentle Sunday)
+**Difficulty distribution:** random daily order across the 60 bundled puzzles. No day-of-week pattern. The roughly 50/50 medium/hard split keeps daily play unpredictable.
+
+**Authoring rule:** Each emoji must decode to a word in the answer — either literally (cat + fish = CATFISH) or via a rebus pun (bee + leaf → BE-LIEF = "BELIEF"). Scene references, character vibes, and props that don't spell out a word in the title are NOT acceptable. This rule cuts the puzzle space significantly but produces consistently solvable puzzles.
 
 ### Target puzzle "feel"
 
-Puzzles aim for a 30-second-to-2-minute solve, riddle-style. Examples of the target cleverness bar (these are illustrative — final 90 will be reviewed):
+Puzzles are word-rebus puzzles: each emoji decodes to a word in the answer (literally or phonetically). Solve time: 30 seconds to 2 minutes.
 
-- 🌃🦇🤡 → *The Dark Knight*
-- 🚿🔪🎻 → *Psycho*
-- 🐟🔍👨‍👧 → *Finding Nemo*
-- 🍕🐢🥋 → *Teenage Mutant Ninja Turtles*
-- 👻🚫📞 → *Ghostbusters*
+**Examples of the target voice:**
 
-Explicitly **not** the target: `🦁👑 = Lion King`-style direct mappings. Should require thought.
+- 🐻🦶 → BAREFOOT (bear → "bare" + foot — rebus pun)
+- 🐝🍃 → BELIEF (bee + leaf → "be-lief" — rebus pun)
+- 🅰️🐝🛣️ → ABBEY ROAD (A + bee → "abbey" + road)
+- 🍓🌾 → STRAWBERRY FIELDS (strawberry + fields — literal compound)
+- 🐱🐟 → CATFISH (cat + fish — compound word)
+- 🪡⚡ → TAYLOR SWIFT (tailor + swift)
+
+**Explicitly NOT the target:**
+
+- `🦁👑 = Lion King` — direct 1-to-1 literal mappings (too straightforward; rejected as v1 "easy" tier)
+- `🌪️🏠 = Wizard of Oz` — scene references where neither emoji decodes to a word in the answer (these don't follow the rule)
+- `🐠🔍 = Finding Nemo` — search emoji is "finding" but fish ≠ "Nemo"; one emoji works, one doesn't, so the puzzle is unsolvable by the rule
 
 ---
 
@@ -159,7 +165,7 @@ Single read-only `puzzles.json` shipped with the app:
 ```
 
 - One entry per calendar day.
-- 90 entries for v1 (~3 months of runway from launch).
+- 60 entries for v1 (~2 months of runway from launch).
 - `answer` uppercase, spaces preserved. Non-letter characters (apostrophes, hyphens, numerals) are pre-revealed.
 - `subcategory` is what's exposed by the "reveal category" hint.
 - Today's puzzle = `puzzles[date == device's current date]`.
@@ -255,9 +261,9 @@ A `💡` is appended next to the hearts to mark hint use. No further detail.
 
 ## 6. Content pipeline (v1)
 
-**Source:** All 90 puzzles for v1 are hand-authored by Claude (the AI assistant working with the developer in this design session). The developer reviews each puzzle for difficulty calibration and "not-too-obvious" quality before bundling.
+**Source:** All 60 puzzles for v1 are hand-authored by Claude (the AI assistant working with the developer in this design session). The developer reviews each puzzle for difficulty calibration and rule compliance ("each emoji = a word in the answer") before bundling.
 
-**Why this works for v1:** Eliminates the entire backend/admin-tool dependency. 90 puzzles = ~3 months of runway, which is enough to:
+**Why this works for v1:** Eliminates the entire backend/admin-tool dependency. 60 puzzles = ~2 months of runway, which is enough to:
 
 - Launch
 - Validate daily-retention numbers
@@ -265,15 +271,15 @@ A `💡` is appended next to the hearts to mark hint use. No further detail.
 
 **Workflow:**
 
-1. After this spec is approved, Claude generates 90 puzzles in a structured batch (text format with emoji, answer, category, subcategory, suggested difficulty).
-2. Developer reviews — rejects any that feel too obvious, too obscure, or culturally narrow; requests replacements.
+1. After this spec is approved, Claude generates 60 puzzles in a structured batch (text format with emoji, answer, category, subcategory, difficulty tag).
+2. Developer reviews — rejects any that feel too obvious, too obscure, culturally narrow, or that violate the "each emoji = a word" rule; requests replacements.
 3. Final approved set is serialized to `puzzles.json` and added to the Xcode project's `Resources/`.
-4. Dates are assigned by sorting on difficulty curve (Mon–Tue easy, etc.) starting from the chosen launch date.
+4. Dates are assigned in random order starting from the chosen launch date (no day-of-week curve in v1).
 
 **Mix targets (rough — adjusted during review):**
 
-- 50% Movies, 20% Songs, 15% Books, 10% Brands, 5% Celebrities
-- ~29% Easy, ~43% Medium, ~29% Hard (matches the day-of-week curve: 2 Easy + 3 Medium + 2 Hard per week)
+- Category mix (60 total): ~26 Movies (43%), 17 Songs (28%), 9 Books (15%), 6 Brands (10%), 2 Celebs (3%)
+- Difficulty mix: ~50% Medium, ~50% Hard (no Easy tier)
 
 ---
 
@@ -297,7 +303,7 @@ A `💡` is appended next to the hearts to mark hint use. No further detail.
 Pictok/
 ├── PictokApp.swift              // @main App entry
 ├── Resources/
-│   ├── puzzles.json                  // 90 bundled puzzles
+│   ├── puzzles.json                  // 60 bundled puzzles
 │   ├── Assets.xcassets/              // app icon, colors
 │   └── Sounds/                       // correct.wav, wrong.wav, win.wav
 ├── Models/
@@ -350,7 +356,7 @@ Pictok/
 1. Create Xcode 15+ project, SwiftUI App template, iOS 17 target.
 2. Create the file structure above.
 3. Implement `Models/`, `Game/`, then `Views/Components/`, then screens.
-4. Author 90 puzzles (Claude generates batch → developer reviews → finalize).
+4. Author 60 puzzles (Claude generates batch → developer reviews per "each emoji = a word" rule → finalize).
 5. Bundle `puzzles.json`, app icon, sound effects.
 6. Manual QA matrix:
    - Solve flow, fail flow, mid-puzzle backgrounding/resume.
