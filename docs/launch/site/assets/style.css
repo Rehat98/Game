@@ -1,0 +1,306 @@
+/* Pictok — shared site styles */
+:root {
+  --paper: #FEF3D9;
+  --ink: #1A1A1A;
+  --red: #C9485D;
+  --yellow: #E8C547;
+  --green: #4FB58C;
+  --blue: #3A7894;
+  --muted: #5a5a5a;
+  --light-line: #e8d8b0;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--ink); }
+
+/* Top nav (shared across pages) */
+.topnav {
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+.topnav .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 20px;
+}
+.topnav .brand img {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.topnav .links { display: flex; gap: 22px; }
+.topnav .links a {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+}
+.topnav .links a:hover { color: var(--red); }
+
+/* Shared page shell */
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+.page h1 {
+  font-size: 44px;
+  font-weight: 900;
+  margin: 0 0 16px;
+  letter-spacing: -1.5px;
+}
+.page h2 {
+  font-size: 26px;
+  font-weight: 900;
+  margin: 40px 0 12px;
+  letter-spacing: -0.5px;
+}
+.page h3 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 24px 0 6px;
+}
+.page p { color: var(--ink); margin: 0 0 16px; }
+.page .lead { font-size: 19px; color: var(--muted); margin-bottom: 32px; }
+.page ul { padding-left: 22px; margin: 0 0 16px; }
+.page li { margin-bottom: 6px; }
+.page code {
+  background: white;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 13px;
+}
+.page hr {
+  border: 0;
+  border-top: 2px solid var(--light-line);
+  margin: 40px 0;
+}
+
+/* CTA button */
+.cta {
+  display: inline-block;
+  padding: 14px 26px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: 12px;
+  box-shadow: 4px 5px 0 var(--ink);
+  border: 2px solid var(--ink);
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.cta:hover {
+  transform: translate(2px, 3px);
+  box-shadow: 2px 3px 0 var(--ink);
+}
+.cta.secondary {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* FAQ accordion-style blocks */
+.faq-q {
+  font-weight: 800;
+  font-size: 17px;
+  margin: 32px 0 6px;
+  color: var(--ink);
+}
+.faq-a {
+  color: var(--muted);
+}
+
+/* Press / fact list */
+.fact-list {
+  background: white;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 4px 5px 0 var(--ink);
+  padding: 20px 26px;
+}
+.fact-list dt {
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 14px;
+}
+.fact-list dt:first-child { margin-top: 0; }
+.fact-list dd {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+/* Quote blocks for press */
+blockquote {
+  border-left: 5px solid var(--red);
+  margin: 24px 0;
+  padding: 4px 0 4px 18px;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+/* Footer */
+footer {
+  border-top: 3px solid var(--ink);
+  padding: 36px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  background: white;
+}
+footer a {
+  color: var(--muted);
+  margin: 0 8px;
+  text-decoration: none;
+}
+footer a:hover { color: var(--ink); text-decoration: underline; }
+
+/* Hero specific (only on home) */
+.hero {
+  padding: 64px 24px 48px;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.hero .icon {
+  width: 140px; height: 140px;
+  border-radius: 32px;
+  margin: 0 auto 28px;
+  box-shadow: 0 12px 30px rgba(26,26,26,0.2);
+  display: block;
+}
+.hero h1 {
+  font-size: 56px;
+  font-weight: 900;
+  margin: 0 0 16px;
+  letter-spacing: -2px;
+}
+.hero .tagline {
+  font-size: 22px;
+  color: var(--muted);
+  margin: 0 0 32px;
+  line-height: 1.4;
+}
+
+/* Puzzle examples grid */
+.puzzle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  padding: 48px 24px 0;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.puzzle {
+  background: white;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 4px 5px 0 var(--ink);
+  padding: 24px 16px;
+  text-align: center;
+}
+.puzzle-emoji {
+  font-size: 42px;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.puzzle-answer {
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+}
+.puzzle-hint {
+  color: #888;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Features */
+.features {
+  background: white;
+  margin-top: 56px;
+  padding: 56px 24px;
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+}
+.features-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+.feature-icon {
+  font-size: 28px;
+  width: 48px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.feature-text strong { display: block; margin-bottom: 4px; font-size: 17px; }
+.feature-text { color: var(--muted); }
+
+/* Press downloads grid */
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.download-grid a {
+  background: white;
+  border: 2.5px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  display: block;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.download-grid a:hover {
+  transform: translate(1.5px, 2px);
+  box-shadow: 1.5px 1px 0 var(--ink);
+}
+.download-grid a .label-mini {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+@media (max-width: 540px) {
+  .topnav { padding: 12px 16px; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .topnav .links { gap: 14px; flex-wrap: wrap; }
+  .hero h1 { font-size: 42px; }
+  .hero .tagline { font-size: 18px; }
+  .page h1 { font-size: 34px; }
+}

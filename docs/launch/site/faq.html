@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Pictok</title>
+<meta name="description" content="Common questions about Pictok, the daily emoji puzzle game.">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="/">
+    <img src="assets/icon.png" alt="">
+    Pictok
+  </a>
+  <div class="links">
+    <a href="/faq.html">FAQ</a>
+    <a href="/support.html">Support</a>
+    <a href="/press.html">Press</a>
+    <a href="/privacy.html">Privacy</a>
+  </div>
+</nav>
+
+<main class="page">
+
+  <h1>Frequently asked questions</h1>
+  <p class="lead">Everything you might want to know about how Pictok works.</p>
+
+  <h2>The basics</h2>
+
+  <p class="faq-q">What is Pictok?</p>
+  <p class="faq-a">A daily emoji-decode puzzle game for iOS. Each day you get one new puzzle: a string of emojis where each emoji represents a word. Guess the answer hangman-style by tapping letters.</p>
+
+  <p class="faq-q">How do I play?</p>
+  <p class="faq-a">Look at the emojis. Try to figure out what word or phrase each one decodes to. Some are literal — 🐱🐟 = CATFISH. Some are rebus puns — 🐝🍃 = BELIEF (bee + leaf → "be-lief"). Tap letters to guess; you get five hearts before the puzzle locks.</p>
+
+  <p class="faq-q">Is it free?</p>
+  <p class="faq-a">Yes. No ads, no in-app purchases, no premium tier. Free forever as long as the App Store will let us host it.</p>
+
+  <p class="faq-q">Why only one puzzle a day?</p>
+  <p class="faq-a">Because the daily ritual is the point. Endless content turns puzzle games into time-suck slot machines. One puzzle a day means you finish, you feel done, you come back tomorrow with fresh eyes. The math works: 60 puzzles in v1 = about two months of content.</p>
+
+  <hr>
+
+  <h2>Gameplay rules</h2>
+
+  <p class="faq-q">What happens when I run out of hearts?</p>
+  <p class="faq-a">The puzzle locks for today. You'll see the correct answer and your streak resets to 0. Tomorrow's puzzle is still waiting for you.</p>
+
+  <p class="faq-q">How do hints work?</p>
+  <p class="faq-a">You can use exactly one hint per puzzle. There are two flavors:
+  <ul>
+    <li><strong>Reveal subcategory</strong> — shows a small detail about the answer (e.g., "Movie · 2008"). Costs 1 heart.</li>
+    <li><strong>Reveal a letter</strong> — fills in one letter of the answer for you. Costs 2 hearts.</li>
+  </ul>
+  Pictok is stingy with hints on purpose — the satisfaction comes from cracking it yourself.</p>
+
+  <p class="faq-q">How does the streak work?</p>
+  <p class="faq-a">Solve a puzzle today, your streak goes up by 1. Skip a day OR fail a puzzle, your streak resets to 0. You get one free "streak freeze" each week that auto-rescues you if you miss exactly one day.</p>
+
+  <p class="faq-q">Why didn't I get my streak freeze?</p>
+  <p class="faq-a">You only get one per week, and it only works if you miss <em>exactly</em> one day. If you skip two consecutive days, the freeze can't save you.</p>
+
+  <p class="faq-q">When do my hearts refill?</p>
+  <p class="faq-a">One heart every 4 hours, capped at 5. If you burn through all 5 in the morning, you'll have 1 again by mid-afternoon.</p>
+
+  <hr>
+
+  <h2>Notifications &amp; reminders</h2>
+
+  <p class="faq-q">When does the daily notification fire?</p>
+  <p class="faq-a">9:00 AM your local time, every day. If you've already solved today's puzzle before 9 AM, the notification is suppressed.</p>
+
+  <p class="faq-q">How do I turn off notifications?</p>
+  <p class="faq-a">iOS Settings → Notifications → Pictok → toggle off. Pictok doesn't have an in-app toggle in v1 to keep the app minimal.</p>
+
+  <p class="faq-q">Why didn't I get a notification today?</p>
+  <p class="faq-a">A few possibilities: you already solved today's puzzle (suppression by design), iOS Focus mode is on, or you never granted permission. Pictok only asks for permission after your first solved puzzle.</p>
+
+  <hr>
+
+  <h2>Sharing &amp; results</h2>
+
+  <p class="faq-q">What does the share card look like?</p>
+  <p class="faq-a">A short text snippet, Wordle-style. Spoiler-free.</p>
+  <pre style="background:white;border:2px solid var(--ink);border-radius:8px;padding:14px;font-family:ui-monospace,monospace;font-size:13px;line-height:1.6;margin:8px 0 16px">Pictok #142 📌
+🎬 Hard
+❤️❤️❤️🖤🖤 · 🔥 7
+
+pictok.app</pre>
+
+  <p class="faq-q">Will my friends see the answer?</p>
+  <p class="faq-a">No. The share card never includes the answer — only your puzzle number, category, hearts remaining, and streak.</p>
+
+  <hr>
+
+  <h2>Privacy &amp; data</h2>
+
+  <p class="faq-q">Do you collect any data about me?</p>
+  <p class="faq-a">No. Pictok has no analytics, no tracking, no third-party SDKs, no servers. Everything lives on your device. <a href="/privacy.html">Read the full privacy policy</a>.</p>
+
+  <p class="faq-q">Where is my streak stored?</p>
+  <p class="faq-a">In iOS <code>UserDefaults</code> — Apple's standard local key-value store. Deleting the app deletes your streak. Restoring an iCloud device backup may bring it back if Apple's backup includes UserDefaults for Pictok.</p>
+
+  <p class="faq-q">Can I play offline?</p>
+  <p class="faq-a">Yes. Pictok never makes a network call. The 60 puzzles ship inside the app and play locally.</p>
+
+  <hr>
+
+  <h2>Puzzles &amp; content</h2>
+
+  <p class="faq-q">Where do the puzzles come from?</p>
+  <p class="faq-a">All 60 v1 puzzles were hand-authored and reviewed for quality. Every emoji is supposed to decode to a word in the answer — either literally or as a rebus pun. If a puzzle feels arbitrary, that's a bug — please <a href="/support.html">tell us</a>.</p>
+
+  <p class="faq-q">What happens after the 60 puzzles run out?</p>
+  <p class="faq-a">A future update (v1.1 or later) will add another batch. We're considering an LLM-assisted pipeline that lets us scale content faster while keeping the quality bar.</p>
+
+  <p class="faq-q">Can I submit a puzzle idea?</p>
+  <p class="faq-a">Yes — email it to <a href="mailto:[YOUR_FEEDBACK_EMAIL]">[YOUR_FEEDBACK_EMAIL]</a>. Include the emoji string and the answer. If we use it, you'll get a credit in the app.</p>
+
+  <p class="faq-q">A puzzle's answer feels arbitrary / wrong / culturally narrow. What do I do?</p>
+  <p class="faq-a">Please report it — same email above. We'll review and pull it if the complaint holds up. Future versions will let players flag puzzles directly inside the app.</p>
+
+  <hr>
+
+  <h2>Technical / device stuff</h2>
+
+  <p class="faq-q">What iOS version do I need?</p>
+  <p class="faq-a">iOS 17 or later. Pictok uses some newer SwiftUI features that don't exist on older versions.</p>
+
+  <p class="faq-q">Is there an iPad / Android / Web version?</p>
+  <p class="faq-a">Not yet. v1 is iPhone-only. iPad runs the iPhone layout. Android and Web are not on the roadmap; they'd basically be a separate app.</p>
+
+  <p class="faq-q">I deleted the app — can I get my streak back?</p>
+  <p class="faq-a">If iOS automatically restored your device from an iCloud backup that includes Pictok, possibly yes. Otherwise no — streaks live only on the device. Sorry.</p>
+
+  <p class="faq-q">I found a bug. What do I do?</p>
+  <p class="faq-a">Email <a href="mailto:[YOUR_FEEDBACK_EMAIL]">[YOUR_FEEDBACK_EMAIL]</a> with your iOS version, iPhone model, what you did, and what happened. Screenshots help. See the <a href="/support.html">support page</a> for more.</p>
+
+</main>
+
+<footer>
+  <p>
+    <a href="/">Home</a> ·
+    <a href="/faq.html">FAQ</a> ·
+    <a href="/support.html">Support</a> ·
+    <a href="/press.html">Press</a> ·
+    <a href="/privacy.html">Privacy</a>
+  </p>
+  <p>&copy; 2026 [YOUR_NAME]</p>
+</footer>
+
+</body>
+</html>
