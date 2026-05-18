@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" fill="#FEF3D9"/>
+  <g transform="translate(192 312)">
+    <!-- Top row: P I C -->
+    <g transform="rotate(-1.5 90 90)">
+      <rect x="0" y="8" width="180" height="180" rx="28" fill="#1A1A1A"/>
+      <rect x="0" y="0" width="180" height="180" rx="28" fill="#C9485D" stroke="#1A1A1A" stroke-width="10"/>
+      <text x="90" y="130" font-size="120" text-anchor="middle" fill="#FEF3D9"
+            font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-weight="900">P</text>
+    </g>
+    <g transform="translate(230 0) rotate(2 90 90)">
+      <rect x="0" y="8" width="180" height="180" rx="28" fill="#1A1A1A"/>
+      <rect x="0" y="0" width="180" height="180" rx="28" fill="#E8C547" stroke="#1A1A1A" stroke-width="10"/>
+      <text x="90" y="130" font-size="120" text-anchor="middle" fill="#1A1A1A"
+            font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-weight="900">I</text>
+    </g>
+    <g transform="translate(460 0) rotate(-2 90 90)">
+      <rect x="0" y="8" width="180" height="180" rx="28" fill="#1A1A1A"/>
+      <rect x="0" y="0" width="180" height="180" rx="28" fill="#4FB58C" stroke="#1A1A1A" stroke-width="10"/>
+      <text x="90" y="130" font-size="120" text-anchor="middle" fill="#FEF3D9"
+            font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-weight="900">C</text>
+    </g>
+    <!-- Bottom row: T blank blank -->
+    <g transform="translate(0 220) rotate(1.5 90 90)">
+      <rect x="0" y="8" width="180" height="180" rx="28" fill="#1A1A1A"/>
+      <rect x="0" y="0" width="180" height="180" rx="28" fill="#3A7894" stroke="#1A1A1A" stroke-width="10"/>
+      <text x="90" y="130" font-size="120" text-anchor="middle" fill="#FEF3D9"
+            font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-weight="900">T</text>
+    </g>
+    <g transform="translate(230 220) rotate(-2 90 90)">
+      <rect x="0" y="8" width="180" height="180" rx="28" fill="#1A1A1A"/>
+      <rect x="0" y="0" width="180" height="180" rx="28" fill="#FEF3D9" stroke="#1A1A1A" stroke-width="10"/>
+    </g>
+    <g transform="translate(460 220) rotate(2 90 90)">
+      <rect x="0" y="8" width="180" height="180" rx="28" fill="#1A1A1A"/>
+      <rect x="0" y="0" width="180" height="180" rx="28" fill="#FEF3D9" stroke="#1A1A1A" stroke-width="10"/>
+    </g>
+  </g>
+</svg>

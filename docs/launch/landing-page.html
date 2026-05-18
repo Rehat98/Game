@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pictok — Daily emoji puzzles</title>
+<meta name="description" content="One emoji puzzle a day. Decode rebus-style clues. Keep your streak alive.">
+<meta property="og:title" content="Pictok — Daily emoji puzzles">
+<meta property="og:description" content="One emoji puzzle a day. Decode rebus-style clues. Keep your streak alive.">
+<meta property="og:image" content="https://pictok.app/og.png">
+<style>
+  :root {
+    --paper: #FEF3D9;
+    --ink: #1A1A1A;
+    --red: #C9485D;
+    --yellow: #E8C547;
+    --green: #4FB58C;
+    --blue: #3A7894;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .hero {
+    padding: 80px 24px 60px;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .icon {
+    width: 160px;
+    height: 160px;
+    border-radius: 36px;
+    margin: 0 auto 32px;
+    box-shadow: 0 12px 30px rgba(26,26,26,0.2);
+    display: block;
+  }
+  h1 {
+    font-size: 56px;
+    font-weight: 900;
+    margin: 0 0 16px;
+    letter-spacing: -2px;
+  }
+  .tagline {
+    font-size: 22px;
+    color: #5a5a5a;
+    margin: 0 0 40px;
+    line-height: 1.4;
+  }
+  .cta {
+    display: inline-block;
+    padding: 16px 32px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 17px;
+    border-radius: 14px;
+    box-shadow: 4px 6px 0 var(--ink);
+    border: 2px solid var(--ink);
+    transition: transform 0.08s, box-shadow 0.08s;
+  }
+  .cta:hover {
+    transform: translate(2px, 3px);
+    box-shadow: 2px 3px 0 var(--ink);
+  }
+  .examples {
+    padding: 60px 24px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .examples h2 {
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+    margin: 0 0 32px;
+  }
+  .puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .puzzle {
+    background: white;
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 4px 5px 0 var(--ink);
+    padding: 24px 16px;
+    text-align: center;
+  }
+  .puzzle-emoji {
+    font-size: 42px;
+    letter-spacing: -2px;
+    margin-bottom: 12px;
+  }
+  .puzzle-answer {
+    font-weight: 800;
+    color: var(--ink);
+    font-size: 18px;
+    letter-spacing: 0.5px;
+  }
+  .puzzle-hint {
+    color: #888;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .features {
+    background: white;
+    padding: 60px 24px;
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+  }
+  .features-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .features h2 {
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+    margin: 0 0 32px;
+  }
+  .feature {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+  .feature-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+    width: 48px;
+    text-align: center;
+  }
+  .feature-text strong { display: block; margin-bottom: 4px; font-size: 17px; }
+  .feature-text { color: #5a5a5a; }
+  footer {
+    text-align: center;
+    padding: 48px 24px;
+    color: #888;
+    font-size: 13px;
+  }
+  footer a {
+    color: #888;
+    margin: 0 8px;
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <img src="https://pictok.app/icon.png" alt="Pictok" class="icon"
+       onerror="this.style.background='var(--paper)';this.alt='[Pictok icon]'">
+  <h1>Pictok</h1>
+  <p class="tagline">One emoji puzzle a day.<br>Decode the clue. Keep your streak alive.</p>
+  <a class="cta" href="https://apps.apple.com/app/pictok/idXXXXXXXXX">Download on App Store</a>
+</section>
+
+<section class="examples">
+  <h2>What you'll be decoding</h2>
+  <div class="puzzle-grid">
+    <div class="puzzle">
+      <div class="puzzle-emoji">🐝🍃</div>
+      <div class="puzzle-answer">BELIEF</div>
+      <div class="puzzle-hint">bee + leaf → "be-lief"</div>
+    </div>
+    <div class="puzzle">
+      <div class="puzzle-emoji">🐱🐟</div>
+      <div class="puzzle-answer">CATFISH</div>
+      <div class="puzzle-hint">cat + fish (compound word)</div>
+    </div>
+    <div class="puzzle">
+      <div class="puzzle-emoji">🐻🦶</div>
+      <div class="puzzle-answer">BAREFOOT</div>
+      <div class="puzzle-hint">bear → "bare" + foot</div>
+    </div>
+    <div class="puzzle">
+      <div class="puzzle-emoji">🅰️🐝🛣️</div>
+      <div class="puzzle-answer">ABBEY ROAD</div>
+      <div class="puzzle-hint">A + bee → "abbey" + road</div>
+    </div>
+    <div class="puzzle">
+      <div class="puzzle-emoji">🍓🌾</div>
+      <div class="puzzle-answer">STRAWBERRY FIELDS</div>
+      <div class="puzzle-hint">strawberry + fields</div>
+    </div>
+    <div class="puzzle">
+      <div class="puzzle-emoji">🪡⚡</div>
+      <div class="puzzle-answer">TAYLOR SWIFT</div>
+      <div class="puzzle-hint">tailor + swift</div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-inner">
+    <h2>Why you'll come back tomorrow</h2>
+    <div class="feature">
+      <div class="feature-icon">🔥</div>
+      <div class="feature-text">
+        <strong>Build your streak</strong>
+        Solve daily. Miss a day and it resets. There's one free streak-freeze per week if life gets in the way.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📤</div>
+      <div class="feature-text">
+        <strong>Share spoiler-free results</strong>
+        A Wordle-style text card you can drop into iMessage, Twitter, or anywhere. No spoilers, all bragging.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🚫</div>
+      <div class="feature-text">
+        <strong>No ads. No tracking. No accounts.</strong>
+        Pictok runs entirely on your device. No data leaves your phone. Ever.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">❤️</div>
+      <div class="feature-text">
+        <strong>Five hearts, no mercy</strong>
+        Each wrong letter costs a heart. Run out and you wait until tomorrow.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    <a href="/privacy">Privacy</a> ·
+    <a href="/support">Support</a> ·
+    <a href="https://github.com/[YOUR_GITHUB]/pictok">GitHub</a>
+  </p>
+  <p>&copy; 2026 [YOUR_NAME]</p>
+</footer>
+
+</body>
+</html>
