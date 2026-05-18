@@ -160,5 +160,113 @@
     "category": "Brand",
     "subcategory": "Bank · founded 1994",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-019",
+    "date": "",
+    "emoji": "🐱👢",
+    "answer": "PUSS IN BOOTS",
+    "category": "Movie",
+    "subcategory": "DreamWorks · 2011",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-020",
+    "date": "",
+    "emoji": "😠👧👧",
+    "answer": "MEAN GIRLS",
+    "category": "Movie",
+    "subcategory": "Teen comedy · 2004",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-021",
+    "date": "",
+    "emoji": "🏎️😡",
+    "answer": "FAST AND FURIOUS",
+    "category": "Movie",
+    "subcategory": "Action franchise · 2001",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-022",
+    "date": "",
+    "emoji": "🦶🆓",
+    "answer": "FOOTLOOSE",
+    "category": "Movie",
+    "subcategory": "Musical drama · 1984",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-023",
+    "date": "",
+    "emoji": "📖🧠",
+    "answer": "BOOK SMART",
+    "category": "Movie",
+    "subcategory": "Coming-of-age comedy · 2019",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-024",
+    "date": "",
+    "emoji": "✅🤥",
+    "answer": "TRUE LIES",
+    "category": "Movie",
+    "subcategory": "Cameron action · 1994",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-025",
+    "date": "",
+    "emoji": "💀🪨",
+    "answer": "DIE HARD",
+    "category": "Movie",
+    "subcategory": "Action classic · 1988",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-026",
+    "date": "",
+    "emoji": "😡🐂",
+    "answer": "RAGING BULL",
+    "category": "Movie",
+    "subcategory": "Scorsese · 1980",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-027",
+    "date": "",
+    "emoji": "🥊♣️",
+    "answer": "FIGHT CLUB",
+    "category": "Movie",
+    "subcategory": "Fincher cult · 1999",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-028",
+    "date": "",
+    "emoji": "🤫🐑",
+    "answer": "SILENCE OF THE LAMBS",
+    "category": "Movie",
+    "subcategory": "Thriller · 1991",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-029",
+    "date": "",
+    "emoji": "☠️🧲",
+    "answer": "FATAL ATTRACTION",
+    "category": "Movie",
+    "subcategory": "Thriller · 1987",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-030",
+    "date": "",
+    "emoji": "🪦🏊",
+    "answer": "DEADPOOL",
+    "category": "Movie",
+    "subcategory": "Marvel R-rated · 2016",
+    "difficulty": "hard"
   }
 ]
