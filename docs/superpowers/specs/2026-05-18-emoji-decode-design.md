@@ -1,8 +1,8 @@
-# Emojidle — v1 design spec
+# Pictok — v1 design spec
 
 **Date:** 2026-05-18
 **Status:** Approved by user (ready for implementation plan)
-**Author working title:** "Emojidle" (final name TBD before App Store submission)
+**Name:** "Pictok" (subject to trademark + App Store availability check — see §11)
 
 ## Overview
 
@@ -98,6 +98,23 @@ Centralized in `Views/Theme.swift` so the style is tunable from one place.
 - Skip a day OR fail → streak resets to 0.
 - **Streak freeze**: 1 per week (auto-uses on a missed day). Compassionate, not generous.
 
+### Daily reminder (push notification)
+
+The only re-engagement mechanism in v1, and the primary defense against streak loss.
+
+- **Type:** Local notification only. No APNs, no backend, no server-side scheduling.
+- **Cadence:** One per day, **9:00 AM local time** (hardcoded for v1; configurable in a later version).
+- **Content:**
+  - Title: `Your puzzle is ready 📌`
+  - Body: `Keep your streak going 🔥 — today's emoji decode awaits.`
+- **Deep link:** Tapping the notification opens the app directly on the Today screen.
+- **Permission ask:** Not on first launch (would feel cold and most users would deny). Asked **after the first solved puzzle**, on a contextual sheet ("Want a daily reminder so you don't lose your streak?"). If denied, never re-prompt — user can enable later via iOS Settings.
+- **Scheduling logic:**
+  - On every app foreground: check if tomorrow's 9 AM notification is scheduled; if not, schedule it.
+  - When user solves or fails today's puzzle: schedule tomorrow's 9 AM notification.
+  - Suppress today's notification (cancel it) if user has already solved today's puzzle before 9 AM.
+- **No in-app toggle** in v1. Disable is via iOS Settings → Notifications. (Adding an in-app toggle would require a Settings screen, which is otherwise cut from v1.)
+
 ### Difficulty curve
 
 Each puzzle is tagged Easy / Medium / Hard. Days of the week rotate difficulty so players don't burn out:
@@ -147,7 +164,7 @@ Single read-only `puzzles.json` shipped with the app:
 - `subcategory` is what's exposed by the "reveal category" hint.
 - Today's puzzle = `puzzles[date == device's current date]`.
 
-### Local user state (single `UserDefaults` JSON blob, key `emojidle.state.v1`)
+### Local user state (single `UserDefaults` JSON blob, key `pictok.state.v1`)
 
 ```swift
 struct UserState: Codable {
@@ -199,11 +216,11 @@ Text-only, spoiler-free, instantly recognizable. No image rendering in v1.
 ### Success format
 
 ```
-Emojidle #142 📌
+Pictok #142 📌
 🎬 Hard
 ❤️❤️❤️🖤🖤 · 🔥 7
 
-emojidle.app
+pictok.app
 ```
 
 - `📌` is the app's recognizable mark (matches sticker aesthetic).
@@ -216,11 +233,11 @@ emojidle.app
 ### Failure variant
 
 ```
-Emojidle #142 📌
+Pictok #142 📌
 🎬 Hard · today got me 🥲
 🔥 7 → 0
 
-emojidle.app
+pictok.app
 ```
 
 ### Hint-used variant
@@ -271,13 +288,14 @@ A `💡` is appended next to the hearts to mark hint use. No further detail.
 - Sharing: SwiftUI `ShareLink`
 - Haptics: `UIImpactFeedbackGenerator`
 - Sound: `AVFoundation` (3 effects: correct, wrong, win)
+- Notifications: `UserNotifications` (local notifications only)
 - **Zero external dependencies** — no SwiftPM packages.
 
 ### Layout
 
 ```
-EmojiDecode/
-├── EmojiDecodeApp.swift              // @main App entry
+Pictok/
+├── PictokApp.swift              // @main App entry
 ├── Resources/
 │   ├── puzzles.json                  // 90 bundled puzzles
 │   ├── Assets.xcassets/              // app icon, colors
@@ -289,7 +307,8 @@ EmojiDecode/
 │   ├── GameEngine.swift              // pure logic: guess(letter), isSolved, etc.
 │   ├── UserStateStore.swift          // @Observable wrapper over UserDefaults
 │   ├── PuzzleLoader.swift            // loads bundle JSON, finds today's puzzle
-│   └── ShareCardBuilder.swift        // builds the share string
+│   ├── ShareCardBuilder.swift        // builds the share string
+│   └── NotificationScheduler.swift   // schedules + cancels daily 9 AM local notification
 ├── Views/
 │   ├── TodayView.swift
 │   ├── ResultSheet.swift
@@ -321,6 +340,7 @@ EmojiDecode/
 
 - `GameEngineTests` — correct/wrong letter, win, fail, hint costs, streak math edges.
 - `ShareCardBuilderTests` — success, failure, hint-used, edge cases (streak = 0, hint + failure).
+- `NotificationSchedulerTests` — schedules tomorrow's 9 AM ping, suppresses if already solved, no duplicate schedules.
 - Views are not unit-tested; SwiftUI previews + manual QA.
 
 ---
@@ -337,6 +357,7 @@ EmojiDecode/
    - Streak: solve consecutive days (manipulate device date), break streak, streak-freeze.
    - Lives refill timing.
    - Share card variants (success, failure, hint-used).
+   - Notifications: permission prompt fires after first solve; daily 9 AM ping fires; tapping deep-links to Today; suppressed when already solved.
    - VoiceOver labels on keyboard and hearts.
 7. TestFlight beta (~10 users, 1 week).
 8. App Store submission.
@@ -354,8 +375,7 @@ Explicit cut list. Each item is intentional and deferred:
 - 🚫 **Image-rendered share card** — text-only v1. *(v2)*
 - 🚫 **IAP / cosmetics** — free, no purchases. *(post-retention)*
 - 🚫 **Rewarded video ads** — no ad refill of hearts. *(post-retention)*
-- 🚫 **Push notifications** — no daily ping. *(easy v1.1 add if retention is decent)*
-- 🚫 **Settings screen** — only "How to play." No sound toggle screen.
+- 🚫 **Settings screen** — only "How to play." No sound toggle, no notification-time picker (notification fires at 9 AM local, disable via iOS Settings).
 - 🚫 **iPad-optimized layout** — iPhone layout runs on iPad as-is.
 - 🚫 **Localization** — English only.
 - 🚫 **Full accessibility audit** — basic VoiceOver labels only; full Dynamic Type / WCAG pass deferred.
@@ -371,7 +391,7 @@ Explicit cut list. Each item is intentional and deferred:
 - LLM puzzle generation + admin web tool for review.
 - Global daily leaderboard.
 - Image-rendered share card.
-- Push notifications.
+- Configurable notification time + in-app notification settings.
 
 **v3 — Viral expansion (~3 weeks)**
 
@@ -383,7 +403,7 @@ Explicit cut list. Each item is intentional and deferred:
 
 ## 11. Open questions for implementation plan
 
-- Final app name (working title: Emojidle). Confirm before App Store.
+- **App name + trademark clearance for "Pictok"** — verify trademark availability (USPTO TESS, EUIPO) and App Store name uniqueness before launch. "Pictok" is phonetically close to "TikTok" (ByteDance trademark); a clearance check is mandatory.
 - App icon design — sticker aesthetic mark, likely featuring the `📌` motif.
 - Specific sound effects — record or use royalty-free?
 - Launch date — anchors puzzle #1's date in `puzzles.json`.
