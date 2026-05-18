@@ -4,7 +4,9 @@
 
 **Goal:** Ship a v1 daily emoji-decode puzzle game for iOS (Pictok) — hangman-style gameplay, local-only persistence, sticker/paper-craft visual style, daily local push notification, text share card.
 
-**Architecture:** Pure SwiftUI app, iOS 17+, zero external dependencies. Three layers: `Models/` (pure Codable types), `Game/` (pure logic + persistence wrapper), `Views/` (thin SwiftUI screens reading from a single `@Observable` store). All 90 puzzles bundled as JSON at build time.
+**Architecture:** Pure SwiftUI app, iOS 17+, zero external dependencies. Three layers: `Models/` (pure Codable types), `Game/` (pure logic + persistence wrapper), `Views/` (thin SwiftUI screens reading from a single `@Observable` store). All 60 puzzles bundled as JSON at build time.
+
+**Update note (2026-05-18 mid-execution):** Spec was revised — content trimmed from 90 → 60 puzzles, "easy" tier removed (only medium + hard), random daily ordering instead of day-of-week curve. The puzzles are already authored and approved at `/Users/rehatchugh/emoji-decode/puzzles-draft.json`. Task 6 below reflects the original 90-puzzle scope and should be re-read as: "copy the 60 approved puzzles from `puzzles-draft.json` into the Xcode bundle." Other tasks are unaffected.
 
 **Tech Stack:** Swift 5.9+, SwiftUI, XCTest, `UserDefaults`, `UserNotifications`, `AVFoundation`, `UIImpactFeedbackGenerator`, SwiftUI `ShareLink`. Xcode 15+. No SwiftPM packages.
 
@@ -21,7 +23,7 @@ Pictok/                                       (Xcode project root)
 │   ├── PictokApp.swift                        (@main, root view, scheduler hook)
 │   ├── Info.plist                             (NSUserNotificationsUsageDescription)
 │   ├── Resources/
-│   │   ├── puzzles.json                       (90 hand-authored puzzles)
+│   │   ├── puzzles.json                       (60 hand-authored puzzles)
 │   │   ├── Assets.xcassets/                   (AppIcon, AccentColor, named colors)
 │   │   └── Sounds/                            (correct.wav, wrong.wav, win.wav)
 │   ├── Models/
@@ -781,13 +783,13 @@ Save the result to `Pictok/Resources/puzzles.json`. In Xcode: **File → Add Fil
 Add this temporary test to `PictokTests/PuzzleDecodingTests.swift`:
 
 ```swift
-func test_bundledPuzzlesJson_loadsAndHas90Entries() throws {
+func test_bundledPuzzlesJson_loadsAndHas60Entries() throws {
     let url = Bundle.main.url(forResource: "puzzles", withExtension: "json")
     XCTAssertNotNil(url, "puzzles.json must be in the app bundle")
     let data = try Data(contentsOf: url!)
     let puzzles = try JSONDecoder().decode([Puzzle].self, from: data)
-    XCTAssertEqual(puzzles.count, 90)
-    XCTAssertEqual(Set(puzzles.map { $0.date }).count, 90, "all dates must be unique")
+    XCTAssertEqual(puzzles.count, 60)
+    XCTAssertEqual(Set(puzzles.map { $0.date }).count, 60, "all dates must be unique")
 }
 ```
 
@@ -798,7 +800,7 @@ xcodebuild test \
   -project Pictok.xcodeproj \
   -scheme Pictok \
   -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
-  -only-testing:PictokTests/PuzzleDecodingTests/test_bundledPuzzlesJson_loadsAndHas90Entries \
+  -only-testing:PictokTests/PuzzleDecodingTests/test_bundledPuzzlesJson_loadsAndHas60Entries \
   -quiet
 ```
 
@@ -810,7 +812,7 @@ Expected: TEST SUCCEEDED.
 
 ```bash
 git add Pictok/Resources/puzzles.json PictokTests/PuzzleDecodingTests.swift
-git commit -m "Add 90 hand-authored puzzles for v1 launch + bundle smoke test"
+git commit -m "Add 60 hand-authored puzzles for v1 launch + bundle smoke test"
 ```
 
 ---
@@ -3261,7 +3263,7 @@ xcodebuild build \
   -quiet
 ```
 
-Press **⌘R** in Xcode. The app should open to the Today tab showing today's puzzle (or the "no puzzle for today" fallback if outside the bundled 90-day range).
+Press **⌘R** in Xcode. The app should open to the Today tab showing today's puzzle (or the "no puzzle for today" fallback if outside the bundled 60-day range).
 
 - [ ] **Step 3: Commit**
 
