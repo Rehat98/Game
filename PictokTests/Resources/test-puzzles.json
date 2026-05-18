@@ -1,0 +1,29 @@
+[
+  {
+    "id": "2026-05-18",
+    "date": "2026-05-18",
+    "emoji": "🌃🦇🤡",
+    "answer": "THE DARK KNIGHT",
+    "category": "Movie",
+    "subcategory": "Action · 2008",
+    "difficulty": "hard"
+  },
+  {
+    "id": "2026-05-19",
+    "date": "2026-05-19",
+    "emoji": "🍕🐢🥋",
+    "answer": "TEENAGE MUTANT NINJA TURTLES",
+    "category": "Movie",
+    "subcategory": "Animated · 1990",
+    "difficulty": "medium"
+  },
+  {
+    "id": "2026-05-20",
+    "date": "2026-05-20",
+    "emoji": "🎤🌙🚶",
+    "answer": "BILLIE JEAN",
+    "category": "Song",
+    "subcategory": "Michael Jackson · 1982",
+    "difficulty": "easy"
+  }
+]
