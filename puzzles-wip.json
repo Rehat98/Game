@@ -268,5 +268,95 @@
     "category": "Movie",
     "subcategory": "Marvel R-rated · 2016",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-031",
+    "date": "",
+    "emoji": "👎❤️",
+    "answer": "BAD ROMANCE",
+    "category": "Song",
+    "subcategory": "Lady Gaga · 2009",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-032",
+    "date": "",
+    "emoji": "🔥❄️",
+    "answer": "HOT N COLD",
+    "category": "Song",
+    "subcategory": "Katy Perry · 2008",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-033",
+    "date": "",
+    "emoji": "⬜🌌",
+    "answer": "BLANK SPACE",
+    "category": "Song",
+    "subcategory": "Taylor Swift · 2014",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-034",
+    "date": "",
+    "emoji": "❤️📖",
+    "answer": "LOVE STORY",
+    "category": "Song",
+    "subcategory": "Taylor Swift · 2008",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-035",
+    "date": "",
+    "emoji": "💃👑",
+    "answer": "DANCING QUEEN",
+    "category": "Song",
+    "subcategory": "ABBA · 1976",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-036",
+    "date": "",
+    "emoji": "🪜☁️",
+    "answer": "STAIRWAY TO HEAVEN",
+    "category": "Song",
+    "subcategory": "Led Zeppelin · 1971",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-037",
+    "date": "",
+    "emoji": "🛣️🔥",
+    "answer": "HIGHWAY TO HELL",
+    "category": "Song",
+    "subcategory": "AC/DC · 1979",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-038",
+    "date": "",
+    "emoji": "☀️6️⃣9️⃣",
+    "answer": "SUMMER OF 69",
+    "category": "Song",
+    "subcategory": "Bryan Adams · 1984",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-039",
+    "date": "",
+    "emoji": "🔥🔨",
+    "answer": "FIREWORK",
+    "category": "Song",
+    "subcategory": "Katy Perry · 2010",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-040",
+    "date": "",
+    "emoji": "👶🇺🇸",
+    "answer": "BORN IN THE USA",
+    "category": "Song",
+    "subcategory": "Bruce Springsteen · 1984",
+    "difficulty": "hard"
   }
 ]
