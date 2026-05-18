@@ -1,0 +1,92 @@
+[
+  {
+    "id": "puzzle-001",
+    "date": "",
+    "emoji": "🧸📖",
+    "answer": "TOY STORY",
+    "category": "Movie",
+    "subcategory": "Pixar · 1995",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-002",
+    "date": "",
+    "emoji": "👁️🤖",
+    "answer": "I ROBOT",
+    "category": "Movie",
+    "subcategory": "Will Smith sci-fi · 2004",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-003",
+    "date": "",
+    "emoji": "📅⬅️",
+    "answer": "YESTERDAY",
+    "category": "Song",
+    "subcategory": "The Beatles · 1965",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-004",
+    "date": "",
+    "emoji": "💧🚽",
+    "answer": "WATERLOO",
+    "category": "Song",
+    "subcategory": "ABBA · 1974",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-005",
+    "date": "",
+    "emoji": "🌙😴",
+    "answer": "GOODNIGHT MOON",
+    "category": "Book",
+    "subcategory": "Margaret Wise Brown · 1947",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-006",
+    "date": "",
+    "emoji": "🐝❤️",
+    "answer": "BELOVED",
+    "category": "Book",
+    "subcategory": "Toni Morrison · 1987",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-007",
+    "date": "",
+    "emoji": "⭐💰",
+    "answer": "STARBUCKS",
+    "category": "Brand",
+    "subcategory": "Coffee · founded 1971",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-008",
+    "date": "",
+    "emoji": "🌊⤵️🚗",
+    "answer": "FORD",
+    "category": "Brand",
+    "subcategory": "Automotive · founded 1903",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-009",
+    "date": "",
+    "emoji": "🐉🎤",
+    "answer": "DRAKE",
+    "category": "Celeb",
+    "subcategory": "Rapper · Canadian",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-010",
+    "date": "",
+    "emoji": "🪡🏃",
+    "answer": "TAYLOR SWIFT",
+    "category": "Celeb",
+    "subcategory": "Singer · American",
+    "difficulty": "hard"
+  }
+]
