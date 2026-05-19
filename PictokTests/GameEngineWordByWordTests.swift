@@ -105,4 +105,23 @@ final class GameEngineWordByWordTests: XCTestCase {
                                                     correctGuesses: ["T", "O", "Y"],
                                                     activeWordIndex: 1))
     }
+
+    func test_wordBreakdown_allConnectors_treatsAllAsContent() {
+        // Hypothetical future puzzle "IT" (Stephen King) — single connector word.
+        let bd = GameEngine.wordBreakdown(answer: "IT")
+        XCTAssertEqual(bd.words, ["IT"])
+        XCTAssertEqual(bd.connectorIndices, [],
+                       "An all-connector answer must not be auto-revealed")
+    }
+
+    func test_activeWordIndex_allConnectorAnswer_returnsZeroNotNil() {
+        // With no guesses, the player should still have a real first word to solve.
+        let idx = GameEngine.activeWordIndex(answer: "IT", correctGuesses: [])
+        XCTAssertEqual(idx, 0)
+    }
+
+    func test_isSolvedByWord_allConnectorAnswer_requiresLetters() {
+        XCTAssertFalse(GameEngine.isSolvedByWord(answer: "IT", correctGuesses: []))
+        XCTAssertTrue(GameEngine.isSolvedByWord(answer: "IT", correctGuesses: ["I", "T"]))
+    }
 }

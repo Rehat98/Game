@@ -102,9 +102,13 @@ extension GameEngine {
     /// Splits the answer into words and identifies which indices are connectors.
     static func wordBreakdown(answer: String) -> WordBreakdown {
         let words = answer.split(separator: " ").map(String.init)
-        let connectors = Set(words.enumerated().compactMap { (idx, w) -> Int? in
+        let candidateConnectors = Set(words.enumerated().compactMap { (idx, w) -> Int? in
             connectorWords.contains(w) ? idx : nil
         })
+        // Defensive: if every word would be a connector (e.g., a puzzle whose answer
+        // is exactly "IT" or "AS IT IS"), treat them all as content words instead so
+        // the puzzle is actually playable.
+        let connectors = (candidateConnectors.count == words.count) ? [] : candidateConnectors
         return WordBreakdown(words: words, connectorIndices: connectors)
     }
 
