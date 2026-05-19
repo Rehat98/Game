@@ -201,7 +201,6 @@ struct TodayView: View {
             store.state.todaySolved = true
             applySolveSideEffects(for: puzzle)
             HapticsService.solved()
-            SoundService.shared.play(.win)
             showResult = true
             Task { await onSolveOrFail() }
         } else if GameEngine.isFailed(lives: store.state.lives) {
