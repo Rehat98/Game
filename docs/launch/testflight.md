@@ -1,50 +1,65 @@
-# TestFlight setup — Pictok v1
+# TestFlight Setup — Pictok v1
 
-Copy/paste ready text for App Store Connect's TestFlight section. Substitute `[YOUR_…]` placeholders before launch.
+Copy/paste-ready text for App Store Connect's TestFlight section. Substitute `[YOUR_…]` placeholders before launch.
+
+Last refresh: 2026-05-19 — covers Endless mode, per-puzzle hearts, fireworks/fail celebrations, Stats v2.
 
 ---
 
 ## What to Test (max 4000 chars, shown to testers in the TestFlight app)
 
 ```
-Thanks for testing Pictok! Here's what to focus on:
+Thanks for testing Pictok! Here's what to focus on this build.
 
-📅 DAILY FLOW
-Open the app once a day. Solve today's puzzle. Confirm:
-- Puzzle is the same on every device for the same date
-- You can't replay after solving (you'll see the result screen)
-- The countdown to tomorrow updates correctly
+📅 DAILY PUZZLE
+Open the app — today's Daily is on top of the Play tab.
+- The puzzle is the same on every device for the same date.
+- Solve it for a streak +1. Skip a day and the free streak-freeze rescues you.
+- Tapping a wrong letter costs 1 heart (you start with 5).
+- Hearts reset to 5 each day. They do NOT refill over time anymore.
+- One hint per puzzle: reveal-category (1 heart) or reveal-letter (2 hearts).
+- After solving, you'll see a Share card. Tap it to share spoiler-free results.
 
-❤️ LIVES + HINTS
-- Each wrong letter takes a heart (you start with 5)
-- The puzzle locks when you run out
-- Lives refill 1 per 4 hours (test by leaving the app, returning later)
-- Try one hint per puzzle: reveal-category costs 1 heart, reveal-letter costs 2
+▶️ CONTINUE PLAYING (Endless mode)
+Below the Daily, tap "Continue Playing" to keep going with more puzzles.
+- Auto-queue: solve one, the next slides in automatically.
+- Each puzzle starts with 5 fresh hearts.
+- Tap the 💡 Hint button (free, once per puzzle) to reveal a letter.
+- Failing a puzzle does NOT lock you out — it just shows the answer and advances.
+- Tap the ✕ in the top-left to quit back to Today.
+- Endless solves don't change your streak — only the Daily does.
 
-🔥 STREAKS
-- Solve consecutive days — streak should go up by 1 each day
-- Skip one day, then solve — streak should still increment (free weekly streak-freeze rescues it)
-- Skip two days, then solve — streak should reset to 1
+🎉 WIN / FAIL ANIMATIONS
+- Solving any puzzle: fireworks burst + "Solved!" text bounce + win sound.
+- Failing any puzzle (5 wrong letters): rain animation + "Oops, better luck next time!" + sad bell sound.
+- Verify the celebrations play smoothly and the answer is visible afterward.
+
+🔑 WORD-BY-WORD REVEAL
+- Multi-word puzzles reveal one word at a time, left to right.
+- Connector words (AND, OF, THE, A, IN, OF, TO) are auto-revealed at the start.
+- Guessing a letter that's in a future word (but not the current word) costs a heart.
 
 🔔 NOTIFICATIONS
-- The app should NOT ask for notification permission on first launch
-- After your first solve, you'll see a "want a reminder?" sheet — accept it
-- Confirm you get a notification at 9 AM local the next day
-- Confirm tapping the notification opens the app to Today
+- The app does NOT ask for notification permission on first launch.
+- After your first solve, you'll see a sheet asking about a daily reminder.
+- Accept → confirm you get a notification at 9 AM local the next day.
+- Tapping the notification should open the app to Today.
 
-📤 SHARE CARD
-- After solving, tap Share — the system share sheet opens
+📤 SHARE CARD (Daily only)
+- After solving today's Daily, tap Share.
 - The shared text should look like:
     Pictok #N 📌
     🎬 Hard
     ❤️❤️❤️🖤🖤 · 🔥 7
     pictok.app
-- Try with hint used (💡 should appear)
-- Try a failure variant (force fail by guessing wrong letters)
+- Try with hint used (💡 should appear).
+- Try after a failure (force fail by guessing wrong).
 
-📊 STATS
-- Stats tab should show current/longest streak, totals, win %, and a bar chart of guesses-to-solve
-- Numbers should update immediately after a solve
+📊 STATS TAB
+- Current run section: streak + best.
+- Lifetime section: total solved + win rate.
+- Guess distribution bar chart.
+- Numbers should update immediately after a solve.
 
 🐞 BUGS TO REPORT
 Email any bugs to [YOUR_FEEDBACK_EMAIL] with:
@@ -53,7 +68,7 @@ Email any bugs to [YOUR_FEEDBACK_EMAIL] with:
 - What went wrong (screenshot if possible)
 - Whether you can reproduce it
 
-Thanks! 🙏
+Thanks 🙏
 ```
 
 ---
@@ -72,7 +87,8 @@ I'm about to ship Pictok — a daily emoji puzzle game I've been building for iO
 What you'd do:
 - Install TestFlight (free Apple app) if you don't already have it
 - Tap the invite link below to install Pictok
-- Play the daily puzzle once a day for a week
+- Play the daily puzzle once a day
+- (Optional) Tap "Continue Playing" to play extra puzzles in Endless mode
 - Email me anything weird, broken, or annoying
 
 It's a Wordle-style daily game where you decode emoji puzzles into words. Like 🐱🐟 = CATFISH, or 🐝🍃 = BELIEF (bee-leaf → "be-lief"). 60 puzzles in v1, takes a minute or two each.
@@ -90,16 +106,16 @@ Thanks 🙏
 
 ## External tester pitch (if you want public beta)
 
-For a TestFlight public link, you can post this on Twitter/Reddit:
-
 **Twitter / X:**
 
 ```
-Building Pictok — a daily emoji puzzle for iOS (Wordle's annoying little cousin).
+Building Pictok — a daily emoji puzzle for iOS.
 
 🐱🐟 = CATFISH
 🐝🍃 = BELIEF
 🅰️🐝🛣️ = ABBEY ROAD
+
+Solve the Daily for your streak. Tap "Continue Playing" for unlimited mode.
 
 Looking for 50 beta testers before App Store launch.
 Reply or DM if you want in.
@@ -109,7 +125,7 @@ Reply or DM if you want in.
 
 **Reddit (r/TestFlight or r/iosbeta):**
 
-Title: `[iOS 17+] Pictok — daily emoji-decode puzzle game (Wordle-style), beta testers wanted`
+Title: `[iOS 17+] Pictok — daily emoji-decode puzzle game (Wordle-style + endless mode), beta testers wanted`
 
 Body:
 
@@ -117,12 +133,12 @@ Body:
 Hey r/TestFlight! I'm a solo dev wrapping up v1 of Pictok, a daily emoji puzzle game.
 
 WHAT IT IS
-One emoji puzzle a day. Each emoji decodes to a word (literally or as a rebus pun), and you guess the answer hangman-style. Examples:
+One Daily puzzle for your streak, plus an Endless mode for as many extra puzzles as you want. Each emoji decodes to a word (literally or as a rebus pun), and you guess the answer hangman-style. Examples:
 - 🐱🐟 → CATFISH
 - 🐝🍃 → BELIEF (bee-leaf → "be-lief")
 - 🪡⚡ → TAYLOR SWIFT (tailor + swift)
 
-There are 60 puzzles in v1 — about 2 months of daily content.
+There are 60 puzzles in v1 — about 2 months of Daily content, or a binge afternoon if you go Endless.
 
 WHAT I NEED FROM YOU
 - Play once a day for a week
@@ -171,5 +187,5 @@ Once you've got 3–7 days of beta feedback and the blockers are fixed:
 
 After "Ready for Sale" notification:
 - Update the `[TESTFLIGHT_PUBLIC_LINK]` placeholders to the actual App Store URL
-- Post the launch content (see future launch-content doc — TBD)
+- Post the launch content
 - Open the App Store Connect → Analytics tab and watch your installs

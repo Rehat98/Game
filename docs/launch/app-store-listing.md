@@ -20,24 +20,25 @@ Drafted 2026-05-18 in advance of submission. Substitute placeholders before goin
 ## Description (max 4000 chars)
 
 ```
-Solve one emoji puzzle a day.
+Solve one emoji puzzle a day. Or many.
 
 Pictok gives you a fresh emoji riddle every morning — a movie, song, book, brand, or celeb hidden inside a tiny string of emojis. Each emoji represents a word in the answer. Some are literal. Some are clever rebus puns. All of them want to be figured out.
 
 🐝 + 🍃 = BE-LIEF
 🅰️ + 🐝 + 🛣️ = ABBEY ROAD
 🐻 + 🦶 = BARE-FOOT
-🍓 + 🌾 = STRAWBERRY FIELDS
+🪡 + 🏃 = TAYLOR SWIFT
 
-You get five hearts. Each wrong letter costs one. Run out, and you wait for tomorrow.
+Solve today's Daily for your streak — that's the social anchor, with a spoiler-free share card. Then tap Continue Playing to keep going with more puzzles in Endless mode, as many as you want, no time gates.
 
 Built for the 30-second-to-2-minute solve — that satisfying "oh" moment when the answer clicks.
 
 WHY YOU'LL COME BACK TOMORROW
-• One puzzle a day, every day
-• Build your streak — miss a day and it resets
-• Share your spoiler-free result card to text threads, group chats, anywhere
-• Track your streak, win rate, and guess distribution
+• A new Daily puzzle every day, hand-curated
+• Build your streak — miss a day and the free streak-freeze rescues you once
+• Endless mode lets you binge extras without breaking the daily anchor
+• Share your spoiler-free result to text threads, group chats, anywhere
+• Track streak, lifetime solves, win rate, and guess distribution
 
 WHAT'S DIFFERENT
 • No ads. No tracking. No accounts.
@@ -45,19 +46,21 @@ WHAT'S DIFFERENT
 • No "energy bars," no IAP gotchas. Just the puzzle.
 
 WHAT YOU GET
-• A new emoji puzzle every day, hand-curated
-• Cute sticker-paper visual style (no generic UI templates here)
-• Three difficulty bands — medium puzzles to ease in, hard ones that take real thought
+• 60 hand-curated puzzles in v1 (~2 months of Daily content)
+• Medium and Hard difficulty — every puzzle requires real thinking
+• Word-by-word reveal: solve one word before the next opens up
+• Free hint per Endless puzzle to nudge you when stuck
+• Fireworks celebration when you solve. Gentle rain when you don't.
 • Optional daily reminder so you don't lose your streak
-• Stats screen with streak history and guess distribution
+• Sticker/paper-craft visual style — no generic UI templates here
 • Built for iPhone, looks great on iOS 17+
 
-Wordle gave the world daily 5-letter guessing. Pictok gives you daily emoji decoding.
+Wordle gave the world daily 5-letter guessing. Pictok gives you daily emoji decoding — and lets you keep playing when you're hooked.
 
 Tap to play. Solve. Share. Repeat tomorrow.
 ```
 
-(2,051 chars — comfortably under the 4,000 limit, leaves room for tweaks.)
+(~2,300 chars — comfortably under the 4,000 limit.)
 
 ## Keywords (max 100 chars, comma-separated)
 
