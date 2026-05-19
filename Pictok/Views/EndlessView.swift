@@ -57,9 +57,11 @@ struct EndlessView: View {
                 }
                 .padding(.horizontal, 8)
                 Spacer()
-                KeyboardView(guessed: session.correctGuesses.union(session.wrongGuesses)) { letter in
-                    session.guess(letter: letter)
-                }
+                KeyboardView(
+                    correctGuesses: session.correctGuesses,
+                    wrongGuesses: session.wrongGuesses,
+                    onGuess: { letter in session.guess(letter: letter) }
+                )
             }
             .padding(.horizontal, 16)
         } else {

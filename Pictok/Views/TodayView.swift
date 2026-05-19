@@ -68,9 +68,11 @@ struct TodayView: View {
                        correctGuesses: blanksCorrectGuesses(for: puzzle),
                        revealedLetter: store.state.todayRevealedLetter)
             Spacer(minLength: 0)
-            KeyboardView(guessed: guessedLetters) { letter in
-                handleGuess(letter, in: puzzle)
-            }
+            KeyboardView(
+                correctGuesses: Set(store.state.todayCorrectGuesses),
+                wrongGuesses: Set(store.state.todayWrongGuesses),
+                onGuess: { letter in handleGuess(letter, in: puzzle) }
+            )
             StickerButton(title: "Continue Playing", icon: "▶️", fill: .pkGreen) {
                 onPlayEndless()
             }
@@ -108,10 +110,6 @@ struct TodayView: View {
     }
 
     // MARK: Derived
-
-    private var guessedLetters: Set<Character> {
-        Set(store.state.todayWrongGuesses + store.state.todayCorrectGuesses)
-    }
 
     /// Correct guesses surfaced to `BlanksView`. When the puzzle is finished
     /// (solved or failed) we expand this to every letter in the answer so the
