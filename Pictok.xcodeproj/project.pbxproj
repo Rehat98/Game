@@ -19,6 +19,7 @@
 		26D04137E41B70F10B2F7D13 /* UserStateStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BDC4CC64BB64F51860B7AD /* UserStateStoreTests.swift */; };
 		2FA8E5BA7BCD741C929B06D3 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950DE50423D9B8518D25C03 /* KeyboardView.swift */; };
 		44013AD409B1DFEB6F17BD94 /* GameEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6AC4A474E65EE9832F5126 /* GameEngineTests.swift */; };
+		4AD352AF3BCCCD1BA3C1085D /* EndlessSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76F51A4C675058DC58B20BA /* EndlessSessionTests.swift */; };
 		4ADA9B62C7A2A77AC499B06F /* StickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3153578C4A7975ABCAE0CC /* StickerButton.swift */; };
 		4C8E2273340B81ABD01398A0 /* UserStateCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC4A51E89CCD6F4ECB4AC9 /* UserStateCodableTests.swift */; };
 		521F5012DAE5301AE6DD95AC /* HapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3D883269ACDFF313C2543 /* HapticsService.swift */; };
@@ -38,6 +39,7 @@
 		A30656A04C6E96BC61CEF55F /* test-puzzles.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E30CB7F4E3606B665F8EC8A /* test-puzzles.json */; };
 		A6DACC4B4EDC68392FD82D08 /* ShareCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF40436B6B5C44CC58037435 /* ShareCardBuilder.swift */; };
 		AA617127D6B9EEE3C9886E54 /* ResultSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC22EE038406BC101D95FF1 /* ResultSheet.swift */; };
+		AFC2E6F63B63FCFEF1A145B0 /* EndlessSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B7D9A1B47C4C0C61384BE /* EndlessSession.swift */; };
 		B0786467093D51F3A2D6BF2B /* PictokApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF7A7BF6F338B281CC2F8FA /* PictokApp.swift */; };
 		C8B70E4449443703508BE272 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = D66D81E61B59A7FA3AD074BF /* win.wav */; };
 		D331FDFBEF4FF39710E1652A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8DC8175E35A48E034D43B2 /* Theme.swift */; };
@@ -90,10 +92,12 @@
 		AC27D0BF336D5BAB1C75355C /* HeartsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartsRow.swift; sourceTree = "<group>"; };
 		AE8DC8175E35A48E034D43B2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		AEDDCDEC38190D3BC62F57C6 /* Pictok.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Pictok.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B72B7D9A1B47C4C0C61384BE /* EndlessSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSession.swift; sourceTree = "<group>"; };
 		BAC22EE038406BC101D95FF1 /* ResultSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSheet.swift; sourceTree = "<group>"; };
 		D028777F6BC1AE088C73016D /* UserStateMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateMigrationTests.swift; sourceTree = "<group>"; };
 		D317115F4C77FC1155F3BF13 /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
 		D66D81E61B59A7FA3AD074BF /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
+		E76F51A4C675058DC58B20BA /* EndlessSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSessionTests.swift; sourceTree = "<group>"; };
 		EE69DC4F410F20449AB55464 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		EF40436B6B5C44CC58037435 /* ShareCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardBuilder.swift; sourceTree = "<group>"; };
 		F1703FB8EEBE690DE896C960 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				A4618C9E2657EAFB2B5B01B0 /* EndlessSelector.swift */,
+				B72B7D9A1B47C4C0C61384BE /* EndlessSession.swift */,
 				70602BBD41448CC070305C00 /* GameEngine.swift */,
 				9EF3D883269ACDFF313C2543 /* HapticsService.swift */,
 				71BA6915DCCA92F60FE8D05E /* NotificationScheduler.swift */,
@@ -215,6 +220,7 @@
 			children = (
 				709A2440EE081AB0641A131D /* Resources */,
 				A2505F793D42F5DF88BA4465 /* EndlessSelectorTests.swift */,
+				E76F51A4C675058DC58B20BA /* EndlessSessionTests.swift */,
 				8A6AC4A474E65EE9832F5126 /* GameEngineTests.swift */,
 				595A0B6F4CE708A3114C0523 /* NotificationSchedulerTests.swift */,
 				003CB8564184917BE05D66CB /* PuzzleDecodingTests.swift */,
@@ -338,6 +344,7 @@
 				21799DCFD49E3A24B9B54D4B /* CategoryChip.swift in Sources */,
 				5DBE77C491F4D855C3447AB2 /* EmojiHeader.swift in Sources */,
 				173A6C6A7F67E1C4C7580F2A /* EndlessSelector.swift in Sources */,
+				AFC2E6F63B63FCFEF1A145B0 /* EndlessSession.swift in Sources */,
 				F65B1E044B023BC75C9C3388 /* GameEngine.swift in Sources */,
 				521F5012DAE5301AE6DD95AC /* HapticsService.swift in Sources */,
 				2181CF102C43333F8F7952C3 /* HeartsRow.swift in Sources */,
@@ -365,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0173E40D3747DA34FF4A2920 /* EndlessSelectorTests.swift in Sources */,
+				4AD352AF3BCCCD1BA3C1085D /* EndlessSessionTests.swift in Sources */,
 				44013AD409B1DFEB6F17BD94 /* GameEngineTests.swift in Sources */,
 				7B3F7C02449E6AA0D35C2BCF /* NotificationSchedulerTests.swift in Sources */,
 				82414934CE6E36FBA6CD91C4 /* PuzzleDecodingTests.swift in Sources */,
