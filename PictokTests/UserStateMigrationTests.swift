@@ -34,8 +34,29 @@ final class UserStateMigrationTests: XCTestCase {
         XCTAssertEqual(decoded.lives, 4)
         XCTAssertEqual(decoded.solvedPuzzleIds, [])
         XCTAssertEqual(decoded.failedPuzzleIds, [])
-        XCTAssertEqual(decoded.lifetimeSolvedCount, 0)
+        XCTAssertEqual(decoded.lifetimeSolvedCount, 7,
+                       "lifetimeSolvedCount backfills from totalSolved on legacy payloads")
         XCTAssertEqual(decoded.recentEndlessIds, [])
+    }
+
+    func test_decodesNewPayload_doesNotBackfill_whenLifetimeFieldPresent() throws {
+        let payload = """
+        {
+          "currentStreak": 0, "longestStreak": 0, "streakFreezesAvailable": 1,
+          "totalSolved": 7, "totalPlayed": 9,
+          "guessDistribution": {},
+          "lives": 5, "livesLastRefilledAt": 0,
+          "todayWrongGuesses": [], "todayCorrectGuesses": [],
+          "todaySolved": false, "todayFailed": false,
+          "hasEverSolved": true, "hasAskedForNotificationPermission": true,
+          "solvedPuzzleIds": [], "failedPuzzleIds": [],
+          "lifetimeSolvedCount": 3,
+          "recentEndlessIds": []
+        }
+        """.data(using: .utf8)!
+        let decoded = try JSONDecoder().decode(UserState.self, from: payload)
+        XCTAssertEqual(decoded.lifetimeSolvedCount, 3,
+                       "When the field is explicitly present, it must NOT be overridden by totalSolved")
     }
 
     // Fresh state must encode and decode losslessly, including the new fields.
