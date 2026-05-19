@@ -29,12 +29,12 @@ struct StickerModifier: ViewModifier {
             .background(
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .fill(fill)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                            .stroke(Color.pkInk, lineWidth: strokeWidth)
+                    )
+                    .shadow(color: .pkInk, radius: 0, x: shadowOffset, y: shadowOffset)
             )
-            .overlay(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .stroke(Color.pkInk, lineWidth: strokeWidth)
-            )
-            .shadow(color: .pkInk, radius: 0, x: shadowOffset, y: shadowOffset)
     }
 }
 
