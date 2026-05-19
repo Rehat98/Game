@@ -161,5 +161,8 @@ If the icon ever needs revision after launch, you can ship updates in any future
 - ✅ Direction locked (2026-05-18)
 - ✅ Composition locked: Y (3×2 Wordle grid)
 - ✅ Palette locked: 5 (cream + multi-color)
-- ⏳ Final 1024×1024 PNG: still needs to be produced (designer or Midjourney)
-- ⏳ Add to Xcode Assets.xcassets: blocked on Xcode install
+- ✅ Final 1024×1024 PNG produced (rendered from `icon-source.svg`, 61 KB, sRGB, opaque, no rounded corners) — at `Pictok/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png`
+- ✅ Added to Xcode Assets.xcassets and bundled in the app (`AppIcon60x60@2x.png` = 120×120 iPhone home, plus iPad sizes, compiled into `Assets.car`)
+- ✅ Verified rendering on iPhone 17 / iOS 26.5 simulator home screen (2026-05-19) — icon reads as the 3×2 Wordle grid at thumbnail size
+
+**Future polish (post-launch, not required to ship):** if user feedback says the cream-on-cream blank tiles disappear against light home-screen wallpapers, consider darkening the blank tiles to `#F0E5C5` (slightly off-cream) for a touch more contrast.
