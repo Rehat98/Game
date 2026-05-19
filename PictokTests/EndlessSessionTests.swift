@@ -138,4 +138,79 @@ final class EndlessSessionTests: XCTestCase {
         XCTAssertEqual(store.state.recentEndlessIds.last, firstId)
         XCTAssertLessThanOrEqual(store.state.recentEndlessIds.count, 5)
     }
+
+    func test_useHint_revealsFirstUnguessedLetterOfActiveWord() {
+        let store = makeStore()
+        let multiPuzzle = Puzzle(id: "p_multi", date: "2026-05-28", emoji: "🐝🦴",
+                                 answer: "BEE BONE",
+                                 category: .brand, subcategory: "t", difficulty: .medium)
+        let allPuzzles = [
+            Puzzle(id: "p1", date: "2026-05-19", emoji: "🐝", answer: "X",
+                   category: .brand, subcategory: "t", difficulty: .medium),
+            multiPuzzle
+        ]
+        let session = EndlessSession(allPuzzles: allPuzzles, store: store, today: "2026-05-19")
+        XCTAssertEqual(session.currentPuzzle?.id, "p_multi")
+
+        session.useHint()
+        // BEE's first unguessed letter is "B" — that should be revealed.
+        XCTAssertTrue(session.correctGuesses.contains("B"))
+    }
+
+    func test_useHint_marksUsed_andSubsequentCallsAreNoOp() {
+        let store = makeStore()
+        let session = EndlessSession(allPuzzles: makePuzzles(), store: store, today: "2026-05-19")
+        XCTAssertFalse(session.hintUsedThisPuzzle)
+
+        session.useHint()
+        XCTAssertTrue(session.hintUsedThisPuzzle)
+        let countAfterFirst = session.correctGuesses.count
+
+        session.useHint()  // should be no-op
+        XCTAssertEqual(session.correctGuesses.count, countAfterFirst)
+    }
+
+    func test_useHint_doesNotCostHearts() {
+        let store = makeStore()
+        let session = EndlessSession(allPuzzles: makePuzzles(), store: store, today: "2026-05-19")
+        XCTAssertEqual(session.hearts, 5)
+
+        session.useHint()
+        XCTAssertEqual(session.hearts, 5, "Hint must be free (no heart cost)")
+    }
+
+    func test_advance_resetsHintAvailability() {
+        let store = makeStore()
+        let session = EndlessSession(allPuzzles: makePuzzles(), store: store, today: "2026-05-19")
+
+        session.useHint()
+        XCTAssertTrue(session.hintUsedThisPuzzle)
+
+        // Force the puzzle to a state where advance() picks a different one.
+        // (Solve it via remaining guesses, then advance.)
+        if let answer = session.currentPuzzle?.answer {
+            for ch in Set(answer.filter { $0.isLetter }) {
+                session.guess(letter: ch)
+            }
+        }
+        session.advance()
+        XCTAssertFalse(session.hintUsedThisPuzzle, "advance() must reset hint availability")
+    }
+
+    func test_useHint_solvesPuzzle_whenItRevealsLastNeededLetter() {
+        let store = makeStore()
+        let session = EndlessSession(allPuzzles: makePuzzles(), store: store, today: "2026-05-19")
+        let answer = session.currentPuzzle!.answer
+
+        // Manually guess every letter EXCEPT the first.
+        let allLetters = Set(answer.filter { $0.isLetter })
+        let firstLetter = answer.first(where: { $0.isLetter })!
+        for ch in allLetters where ch != firstLetter {
+            session.guess(letter: ch)
+        }
+        XCTAssertFalse(session.isSolved)
+
+        session.useHint()
+        XCTAssertTrue(session.isSolved, "Hint that reveals last needed letter must solve the puzzle")
+    }
 }

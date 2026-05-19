@@ -17,6 +17,7 @@ final class EndlessSession {
     private(set) var wrongGuesses: Set<Character> = []
     private(set) var isSolved: Bool = false
     private(set) var isFailed: Bool = false
+    private(set) var hintUsedThisPuzzle: Bool = false
 
     init(allPuzzles: [Puzzle], store: UserStateStore, today: String,
          selector: EndlessSelector = EndlessSelector()) {
@@ -56,6 +57,22 @@ final class EndlessSession {
         }
     }
 
+    func useHint() {
+        guard !hintUsedThisPuzzle,
+              let puzzle = currentPuzzle,
+              !isSolved, !isFailed else { return }
+        guard let activeIdx = GameEngine.activeWordIndex(answer: puzzle.answer,
+                                                         correctGuesses: correctGuesses) else { return }
+        let activeWord = GameEngine.wordBreakdown(answer: puzzle.answer).words[activeIdx]
+        guard let toReveal = activeWord.first(where: { !correctGuesses.contains($0) }) else { return }
+        correctGuesses.insert(toReveal)
+        hintUsedThisPuzzle = true
+        if GameEngine.isSolvedByWord(answer: puzzle.answer, correctGuesses: correctGuesses) {
+            isSolved = true
+            recordSolve(id: puzzle.id)
+        }
+    }
+
     func advance() {
         if let prevId = currentPuzzle?.id {
             var buffer = store.state.recentEndlessIds
@@ -71,6 +88,7 @@ final class EndlessSession {
         wrongGuesses = []
         isSolved = false
         isFailed = false
+        hintUsedThisPuzzle = false
         currentPuzzle = selector.nextPuzzle(allPuzzles: allPuzzles,
                                             state: store.state,
                                             today: today)
