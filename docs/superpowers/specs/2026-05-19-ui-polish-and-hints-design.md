@@ -23,7 +23,6 @@ Daily mode's existing hint mechanic (1-heart subcategory reveal, 2-heart letter 
 - 3 new files: `WinCelebrationView.swift`, `FireworksEmitter.swift`, `HintButton.swift`
 - 1 new method on `EndlessSession`: `useHint()`
 - 1 new state field on `EndlessSession`: `hintUsedThisPuzzle: Bool`
-- 1 new `pkPink` accent color in `Theme.swift`
 - 4 motion adds: keyboard flash, slide transitions, heart pop, win celebration
 
 **NOT changing:**
@@ -81,7 +80,7 @@ A short, dramatic overlay that fires when the player solves a puzzle.
 - Renders into a `Canvas`.
 - Emits 5–8 burst origins at randomized positions across the upper 2/3 of the screen, spaced over the first 1.4s of the overlay.
 - Each burst spawns ~30 small particles (mix of circles and squares, 4–8pt) that radiate outward at a fixed initial velocity per particle, with linear gravity pulling them down.
-- Particle colors cycle through `pkYellow`, `pkRed`, `pkGreen`, `pkBlue`, and the new `pkPink` (added to `Theme.swift`).
+- Particle colors cycle through `pkYellow`, `pkRed`, `pkGreen`, `pkBlue`. No new theme color is added; the existing 4-color palette gives ample variety at ~180 particles.
 - Particles fade alpha 1 → 0 over their 1.2s lifetime.
 
 **`WinCelebrationView.swift`** — composes:
@@ -261,7 +260,6 @@ The animation triggers automatically when `hearts` changes; no explicit dispatch
 | `Pictok/Views/Components/KeyboardView.swift`        | modify | Letter-press color flash + shake on wrong |
 | `Pictok/Views/Components/HeartsRow.swift`           | modify | Heart pop on loss |
 | `Pictok/Game/EndlessSession.swift`                  | modify | Add `hintUsedThisPuzzle` + `useHint()` |
-| `Pictok/Views/Theme.swift`                          | modify | Add `pkPink` accent color for fireworks |
 | `PictokTests/EndlessSessionTests.swift`             | modify | Add 5 hint-mechanic tests |
 
 ## Success criteria

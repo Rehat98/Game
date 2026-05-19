@@ -19,7 +19,6 @@
 | `Pictok/Views/Effects/FireworksEmitter.swift`       | create | Native SwiftUI particle source (TimelineView + Canvas); 6 bursts × 30 particles over 1.4s with gravity + fade. |
 | `Pictok/Views/Effects/WinCelebrationView.swift`     | create | Overlay: fireworks + bouncing "Solved!" + answer text + `SoundService.playWin()`. 1.8s total. |
 | `Pictok/Views/Components/HintButton.swift`          | create | Sticker hint button; disabled state when `!isEnabled`. |
-| `Pictok/Views/Theme.swift`                          | modify | Add `pkPink` accent color. |
 | `Pictok/Views/TodayView.swift`                      | modify | Rename "Play Endless" → "Continue Playing". Show `WinCelebrationView` on solve. |
 | `Pictok/Views/EndlessView.swift`                    | modify | Replace text overlay with `WinCelebrationView` on solve. Add `HintButton`. Add slide transition between puzzles. |
 | `Pictok/Views/Components/KeyboardView.swift`        | modify | Letter-press color flash (green correct, red+shake wrong). |
@@ -80,43 +79,12 @@ git -C /Users/rehatchugh/emoji-decode commit -m "Rename Play Endless button to C
 
 ---
 
-## Task 2: Add `pkPink` accent color to `Theme.swift`
-
-**Files:**
-- Modify: `Pictok/Views/Theme.swift`
-
-- [ ] **Step 1: Add the color constant**
-
-Open `Pictok/Views/Theme.swift`. Inside the existing `extension Color`, add a new line after `pkBlue`:
-
-```swift
-    static let pkPink       = Color(red: 0xFF/255, green: 0x6B/255, blue: 0x9D/255)
-```
-
-- [ ] **Step 2: Build**
-
-```bash
-xcodebuild build -project /Users/rehatchugh/emoji-decode/Pictok.xcodeproj -scheme Pictok \
-  -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet
-```
-
-Expected: `BUILD SUCCEEDED`.
-
-- [ ] **Step 3: Commit**
-
-```bash
-git -C /Users/rehatchugh/emoji-decode add Pictok/Views/Theme.swift
-git -C /Users/rehatchugh/emoji-decode commit -m "Add pkPink accent color for fireworks particles"
-```
-
----
-
-## Task 3: `FireworksEmitter` — native particle source
+## Task 2: `FireworksEmitter` — native particle source
 
 **Files:**
 - Create: `Pictok/Views/Effects/FireworksEmitter.swift`
 
-No unit tests (visual component). Verified via Task 4 + smoke test.
+No unit tests (visual component). Verified via Task 3 + smoke test.
 
 - [ ] **Step 1: Ensure the directory exists**
 
@@ -138,7 +106,7 @@ struct FireworksEmitter: View {
     static let totalDuration: TimeInterval = 1.4
     static let burstCount = 6
     static let particlesPerBurst = 30
-    static let burstColors: [Color] = [.pkYellow, .pkRed, .pkGreen, .pkBlue, .pkPink]
+    static let burstColors: [Color] = [.pkYellow, .pkRed, .pkGreen, .pkBlue]
 
     private struct Particle {
         let originX: Double          // 0..1 normalized to canvas width
@@ -233,7 +201,7 @@ git -C /Users/rehatchugh/emoji-decode commit -m "Add FireworksEmitter native par
 
 ---
 
-## Task 4: `WinCelebrationView` — overlay composition
+## Task 3: `WinCelebrationView` — overlay composition
 
 **Files:**
 - Create: `Pictok/Views/Effects/WinCelebrationView.swift`
@@ -313,7 +281,7 @@ git -C /Users/rehatchugh/emoji-decode commit -m "Add WinCelebrationView overlay 
 
 ---
 
-## Task 5: Wire `WinCelebrationView` into both modes' solve flows
+## Task 4: Wire `WinCelebrationView` into both modes' solve flows
 
 **Files:**
 - Modify: `Pictok/Views/EndlessView.swift`
@@ -420,7 +388,7 @@ git -C /Users/rehatchugh/emoji-decode commit -m "Wire WinCelebrationView into Da
 
 ---
 
-## Task 6: `EndlessSession` — add `useHint()` + tests
+## Task 5: `EndlessSession` — add `useHint()` + tests
 
 **Files:**
 - Modify: `Pictok/Game/EndlessSession.swift`
@@ -583,7 +551,7 @@ git -C /Users/rehatchugh/emoji-decode commit -m "EndlessSession: add useHint() a
 
 ---
 
-## Task 7: `HintButton` component + wire into `EndlessView`
+## Task 6: `HintButton` component + wire into `EndlessView`
 
 **Files:**
 - Create: `Pictok/Views/Components/HintButton.swift`
@@ -664,12 +632,12 @@ git -C /Users/rehatchugh/emoji-decode commit -m "Add HintButton and wire into En
 
 ---
 
-## Task 8: KeyboardView color flash on letter press
+## Task 7: KeyboardView color flash on letter press
 
 **Files:**
 - Modify: `Pictok/Views/Components/KeyboardView.swift`
 
-No unit tests (visual). Verified via Task 11 smoke test.
+No unit tests (visual). Verified via Task 10 smoke test.
 
 - [ ] **Step 1: Read the current KeyboardView**
 
@@ -827,7 +795,7 @@ git -C /Users/rehatchugh/emoji-decode commit -m "KeyboardView: color flash + sha
 
 ---
 
-## Task 9: HeartsRow pop animation on heart loss
+## Task 8: HeartsRow pop animation on heart loss
 
 **Files:**
 - Modify: `Pictok/Views/Components/HeartsRow.swift`
@@ -902,7 +870,7 @@ git -C /Users/rehatchugh/emoji-decode commit -m "HeartsRow: pop animation when a
 
 ---
 
-## Task 10: EndlessView slide transition between puzzles
+## Task 9: EndlessView slide transition between puzzles
 
 **Files:**
 - Modify: `Pictok/Views/EndlessView.swift`
@@ -984,7 +952,7 @@ git -C /Users/rehatchugh/emoji-decode commit -m "EndlessView: slide transition b
 
 ---
 
-## Task 11: Simulator smoke test
+## Task 10: Simulator smoke test
 
 **Files:** none — runtime verification only.
 
@@ -1046,7 +1014,7 @@ Update the Status line and add a Polish ships note.
 
 ## Done
 
-After Task 11 the UI polish + hint + celebration work is complete:
+After Task 10 the UI polish + hint + celebration work is complete:
 
 - "Continue Playing" button reads correctly.
 - Daily and Endless solves trigger fireworks + bouncing text + win sound.
