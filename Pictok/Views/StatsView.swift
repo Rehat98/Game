@@ -17,6 +17,9 @@ struct StatsView: View {
                     statTile("Solved", "\(store.state.totalSolved)")
                     statTile("Win %", winPercentText)
                 }
+                HStack(spacing: 16) {
+                    statTile("Total solved", "\(store.state.lifetimeSolvedCount)")
+                }
 
                 Text("Guess distribution").font(.pkSubtitle).padding(.top)
                 distributionChart

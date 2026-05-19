@@ -211,6 +211,7 @@ struct TodayView: View {
         store.state.longestStreak = max(store.state.longestStreak, next.streak)
         store.state.lastSolvedDate = today
         store.state.totalSolved += 1
+        store.state.lifetimeSolvedCount += 1
         store.state.totalPlayed += 1
         let wrongs = store.state.todayWrongGuesses.count
         store.state.guessDistribution[wrongs, default: 0] += 1
