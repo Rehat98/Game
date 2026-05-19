@@ -5,6 +5,7 @@ struct TodayView: View {
     let puzzle: Puzzle?            // nil = no puzzle for today (out-of-bundle date)
     let puzzleNumber: Int          // 1-based, passed from PictokApp (via loader)
     let onSolveOrFail: () async -> Void   // triggers notification reschedule
+    var onPlayEndless: () -> Void = {}
 
     @State private var showHintMenu = false
     @State private var showResult   = false
@@ -18,10 +19,16 @@ struct TodayView: View {
             if let puzzle {
                 content(for: puzzle)
             } else {
-                Text("No puzzle for today — check back tomorrow.")
-                    .font(.pkSubtitle)
-                    .multilineTextAlignment(.center)
-                    .padding()
+                VStack(spacing: 16) {
+                    Text("No puzzle for today — check back tomorrow.")
+                        .font(.pkSubtitle)
+                        .multilineTextAlignment(.center)
+                    StickerButton(title: "Play Endless", icon: "▶️", fill: .pkGreen) {
+                        onPlayEndless()
+                    }
+                    .padding(.top, 12)
+                }
+                .padding()
             }
         }
         .sheet(isPresented: $showResult) {
@@ -49,6 +56,10 @@ struct TodayView: View {
             KeyboardView(guessed: guessedLetters) { letter in
                 handleGuess(letter, in: puzzle)
             }
+            StickerButton(title: "Play Endless", icon: "▶️", fill: .pkGreen) {
+                onPlayEndless()
+            }
+            .padding(.top, 12)
         }
         .padding()
         .task {
