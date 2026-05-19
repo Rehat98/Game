@@ -7,10 +7,17 @@ struct HeartsRow: View {
     var body: some View {
         HStack(spacing: 4) {
             ForEach(0..<total, id: \.self) { i in
-                Text(i < remaining ? "❤️" : "🖤")
-                    .font(.system(size: 18))
+                ZStack {
+                    Text("🖤")
+                    if i < remaining {
+                        Text("❤️")
+                            .transition(.scale(scale: 1.4).combined(with: .opacity))
+                    }
+                }
+                .font(.system(size: 18))
             }
         }
+        .animation(.easeOut(duration: 0.35), value: remaining)
         .accessibilityLabel("\(remaining) of \(total) lives remaining")
     }
 }
