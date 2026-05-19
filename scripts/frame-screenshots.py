@@ -29,7 +29,7 @@ BEZEL_CORNER = 74     # px corner radius for the outer black bezel (screen + bez
 SHADOW_BLUR = 32      # px gaussian blur for drop shadow
 SHADOW_OFFSET = 16    # px Y offset for drop shadow
 SHADOW_OPACITY = 80   # 0-255
-BG_COLOR = (245, 240, 230, 255)   # soft cream that matches the app's pkPaper
+BG_COLOR = (255, 255, 255, 255)   # white — App-Store-marketing standard
 BEZEL_COLOR = (16, 16, 16, 255)    # near-black device edge
 
 
