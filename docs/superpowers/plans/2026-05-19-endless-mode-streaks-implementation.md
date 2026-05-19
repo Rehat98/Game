@@ -763,6 +763,388 @@ git -C /Users/rehatchugh/emoji-decode commit -m "Add EndlessSession orchestrator
 
 ---
 
+## Phase 2.5 — Word-by-word reveal mechanic
+
+Discovered mid-implementation: typing letters in a multi-word puzzle reveals them in **every word simultaneously**, which makes long answers trivially easy. Pivoting to **sequential word-by-word reveal**: typing only reveals letters in the active word; connector words (AND, OF, THE, A, IN, etc.) auto-reveal at puzzle start; wrong guess = letter not in current active word costs a heart globally.
+
+### Task WBW-1: GameEngine word-by-word helpers
+
+**Files:**
+- Modify: `Pictok/Game/GameEngine.swift`
+- Create: `PictokTests/GameEngineWordByWordTests.swift`
+
+- [ ] **Step 1: Write the tests first**
+
+```swift
+import XCTest
+@testable import Pictok
+
+final class GameEngineWordByWordTests: XCTestCase {
+
+    func test_wordBreakdown_singleWord() {
+        let bd = GameEngine.wordBreakdown(answer: "BELOVED")
+        XCTAssertEqual(bd.words, ["BELOVED"])
+        XCTAssertEqual(bd.connectorIndices, [])
+    }
+
+    func test_wordBreakdown_multiWordWithConnectors() {
+        let bd = GameEngine.wordBreakdown(answer: "PRIDE AND PREJUDICE")
+        XCTAssertEqual(bd.words, ["PRIDE", "AND", "PREJUDICE"])
+        XCTAssertEqual(bd.connectorIndices, [1])
+    }
+
+    func test_wordBreakdown_multipleConnectors() {
+        let bd = GameEngine.wordBreakdown(answer: "CALL OF THE WILD")
+        XCTAssertEqual(bd.words, ["CALL", "OF", "THE", "WILD"])
+        XCTAssertEqual(bd.connectorIndices, [1, 2])
+    }
+
+    func test_activeWordIndex_singleWord_unsolved() {
+        let idx = GameEngine.activeWordIndex(answer: "BELOVED", correctGuesses: ["B", "E"])
+        XCTAssertEqual(idx, 0)
+    }
+
+    func test_activeWordIndex_singleWord_fullySolved_returnsNil() {
+        let idx = GameEngine.activeWordIndex(answer: "BEE", correctGuesses: ["B", "E"])
+        XCTAssertNil(idx)
+    }
+
+    func test_activeWordIndex_skipsConnectors() {
+        // "PRIDE AND PREJUDICE" — index 1 is "AND" (connector). Player has solved PRIDE fully.
+        let idx = GameEngine.activeWordIndex(answer: "PRIDE AND PREJUDICE",
+                                             correctGuesses: ["P", "R", "I", "D", "E"])
+        XCTAssertEqual(idx, 2, "Should skip AND and land on PREJUDICE")
+    }
+
+    func test_activeWordIndex_returnsFirstUnsolvedNonConnector() {
+        // "TOY STORY" — TOY needs T,O,Y. Player has T but not O,Y.
+        let idx = GameEngine.activeWordIndex(answer: "TOY STORY", correctGuesses: ["T"])
+        XCTAssertEqual(idx, 0)
+    }
+
+    func test_activeWordIndex_advancesWhenFirstWordComplete() {
+        // "TOY STORY" — player has T,O,Y. TOY is complete; STORY needs S,T,O,R,Y.
+        let idx = GameEngine.activeWordIndex(answer: "TOY STORY", correctGuesses: ["T", "O", "Y"])
+        XCTAssertEqual(idx, 1)
+    }
+
+    func test_isCorrect_inWord_matchesLettersOnlyInActiveWord() {
+        // "TOY STORY", active = 0 (TOY). S is in STORY only.
+        XCTAssertFalse(GameEngine.isCorrect(letter: "S", inWord: 0, of: "TOY STORY"))
+        XCTAssertTrue(GameEngine.isCorrect(letter: "T", inWord: 0, of: "TOY STORY"))
+        XCTAssertTrue(GameEngine.isCorrect(letter: "S", inWord: 1, of: "TOY STORY"))
+    }
+
+    func test_isCorrect_caseInsensitive() {
+        XCTAssertTrue(GameEngine.isCorrect(letter: "t", inWord: 0, of: "TOY STORY"))
+    }
+
+    func test_isSolved_byWord_singleWord() {
+        XCTAssertTrue(GameEngine.isSolvedByWord(answer: "BEE", correctGuesses: ["B", "E"]))
+        XCTAssertFalse(GameEngine.isSolvedByWord(answer: "BEE", correctGuesses: ["B"]))
+    }
+
+    func test_isSolved_byWord_multiWordWithConnectors() {
+        // PRIDE AND PREJUDICE — connectors auto-solved; need PRIDE + PREJUDICE letters.
+        let needed: Set<Character> = ["P", "R", "I", "D", "E", "J", "U"]
+        XCTAssertTrue(GameEngine.isSolvedByWord(answer: "PRIDE AND PREJUDICE", correctGuesses: needed))
+    }
+
+    func test_isPositionRevealed_connectorAlwaysRevealed() {
+        // PRIDE AND PREJUDICE — char at index 6 is 'A' (start of AND).
+        XCTAssertTrue(GameEngine.isPositionRevealed(answer: "PRIDE AND PREJUDICE",
+                                                    position: 6,
+                                                    correctGuesses: [],
+                                                    activeWordIndex: 0))
+    }
+
+    func test_isPositionRevealed_activeWordLetterInGuesses() {
+        // TOY STORY — position 0 ('T') with T guessed, active=0.
+        XCTAssertTrue(GameEngine.isPositionRevealed(answer: "TOY STORY",
+                                                    position: 0,
+                                                    correctGuesses: ["T"],
+                                                    activeWordIndex: 0))
+    }
+
+    func test_isPositionRevealed_futureWordHiddenEvenIfLetterGuessed() {
+        // TOY STORY — position 4 ('T' in STORY) with T guessed, active=0.
+        XCTAssertFalse(GameEngine.isPositionRevealed(answer: "TOY STORY",
+                                                     position: 4,
+                                                     correctGuesses: ["T"],
+                                                     activeWordIndex: 0),
+                       "T in STORY must stay hidden while TOY is the active word")
+    }
+
+    func test_isPositionRevealed_pastWordRevealedWithGuess() {
+        // TOY STORY — position 0 ('T' in TOY) with T guessed, active=1 (advanced).
+        XCTAssertTrue(GameEngine.isPositionRevealed(answer: "TOY STORY",
+                                                    position: 0,
+                                                    correctGuesses: ["T", "O", "Y"],
+                                                    activeWordIndex: 1))
+    }
+}
+```
+
+- [ ] **Step 2: Run to verify fail**
+
+```bash
+cd /Users/rehatchugh/emoji-decode && xcodegen generate
+xcodebuild test -project Pictok.xcodeproj -scheme Pictok \
+  -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' \
+  -only-testing:PictokTests/GameEngineWordByWordTests -quiet
+```
+
+Expected: BUILD FAILS — `GameEngine.wordBreakdown` and friends don't exist yet.
+
+- [ ] **Step 3: Add helpers to `GameEngine.swift`**
+
+Append to `Pictok/Game/GameEngine.swift`:
+
+```swift
+extension GameEngine {
+
+    /// Common English stop/connector words that are auto-revealed at puzzle start
+    /// so the player doesn't have to type them letter by letter.
+    static let connectorWords: Set<String> = [
+        "A", "AN", "AND", "AS", "AT", "BY", "FOR", "IN", "IS", "IT",
+        "OF", "ON", "OR", "TO", "THE"
+    ]
+
+    struct WordBreakdown: Equatable {
+        let words: [String]
+        let connectorIndices: Set<Int>
+    }
+
+    /// Splits the answer into words and identifies which indices are connectors.
+    static func wordBreakdown(answer: String) -> WordBreakdown {
+        let words = answer.split(separator: " ").map(String.init)
+        let connectors = Set(words.enumerated().compactMap { (idx, w) -> Int? in
+            connectorWords.contains(w) ? idx : nil
+        })
+        return WordBreakdown(words: words, connectorIndices: connectors)
+    }
+
+    /// Returns the index of the first non-connector word that isn't fully solved.
+    /// Returns nil when every non-connector word's letters are all in correctGuesses.
+    static func activeWordIndex(answer: String,
+                                correctGuesses: Set<Character>) -> Int? {
+        let bd = wordBreakdown(answer: answer)
+        for (idx, word) in bd.words.enumerated() {
+            if bd.connectorIndices.contains(idx) { continue }
+            let neededLetters = Set(word.filter { $0.isLetter })
+            if !neededLetters.isSubset(of: correctGuesses) {
+                return idx
+            }
+        }
+        return nil
+    }
+
+    /// Whether the given letter appears in the word at `wordIndex` of `answer`.
+    static func isCorrect(letter: Character, inWord wordIndex: Int, of answer: String) -> Bool {
+        let upper = Character(String(letter).uppercased())
+        let bd = wordBreakdown(answer: answer)
+        guard wordIndex < bd.words.count else { return false }
+        return bd.words[wordIndex].contains(upper)
+    }
+
+    /// Word-by-word solve check: the puzzle is solved when every non-connector
+    /// word's letters are all in correctGuesses.
+    static func isSolvedByWord(answer: String, correctGuesses: Set<Character>) -> Bool {
+        return activeWordIndex(answer: answer, correctGuesses: correctGuesses) == nil
+    }
+
+    /// Whether the character at `position` of `answer` should currently be visible.
+    /// Connector-word positions are always revealed; positions in past/current
+    /// words reveal if the letter is in correctGuesses; future-word positions stay hidden.
+    static func isPositionRevealed(answer: String,
+                                   position: Int,
+                                   correctGuesses: Set<Character>,
+                                   activeWordIndex: Int?) -> Bool {
+        let chars = Array(answer)
+        guard position < chars.count else { return false }
+        let ch = chars[position]
+        if !ch.isLetter { return true }  // spaces, punctuation always "revealed"
+
+        // Determine which word index this position belongs to.
+        let bd = wordBreakdown(answer: answer)
+        var charCursor = 0
+        for (idx, word) in bd.words.enumerated() {
+            let wordRange = charCursor..<(charCursor + word.count)
+            if wordRange.contains(position) {
+                // Connectors always shown.
+                if bd.connectorIndices.contains(idx) { return true }
+                // Past + current word: reveal if letter guessed.
+                let active = activeWordIndex ?? bd.words.count
+                if idx <= active && correctGuesses.contains(ch) { return true }
+                return false
+            }
+            charCursor += word.count + 1  // +1 for the space delimiter
+        }
+        return false
+    }
+}
+```
+
+- [ ] **Step 4: Run tests to confirm pass**
+
+```bash
+xcodebuild test -project Pictok.xcodeproj -scheme Pictok \
+  -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' \
+  -only-testing:PictokTests/GameEngineWordByWordTests -quiet
+```
+
+Expected: all 15 new tests pass.
+
+- [ ] **Step 5: Full test suite, then commit**
+
+```bash
+xcodebuild test -project Pictok.xcodeproj -scheme Pictok \
+  -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet
+git -C /Users/rehatchugh/emoji-decode add Pictok/Game/GameEngine.swift \
+  PictokTests/GameEngineWordByWordTests.swift Pictok.xcodeproj
+git -C /Users/rehatchugh/emoji-decode commit -m "Add word-by-word GameEngine helpers (connectors, active word, position reveal)"
+```
+
+---
+
+### Task WBW-2: BlanksView uses word-by-word reveal
+
+**Files:**
+- Modify: `Pictok/Views/Components/BlanksView.swift`
+
+- [ ] **Step 1: Read the current `BlanksView`** to understand the rendering approach.
+
+- [ ] **Step 2: Update the render rule**
+
+Replace the existing per-character render logic with one that uses `GameEngine.isPositionRevealed`. Inputs needed: `answer`, `correctGuesses`, `revealedLetter` (still supported for the hint), `activeWordIndex`.
+
+A reasonable update — calculate `activeWordIndex` once via `GameEngine.activeWordIndex(answer:correctGuesses:)` and then call `GameEngine.isPositionRevealed` per character to decide whether to render the letter or a blank.
+
+The existing API was likely `BlanksView(answer:correctGuesses:revealedLetter:)`. Keep that signature; compute the active word internally. No new parameters needed.
+
+- [ ] **Step 3: Build**
+
+```bash
+xcodebuild build -project Pictok.xcodeproj -scheme Pictok \
+  -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet
+```
+
+- [ ] **Step 4: Commit**
+
+```bash
+git -C /Users/rehatchugh/emoji-decode add Pictok/Views/Components/BlanksView.swift
+git -C /Users/rehatchugh/emoji-decode commit -m "BlanksView: reveal letters word-by-word via active-word index"
+```
+
+---
+
+### Task WBW-3: Daily flow (TodayView) uses word-by-word
+
+**Files:**
+- Modify: `Pictok/Views/TodayView.swift`
+
+In the Daily-puzzle flow, when the player taps a letter:
+
+1. Compute `activeIdx = GameEngine.activeWordIndex(answer: puzzle.answer, correctGuesses: state.todayCorrectGuesses)`
+2. If `activeIdx == nil`, the puzzle is solved — no-op.
+3. Otherwise:
+   - `correct = GameEngine.isCorrect(letter: upper, inWord: activeIdx!, of: puzzle.answer)`
+   - If correct: add to `todayCorrectGuesses`. If `GameEngine.isSolvedByWord(answer: puzzle.answer, correctGuesses: ...)` → mark `todaySolved = true`, bank streak.
+   - If wrong: add to `todayWrongGuesses`. `state.lives -= 1`. If lives ≤ 0 → mark `todayFailed = true`, reset streak.
+
+The existing reveal-letter hint (single letter forced into `todayRevealedLetter`) keeps working: BlanksView will treat the revealed letter as if it were in `correctGuesses` for rendering (existing behavior).
+
+- [ ] **Step 1: Read TodayView's guess handler.**
+- [ ] **Step 2: Replace `GameEngine.isCorrect(letter:in:)` with `GameEngine.isCorrect(letter:inWord:of:)` using the computed `activeIdx`.**
+- [ ] **Step 3: Replace `GameEngine.isSolved(answer:correctGuesses:revealedLetter:)` with `GameEngine.isSolvedByWord(answer:correctGuesses:)`** (note: `revealedLetter` is still applied for rendering, but solve check is via word index per active-word semantics).
+- [ ] **Step 4: Build and run.**
+- [ ] **Step 5: Run all tests; commit.**
+
+```bash
+git -C /Users/rehatchugh/emoji-decode add Pictok/Views/TodayView.swift
+git -C /Users/rehatchugh/emoji-decode commit -m "TodayView Daily flow: switch to word-by-word reveal mechanic"
+```
+
+---
+
+### Task WBW-4: EndlessSession uses word-by-word
+
+**Files:**
+- Modify: `Pictok/Game/EndlessSession.swift`
+- Modify: `PictokTests/EndlessSessionTests.swift` (the wrong-guess test needs updating)
+
+The existing `guess(letter:)` calls `GameEngine.isCorrect(letter:in:)`. Switch to the word-by-word variant:
+
+```swift
+func guess(letter: Character) {
+    guard let puzzle = currentPuzzle, !isSolved, !isFailed else { return }
+    let upper = Character(String(letter).uppercased())
+    if correctGuesses.contains(upper) || wrongGuesses.contains(upper) { return }
+
+    guard let activeIdx = GameEngine.activeWordIndex(answer: puzzle.answer,
+                                                     correctGuesses: correctGuesses) else {
+        // Already solved (shouldn't happen because of the isSolved guard, but safe).
+        return
+    }
+
+    if GameEngine.isCorrect(letter: upper, inWord: activeIdx, of: puzzle.answer) {
+        correctGuesses.insert(upper)
+        if GameEngine.isSolvedByWord(answer: puzzle.answer, correctGuesses: correctGuesses) {
+            isSolved = true
+            recordSolve(id: puzzle.id)
+        }
+    } else {
+        wrongGuesses.insert(upper)
+        hearts -= 1
+        if GameEngine.isFailed(lives: hearts) {
+            isFailed = true
+            recordFail(id: puzzle.id)
+        }
+    }
+}
+```
+
+The existing tests still pass for single-word puzzles ("BEE", "DOG", "CAT"). Add one new test for a multi-word puzzle to cover the new behavior:
+
+```swift
+func test_wrongGuessInCurrentWord_evenIfLetterInLaterWord_decrementsHearts() {
+    // Create a puzzle with multi-word answer where letters in word 2 are NOT in word 1.
+    let multiPuzzle = Puzzle(id: "p_multi", date: "2026-05-28", emoji: "🐝🦴",
+                             answer: "BEE BONE",
+                             category: .brand, subcategory: "t", difficulty: .medium)
+    let allPuzzles = [
+        Puzzle(id: "p1", date: "2026-05-19", emoji: "🐝", answer: "X",
+               category: .brand, subcategory: "t", difficulty: .medium),
+        multiPuzzle
+    ]
+    let store = makeStore()
+    let session = EndlessSession(allPuzzles: allPuzzles,
+                                 store: store,
+                                 today: "2026-05-19")
+    // Force the session onto the multi-word puzzle.
+    // Since both 'p1' and 'p_multi' could be picked, we just guarantee multi-puzzle is the
+    // only eligible one by marking p1 as today's daily (above).
+    XCTAssertEqual(session.currentPuzzle?.id, "p_multi")
+
+    // 'O' is in BONE (word 1) but NOT in BEE (word 0, active). Should cost a heart.
+    session.guess(letter: "O")
+    XCTAssertEqual(session.hearts, 4, "O is not in active word BEE — must cost a heart")
+}
+```
+
+- [ ] **Step 1: Update EndlessSession.guess(letter:)** per the above.
+- [ ] **Step 2: Add the multi-word test.**
+- [ ] **Step 3: Run all tests, ensure full suite green.**
+- [ ] **Step 4: Commit.**
+
+```bash
+git -C /Users/rehatchugh/emoji-decode add Pictok/Game/EndlessSession.swift \
+  PictokTests/EndlessSessionTests.swift
+git -C /Users/rehatchugh/emoji-decode commit -m "EndlessSession: switch to word-by-word reveal mechanic"
+```
+
+---
+
 ## Phase 3 — UI
 
 ### Task 5: `EndlessView` — the auto-queue screen
