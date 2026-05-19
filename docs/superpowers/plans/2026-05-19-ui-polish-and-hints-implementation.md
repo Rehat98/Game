@@ -952,6 +952,287 @@ git -C /Users/rehatchugh/emoji-decode commit -m "EndlessView: slide transition b
 
 ---
 
+## Task 11: Fail celebration — RainEmitter + FailCelebrationView + .fail sound
+
+**Files:**
+- Create: `Pictok/Views/Effects/RainEmitter.swift`
+- Create: `Pictok/Views/Effects/FailCelebrationView.swift`
+- Modify: `Pictok/Game/SoundService.swift`
+
+- [ ] **Step 1: Add `.fail` case to `SoundService.Sound`**
+
+Read `Pictok/Game/SoundService.swift`. Find the `enum Sound: String` declaration. Add a new case:
+
+```swift
+case fail = "wrong"  // reuses wrong.wav for now; replace in Task 29
+```
+
+(If `Sound` is not using string raw values that map to filenames, adapt — the existing `.wrong` case maps to `wrong.wav`. The new `.fail` should map to the same file path so playback works without adding a new audio asset.)
+
+- [ ] **Step 2: Create `RainEmitter.swift`**
+
+Create `Pictok/Views/Effects/RainEmitter.swift`:
+
+```swift
+import SwiftUI
+
+/// Native SwiftUI raindrop emitter. Particles fall straight down with mild
+/// horizontal drift and fade. Used for the fail celebration overlay.
+struct RainEmitter: View {
+    static let totalDuration: TimeInterval = 1.8
+    static let dropCount = 40
+
+    private struct Drop {
+        let originX: Double          // 0..1 normalized
+        let velocityY: Double        // px/s
+        let drift: Double            // small horizontal drift
+        let color: Color
+        let birthTime: TimeInterval  // seconds from start
+        let lifetime: TimeInterval
+    }
+
+    let startDate: Date
+    private let drops: [Drop]
+
+    init(startDate: Date = Date()) {
+        self.startDate = startDate
+        self.drops = Self.generateDrops()
+    }
+
+    private static func generateDrops() -> [Drop] {
+        var ds: [Drop] = []
+        for _ in 0..<dropCount {
+            ds.append(Drop(
+                originX: Double.random(in: 0.05...0.95),
+                velocityY: Double.random(in: 220...340),
+                drift: Double.random(in: -20...20),
+                color: Color.pkBlue.opacity(Double.random(in: 0.5...0.85)),
+                birthTime: Double.random(in: 0..<totalDuration),
+                lifetime: Double.random(in: 1.0...1.4)
+            ))
+        }
+        return ds
+    }
+
+    var body: some View {
+        TimelineView(.animation) { context in
+            Canvas { ctx, size in
+                let now = context.date.timeIntervalSince(startDate)
+                for d in drops {
+                    let age = now - d.birthTime
+                    guard age >= 0, age <= d.lifetime else { continue }
+                    let alpha = 1.0 - (age / d.lifetime)
+                    let x = d.originX * size.width + d.drift * age
+                    let y = d.velocityY * age  // starts at top
+                    // Drop = a slim vertical capsule
+                    let rect = CGRect(x: x - 1.5, y: y, width: 3, height: 10)
+                    ctx.fill(Path(roundedRect: rect, cornerRadius: 1.5),
+                             with: .color(d.color.opacity(alpha)))
+                }
+            }
+        }
+        .allowsHitTesting(false)
+    }
+}
+
+#Preview {
+    ZStack {
+        Color.pkPaper.ignoresSafeArea()
+        RainEmitter()
+    }
+}
+```
+
+- [ ] **Step 3: Create `FailCelebrationView.swift`**
+
+Create `Pictok/Views/Effects/FailCelebrationView.swift`:
+
+```swift
+import SwiftUI
+
+/// 1.8-second fail overlay: gentle rain + "Oops, better luck next time!" text
+/// + sad emoji + answer reveal + fail sound. Mirrors WinCelebrationView for the
+/// loss state.
+struct FailCelebrationView: View {
+    static let totalDuration: TimeInterval = 1.8
+
+    let answer: String
+
+    @State private var emojiScale: CGFloat = 0.5
+    @State private var textOpacity: Double = 0.0
+    @State private var answerOpacity: Double = 0.0
+
+    var body: some View {
+        ZStack {
+            Color.pkPaper.opacity(0.85).ignoresSafeArea()
+
+            RainEmitter()
+
+            VStack(spacing: 16) {
+                Text("😞")
+                    .font(.system(size: 72))
+                    .scaleEffect(emojiScale)
+
+                Text("Oops, better luck next time!")
+                    .font(.pkTitle)
+                    .foregroundStyle(Color.pkInk)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
+                    .opacity(textOpacity)
+
+                Text(answer)
+                    .font(.pkSubtitle)
+                    .foregroundStyle(Color.pkInk)
+                    .opacity(answerOpacity)
+            }
+        }
+        .onAppear {
+            SoundService.shared.play(.fail)
+            withAnimation(.spring(response: 0.45, dampingFraction: 0.6)) {
+                emojiScale = 1.0
+            }
+            withAnimation(.easeIn(duration: 0.3).delay(0.15)) {
+                textOpacity = 1.0
+            }
+            withAnimation(.easeIn(duration: 0.3).delay(0.45)) {
+                answerOpacity = 1.0
+            }
+        }
+    }
+}
+
+#Preview {
+    FailCelebrationView(answer: "WAR AND PEACE")
+}
+```
+
+- [ ] **Step 4: Regenerate Xcode project and build**
+
+```bash
+cd /Users/rehatchugh/emoji-decode && xcodegen generate
+xcodebuild build -project Pictok.xcodeproj -scheme Pictok \
+  -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet
+```
+
+Expected: `BUILD SUCCEEDED`.
+
+- [ ] **Step 5: Run full test suite**
+
+```bash
+xcodebuild test -project Pictok.xcodeproj -scheme Pictok \
+  -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet
+```
+
+Expected: 80 tests pass.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git -C /Users/rehatchugh/emoji-decode add \
+  Pictok/Game/SoundService.swift \
+  Pictok/Views/Effects/RainEmitter.swift \
+  Pictok/Views/Effects/FailCelebrationView.swift \
+  Pictok.xcodeproj
+git -C /Users/rehatchugh/emoji-decode commit -m "Add FailCelebrationView (rain + oops text + sad emoji + .fail sound)"
+```
+
+---
+
+## Task 12: Wire `FailCelebrationView` into both modes' fail flows
+
+**Files:**
+- Modify: `Pictok/Views/EndlessView.swift`
+- Modify: `Pictok/Views/TodayView.swift`
+
+### Part A — EndlessView
+
+Replace the existing text-only fail overlay (`showResult(label: "Answer was X")` + `resultOverlay`) with `FailCelebrationView`.
+
+Add at the top of `EndlessView`:
+
+```swift
+@State private var showFailCelebration: Bool = false
+```
+
+Replace the `.onChange(of: session.isFailed)` block:
+
+```swift
+.onChange(of: session.isFailed) { _, failed in
+    if failed {
+        showFailCelebration = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + FailCelebrationView.totalDuration) {
+            showFailCelebration = false
+            withAnimation(.easeInOut(duration: 0.25)) {
+                session.advance()
+            }
+        }
+    }
+}
+```
+
+In the `body` `ZStack`, add the overlay (in addition to the existing win celebration overlay):
+
+```swift
+if showFailCelebration, let puzzle = session.currentPuzzle {
+    FailCelebrationView(answer: puzzle.answer)
+        .transition(.opacity)
+}
+```
+
+The old `resultOverlay` and the `showResult(label:)` method can be left in place (they still play correctly if called) or removed if confident no callers remain. Recommendation: remove `showResult` and `resultOverlay` since `WinCelebrationView` and `FailCelebrationView` now cover both states.
+
+### Part B — TodayView
+
+Add to `TodayView`:
+
+```swift
+@State private var showFailCelebration: Bool = false
+```
+
+Add an `.onChange(of: store.state.todayFailed)`:
+
+```swift
+.onChange(of: store.state.todayFailed) { _, failed in
+    if failed {
+        showFailCelebration = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + FailCelebrationView.totalDuration) {
+            showFailCelebration = false
+        }
+    }
+}
+```
+
+In the `body` `ZStack`, overlay the celebration (similar to the win overlay):
+
+```swift
+if showFailCelebration, let puzzle = puzzle {
+    FailCelebrationView(answer: puzzle.answer)
+        .transition(.opacity)
+        .zIndex(10)
+}
+```
+
+- [ ] **Step 1: Apply Part A edits to EndlessView**
+- [ ] **Step 2: Apply Part B edits to TodayView**
+- [ ] **Step 3: Remove the now-redundant `.wrong` SoundService call from `TodayView`'s fail path if one exists** — check if `checkEndState` (or wherever `todayFailed = true` is set) plays a `.wrong` sound. If yes, remove that call to avoid double-play with `FailCelebrationView`. Keep the per-letter `.wrong` sound in the keyboard handler.
+- [ ] **Step 4: Build and test**
+
+```bash
+xcodebuild test -project Pictok.xcodeproj -scheme Pictok \
+  -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet
+```
+
+Expected: 80 tests pass.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git -C /Users/rehatchugh/emoji-decode add Pictok/Views/EndlessView.swift Pictok/Views/TodayView.swift
+git -C /Users/rehatchugh/emoji-decode commit -m "Wire FailCelebrationView into Daily + Endless fail flows"
+```
+
+---
+
 ## Task 10: Simulator smoke test
 
 **Files:** none — runtime verification only.
