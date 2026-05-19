@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0173E40D3747DA34FF4A2920 /* EndlessSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2505F793D42F5DF88BA4465 /* EndlessSelectorTests.swift */; };
 		069B2368FB786C8F4E653CDB /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1703FB8EEBE690DE896C960 /* UserState.swift */; };
 		07AC6742D8DAE2B6D55806B6 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C54800A38A92625234739AC /* TodayView.swift */; };
 		146413CC0AD4FD648B7CA9EF /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3A12B2EF436D47AC853B5B /* Puzzle.swift */; };
+		173A6C6A7F67E1C4C7580F2A /* EndlessSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4618C9E2657EAFB2B5B01B0 /* EndlessSelector.swift */; };
 		1BB4EE9401AB3E2D4135FE5B /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AD70635A5B9CABD91C573 /* HowToPlayView.swift */; };
 		1EECD660052C3A436F5375A1 /* wrong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AF36FFE705EEAEFE0A36CB7 /* wrong.wav */; };
 		21799DCFD49E3A24B9B54D4B /* CategoryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5CFDC62B7B51056546E265 /* CategoryChip.swift */; };
@@ -82,6 +84,8 @@
 		8F3A12B2EF436D47AC853B5B /* Puzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
 		9E3E8D1E8A1C605C85FE2844 /* BlanksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlanksView.swift; sourceTree = "<group>"; };
 		9EF3D883269ACDFF313C2543 /* HapticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsService.swift; sourceTree = "<group>"; };
+		A2505F793D42F5DF88BA4465 /* EndlessSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSelectorTests.swift; sourceTree = "<group>"; };
+		A4618C9E2657EAFB2B5B01B0 /* EndlessSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSelector.swift; sourceTree = "<group>"; };
 		A6BDC4CC64BB64F51860B7AD /* UserStateStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateStoreTests.swift; sourceTree = "<group>"; };
 		AC27D0BF336D5BAB1C75355C /* HeartsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartsRow.swift; sourceTree = "<group>"; };
 		AE8DC8175E35A48E034D43B2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 		9903709CF2A0379102DDEE1E /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				A4618C9E2657EAFB2B5B01B0 /* EndlessSelector.swift */,
 				70602BBD41448CC070305C00 /* GameEngine.swift */,
 				9EF3D883269ACDFF313C2543 /* HapticsService.swift */,
 				71BA6915DCCA92F60FE8D05E /* NotificationScheduler.swift */,
@@ -209,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				709A2440EE081AB0641A131D /* Resources */,
+				A2505F793D42F5DF88BA4465 /* EndlessSelectorTests.swift */,
 				8A6AC4A474E65EE9832F5126 /* GameEngineTests.swift */,
 				595A0B6F4CE708A3114C0523 /* NotificationSchedulerTests.swift */,
 				003CB8564184917BE05D66CB /* PuzzleDecodingTests.swift */,
@@ -331,6 +337,7 @@
 				62FC212BE5236D99CF37DACC /* BlanksView.swift in Sources */,
 				21799DCFD49E3A24B9B54D4B /* CategoryChip.swift in Sources */,
 				5DBE77C491F4D855C3447AB2 /* EmojiHeader.swift in Sources */,
+				173A6C6A7F67E1C4C7580F2A /* EndlessSelector.swift in Sources */,
 				F65B1E044B023BC75C9C3388 /* GameEngine.swift in Sources */,
 				521F5012DAE5301AE6DD95AC /* HapticsService.swift in Sources */,
 				2181CF102C43333F8F7952C3 /* HeartsRow.swift in Sources */,
@@ -357,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0173E40D3747DA34FF4A2920 /* EndlessSelectorTests.swift in Sources */,
 				44013AD409B1DFEB6F17BD94 /* GameEngineTests.swift in Sources */,
 				7B3F7C02449E6AA0D35C2BCF /* NotificationSchedulerTests.swift in Sources */,
 				82414934CE6E36FBA6CD91C4 /* PuzzleDecodingTests.swift in Sources */,
