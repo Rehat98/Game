@@ -6,37 +6,81 @@ struct StatsView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
-                Text("Stats").font(.pkTitle).padding(.top, 12)
+            VStack(alignment: .leading, spacing: 28) {
+                Text("Stats")
+                    .font(.pkTitle)
+                    .padding(.top, 8)
 
-                HStack(spacing: 16) {
-                    statTile("🔥 Streak", "\(store.state.currentStreak)")
-                    statTile("Best", "\(store.state.longestStreak)")
-                }
-                HStack(spacing: 16) {
-                    statTile("Solved", "\(store.state.totalSolved)")
-                    statTile("Win %", winPercentText)
-                }
-                HStack(spacing: 16) {
-                    statTile("Total solved", "\(store.state.lifetimeSolvedCount)")
+                section("Current run") {
+                    HStack(spacing: 12) {
+                        statTile(label: "Streak",
+                                 value: "\(store.state.currentStreak)",
+                                 prefix: "🔥",
+                                 accent: .pkRed)
+                        statTile(label: "Best",
+                                 value: "\(store.state.longestStreak)",
+                                 prefix: nil,
+                                 accent: .pkInk)
+                    }
                 }
 
-                Text("Guess distribution").font(.pkSubtitle).padding(.top)
-                distributionChart
+                section("Lifetime") {
+                    HStack(spacing: 12) {
+                        statTile(label: "Solved",
+                                 value: "\(store.state.lifetimeSolvedCount)",
+                                 prefix: nil,
+                                 accent: .pkGreen)
+                        statTile(label: "Win %",
+                                 value: winPercentText,
+                                 prefix: nil,
+                                 accent: .pkBlue)
+                    }
+                }
+
+                section("Guess distribution") {
+                    distributionChart
+                }
             }
-            .padding()
+            .padding(.horizontal, 20)
+            .padding(.bottom, 24)
         }
         .background(Color.pkPaper)
     }
 
-    private func statTile(_ label: String, _ value: String) -> some View {
-        VStack(spacing: 4) {
-            Text(value).font(.pkTitle)
-            Text(label).font(.pkBody).foregroundStyle(.gray)
+    @ViewBuilder
+    private func section<Content: View>(_ title: String,
+                                        @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title.uppercased())
+                .font(.system(size: 12, weight: .heavy, design: .rounded))
+                .tracking(1.2)
+                .foregroundStyle(Color.pkInk.opacity(0.55))
+            content()
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 18)
-        .sticker(fill: .white, cornerRadius: 14, strokeWidth: 3, shadowOffset: 4)
+    }
+
+    private func statTile(label: String,
+                          value: String,
+                          prefix: String?,
+                          accent: Color) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                if let prefix {
+                    Text(prefix).font(.system(size: 22))
+                }
+                Text(value)
+                    .font(.system(size: 36, weight: .black, design: .rounded))
+                    .foregroundStyle(accent)
+            }
+            Text(label.uppercased())
+                .font(.system(size: 11, weight: .heavy, design: .rounded))
+                .tracking(1.0)
+                .foregroundStyle(Color.pkInk.opacity(0.55))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+        .sticker(fill: .white, cornerRadius: 10, strokeWidth: 1.5, shadowOffset: 2)
     }
 
     private var winPercentText: String {
@@ -54,14 +98,23 @@ struct StatsView: View {
             ForEach(buckets, id: \.0) { bucket in
                 BarMark(
                     x: .value("Wrong", "\(bucket.0)"),
-                    y: .value("Count", bucket.1)
+                    y: .value("Count", bucket.1),
+                    width: .fixed(18)
                 )
-                .foregroundStyle(Color.pkGreen)
-                .cornerRadius(4)
+                .foregroundStyle(Color.pkGreen.opacity(0.85))
+                .cornerRadius(3)
             }
         }
-        .frame(height: 180)
-        .padding()
-        .sticker(fill: .white, cornerRadius: 14, strokeWidth: 3, shadowOffset: 4)
+        .chartYAxis(.hidden)
+        .chartXAxis {
+            AxisMarks(values: .automatic) { _ in
+                AxisValueLabel()
+                    .font(.system(size: 11, weight: .semibold, design: .rounded))
+            }
+        }
+        .frame(height: 160)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .sticker(fill: .white, cornerRadius: 10, strokeWidth: 1.5, shadowOffset: 2)
     }
 }
