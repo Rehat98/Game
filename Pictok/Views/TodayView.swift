@@ -118,19 +118,36 @@ struct TodayView: View {
 
     private func handleGuess(_ letter: Character, in puzzle: Puzzle) {
         guard !store.state.todaySolved, !store.state.todayFailed else { return }
-        let correct = GameEngine.isCorrect(letter: letter, in: puzzle)
+        let upper = Character(String(letter).uppercased())
+        let known = knownLetters
+        guard let activeIdx = GameEngine.activeWordIndex(answer: puzzle.answer,
+                                                         correctGuesses: known) else {
+            // Already solved word-by-word — no-op.
+            return
+        }
+        let correct = GameEngine.isCorrect(letter: upper,
+                                           inWord: activeIdx,
+                                           of: puzzle.answer)
         if correct {
-            store.state.todayCorrectGuesses.append(letter)
+            store.state.todayCorrectGuesses.append(upper)
             HapticsService.correct()
             SoundService.shared.play(.correct)
         } else {
-            store.state.todayWrongGuesses.append(letter)
+            store.state.todayWrongGuesses.append(upper)
             store.state.lives -= 1
             HapticsService.wrong()
             SoundService.shared.play(.wrong)
         }
         checkEndState(for: puzzle)
         store.save()
+    }
+
+    /// Merge of correctGuesses and the hint-revealed letter (if any), used as the
+    /// "known letters" input for word-by-word active-word and solve-check logic.
+    private var knownLetters: Set<Character> {
+        var set = Set(store.state.todayCorrectGuesses)
+        if let r = store.state.todayRevealedLetter { set.insert(r) }
+        return set
     }
 
     private func useHint(_ hint: HintType) {
@@ -153,10 +170,8 @@ struct TodayView: View {
 
     private func checkEndState(for puzzle: Puzzle?) {
         guard let puzzle else { return }
-        let revealed = Set(store.state.todayCorrectGuesses)
-        if GameEngine.isSolved(answer: puzzle.answer,
-                               correctGuesses: revealed,
-                               revealedLetter: store.state.todayRevealedLetter) {
+        if GameEngine.isSolvedByWord(answer: puzzle.answer,
+                                     correctGuesses: knownLetters) {
             store.state.todaySolved = true
             applySolveSideEffects(for: puzzle)
             HapticsService.solved()
