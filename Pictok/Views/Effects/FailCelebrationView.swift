@@ -1,10 +1,10 @@
 import SwiftUI
 
-/// 1.8-second fail overlay: gentle rain + "Oops, better luck next time!" text
+/// 2.8-second fail overlay: gentle rain + "Oops, better luck next time!" text
 /// + sad emoji + answer reveal + fail sound. Mirrors WinCelebrationView for the
-/// loss state.
+/// loss state but lingers longer so the player can read the answer.
 struct FailCelebrationView: View {
-    static let totalDuration: TimeInterval = 1.8
+    static let totalDuration: TimeInterval = 2.8
 
     let answer: String
 

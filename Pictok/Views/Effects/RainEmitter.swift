@@ -3,7 +3,7 @@ import SwiftUI
 /// Native SwiftUI raindrop emitter. Particles fall straight down with mild
 /// horizontal drift and fade. Used for the fail celebration overlay.
 struct RainEmitter: View {
-    static let totalDuration: TimeInterval = 1.8
+    static let totalDuration: TimeInterval = 2.8
     static let dropCount = 40
 
     private struct Drop {
