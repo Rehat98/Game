@@ -24,6 +24,7 @@
 		4ADA9B62C7A2A77AC499B06F /* StickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3153578C4A7975ABCAE0CC /* StickerButton.swift */; };
 		4C8E2273340B81ABD01398A0 /* UserStateCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC4A51E89CCD6F4ECB4AC9 /* UserStateCodableTests.swift */; };
 		521F5012DAE5301AE6DD95AC /* HapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3D883269ACDFF313C2543 /* HapticsService.swift */; };
+		549BCD9778348B71485A8419 /* HintButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4290CB9A6AD921D22B2F7BDF /* HintButton.swift */; };
 		54B46C73462E6DD6279E7DC0 /* puzzles.json in Resources */ = {isa = PBXBuildFile; fileRef = F792ADC96F923C0EC036126D /* puzzles.json */; };
 		5B1C27E92963089DDDF493C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D45F1328DC783D4946DBCB2 /* Assets.xcassets */; };
 		5C1E9B1B0089AACBB5174A25 /* ShareCardBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51697E53D2557DDCCFAB933D /* ShareCardBuilderTests.swift */; };
@@ -75,6 +76,7 @@
 		2D5CFDC62B7B51056546E265 /* CategoryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChip.swift; sourceTree = "<group>"; };
 		33334A44606ACBCB19CA2627 /* UserStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateStore.swift; sourceTree = "<group>"; };
 		413C0E6587F361FB98785EC3 /* NotificationPermissionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionSheet.swift; sourceTree = "<group>"; };
+		4290CB9A6AD921D22B2F7BDF /* HintButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintButton.swift; sourceTree = "<group>"; };
 		51697E53D2557DDCCFAB933D /* ShareCardBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardBuilderTests.swift; sourceTree = "<group>"; };
 		57133764C77FB13F6578F081 /* PuzzleLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLoaderTests.swift; sourceTree = "<group>"; };
 		5950DE50423D9B8518D25C03 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				2D5CFDC62B7B51056546E265 /* CategoryChip.swift */,
 				0CC6517C4105EA1996FA749A /* EmojiHeader.swift */,
 				AC27D0BF336D5BAB1C75355C /* HeartsRow.swift */,
+				4290CB9A6AD921D22B2F7BDF /* HintButton.swift */,
 				5950DE50423D9B8518D25C03 /* KeyboardView.swift */,
 				0C3153578C4A7975ABCAE0CC /* StickerButton.swift */,
 			);
@@ -370,6 +373,7 @@
 				F65B1E044B023BC75C9C3388 /* GameEngine.swift in Sources */,
 				521F5012DAE5301AE6DD95AC /* HapticsService.swift in Sources */,
 				2181CF102C43333F8F7952C3 /* HeartsRow.swift in Sources */,
+				549BCD9778348B71485A8419 /* HintButton.swift in Sources */,
 				1BB4EE9401AB3E2D4135FE5B /* HowToPlayView.swift in Sources */,
 				2FA8E5BA7BCD741C929B06D3 /* KeyboardView.swift in Sources */,
 				600048ECA507BCAE93F542B2 /* NotificationPermissionSheet.swift in Sources */,

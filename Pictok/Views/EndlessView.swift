@@ -48,6 +48,14 @@ struct EndlessView: View {
                 BlanksView(answer: puzzle.answer,
                            correctGuesses: session.correctGuesses,
                            revealedLetter: nil)
+                HStack {
+                    Spacer()
+                    HintButton(
+                        isEnabled: !session.hintUsedThisPuzzle && !session.isSolved && !session.isFailed,
+                        action: { session.useHint() }
+                    )
+                }
+                .padding(.horizontal, 8)
                 Spacer()
                 KeyboardView(guessed: session.correctGuesses.union(session.wrongGuesses)) { letter in
                     session.guess(letter: letter)
