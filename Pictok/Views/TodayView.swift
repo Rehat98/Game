@@ -23,7 +23,7 @@ struct TodayView: View {
                     Text("No puzzle for today — check back tomorrow.")
                         .font(.pkSubtitle)
                         .multilineTextAlignment(.center)
-                    StickerButton(title: "Play Endless", icon: "▶️", fill: .pkGreen) {
+                    StickerButton(title: "Continue Playing", icon: "▶️", fill: .pkGreen) {
                         onPlayEndless()
                     }
                     .padding(.top, 12)
@@ -56,7 +56,7 @@ struct TodayView: View {
             KeyboardView(guessed: guessedLetters) { letter in
                 handleGuess(letter, in: puzzle)
             }
-            StickerButton(title: "Play Endless", icon: "▶️", fill: .pkGreen) {
+            StickerButton(title: "Continue Playing", icon: "▶️", fill: .pkGreen) {
                 onPlayEndless()
             }
             .padding(.top, 12)
