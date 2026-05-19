@@ -109,6 +109,7 @@ struct TodayView: View {
         store.state.todayRevealedLetter = nil
         store.state.todaySolved = false
         store.state.todayFailed = false
+        store.state.lives = 5
     }
 
     private func handleGuess(_ letter: Character, in puzzle: Puzzle) {
