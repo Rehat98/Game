@@ -34,6 +34,14 @@ struct UserState: Codable, Equatable {
     var hasEverSolved: Bool
     var hasAskedForNotificationPermission: Bool
 
+    // Cumulative play history (Daily + Endless)
+    var solvedPuzzleIds: Set<String>
+    var failedPuzzleIds: Set<String>
+    var lifetimeSolvedCount: Int
+
+    // Endless dedup ring buffer (last 5 picks)
+    var recentEndlessIds: [String]
+
     static func fresh(at now: Date) -> UserState {
         UserState(
             currentStreak: 0,
@@ -53,7 +61,11 @@ struct UserState: Codable, Equatable {
             todaySolved: false,
             todayFailed: false,
             hasEverSolved: false,
-            hasAskedForNotificationPermission: false
+            hasAskedForNotificationPermission: false,
+            solvedPuzzleIds: [],
+            failedPuzzleIds: [],
+            lifetimeSolvedCount: 0,
+            recentEndlessIds: []
         )
     }
 }
@@ -67,6 +79,7 @@ extension UserState {
         case todayPuzzleId, todayWrongGuesses, todayCorrectGuesses
         case todayHintUsed, todayRevealedLetter, todaySolved, todayFailed
         case hasEverSolved, hasAskedForNotificationPermission
+        case solvedPuzzleIds, failedPuzzleIds, lifetimeSolvedCount, recentEndlessIds
     }
 
     init(from decoder: Decoder) throws {
@@ -79,7 +92,9 @@ extension UserState {
         totalPlayed             = try c.decode(Int.self, forKey: .totalPlayed)
         guessDistribution       = try c.decode([Int: Int].self, forKey: .guessDistribution)
         lives                   = try c.decode(Int.self, forKey: .lives)
-        livesLastRefilledAt     = try c.decode(Date.self, forKey: .livesLastRefilledAt)
+        // Tolerate legacy/foreign date encodings (e.g. ISO-8601 strings); the field
+        // is being phased out in Task 2 of the endless-mode plan.
+        livesLastRefilledAt     = (try? c.decodeIfPresent(Date.self, forKey: .livesLastRefilledAt)) ?? Date()
         todayPuzzleId           = try c.decodeIfPresent(String.self, forKey: .todayPuzzleId)
 
         let wrongStrings        = try c.decode([String].self, forKey: .todayWrongGuesses)
@@ -97,6 +112,10 @@ extension UserState {
         todayFailed             = try c.decode(Bool.self, forKey: .todayFailed)
         hasEverSolved           = try c.decodeIfPresent(Bool.self, forKey: .hasEverSolved) ?? false
         hasAskedForNotificationPermission = try c.decodeIfPresent(Bool.self, forKey: .hasAskedForNotificationPermission) ?? false
+        solvedPuzzleIds        = try c.decodeIfPresent(Set<String>.self, forKey: .solvedPuzzleIds) ?? []
+        failedPuzzleIds        = try c.decodeIfPresent(Set<String>.self, forKey: .failedPuzzleIds) ?? []
+        lifetimeSolvedCount    = try c.decodeIfPresent(Int.self, forKey: .lifetimeSolvedCount) ?? 0
+        recentEndlessIds       = try c.decodeIfPresent([String].self, forKey: .recentEndlessIds) ?? []
     }
 
     func encode(to encoder: Encoder) throws {
@@ -119,5 +138,9 @@ extension UserState {
         try c.encode(todayFailed,            forKey: .todayFailed)
         try c.encode(hasEverSolved,          forKey: .hasEverSolved)
         try c.encode(hasAskedForNotificationPermission, forKey: .hasAskedForNotificationPermission)
+        try c.encode(solvedPuzzleIds,     forKey: .solvedPuzzleIds)
+        try c.encode(failedPuzzleIds,     forKey: .failedPuzzleIds)
+        try c.encode(lifetimeSolvedCount, forKey: .lifetimeSolvedCount)
+        try c.encode(recentEndlessIds,    forKey: .recentEndlessIds)
     }
 }

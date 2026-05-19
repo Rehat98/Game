@@ -20,6 +20,7 @@
 		4ADA9B62C7A2A77AC499B06F /* StickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3153578C4A7975ABCAE0CC /* StickerButton.swift */; };
 		4C8E2273340B81ABD01398A0 /* UserStateCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC4A51E89CCD6F4ECB4AC9 /* UserStateCodableTests.swift */; };
 		521F5012DAE5301AE6DD95AC /* HapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3D883269ACDFF313C2543 /* HapticsService.swift */; };
+		54B46C73462E6DD6279E7DC0 /* puzzles.json in Resources */ = {isa = PBXBuildFile; fileRef = F792ADC96F923C0EC036126D /* puzzles.json */; };
 		5B1C27E92963089DDDF493C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D45F1328DC783D4946DBCB2 /* Assets.xcassets */; };
 		5C1E9B1B0089AACBB5174A25 /* ShareCardBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51697E53D2557DDCCFAB933D /* ShareCardBuilderTests.swift */; };
 		5DBE77C491F4D855C3447AB2 /* EmojiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6517C4105EA1996FA749A /* EmojiHeader.swift */; };
@@ -31,6 +32,7 @@
 		8F32B3FEC94BC5D6EEC83FB0 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE69DC4F410F20449AB55464 /* StatsView.swift */; };
 		993B68AEE1B7227CBCAAD048 /* SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05028FD518A160175B3AF316 /* SoundService.swift */; };
 		99A09D1492EC6E0160F21F22 /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = D317115F4C77FC1155F3BF13 /* correct.wav */; };
+		A2330B67A365CB46FF09704D /* UserStateMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D028777F6BC1AE088C73016D /* UserStateMigrationTests.swift */; };
 		A30656A04C6E96BC61CEF55F /* test-puzzles.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E30CB7F4E3606B665F8EC8A /* test-puzzles.json */; };
 		A6DACC4B4EDC68392FD82D08 /* ShareCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF40436B6B5C44CC58037435 /* ShareCardBuilder.swift */; };
 		AA617127D6B9EEE3C9886E54 /* ResultSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC22EE038406BC101D95FF1 /* ResultSheet.swift */; };
@@ -85,11 +87,13 @@
 		AE8DC8175E35A48E034D43B2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		AEDDCDEC38190D3BC62F57C6 /* Pictok.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Pictok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAC22EE038406BC101D95FF1 /* ResultSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSheet.swift; sourceTree = "<group>"; };
+		D028777F6BC1AE088C73016D /* UserStateMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateMigrationTests.swift; sourceTree = "<group>"; };
 		D317115F4C77FC1155F3BF13 /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
 		D66D81E61B59A7FA3AD074BF /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		EE69DC4F410F20449AB55464 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		EF40436B6B5C44CC58037435 /* ShareCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardBuilder.swift; sourceTree = "<group>"; };
 		F1703FB8EEBE690DE896C960 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
+		F792ADC96F923C0EC036126D /* puzzles.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = puzzles.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -138,6 +142,7 @@
 			children = (
 				62489DC1AA56F67148E49AF7 /* Sounds */,
 				6D45F1328DC783D4946DBCB2 /* Assets.xcassets */,
+				F792ADC96F923C0EC036126D /* puzzles.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 				57133764C77FB13F6578F081 /* PuzzleLoaderTests.swift */,
 				51697E53D2557DDCCFAB933D /* ShareCardBuilderTests.swift */,
 				0AAC4A51E89CCD6F4ECB4AC9 /* UserStateCodableTests.swift */,
+				D028777F6BC1AE088C73016D /* UserStateMigrationTests.swift */,
 				A6BDC4CC64BB64F51860B7AD /* UserStateStoreTests.swift */,
 			);
 			path = PictokTests;
@@ -309,6 +315,7 @@
 			files = (
 				5B1C27E92963089DDDF493C9 /* Assets.xcassets in Resources */,
 				99A09D1492EC6E0160F21F22 /* correct.wav in Resources */,
+				54B46C73462E6DD6279E7DC0 /* puzzles.json in Resources */,
 				C8B70E4449443703508BE272 /* win.wav in Resources */,
 				1EECD660052C3A436F5375A1 /* wrong.wav in Resources */,
 			);
@@ -356,6 +363,7 @@
 				FB9BFF0F373AAB11B0A29537 /* PuzzleLoaderTests.swift in Sources */,
 				5C1E9B1B0089AACBB5174A25 /* ShareCardBuilderTests.swift in Sources */,
 				4C8E2273340B81ABD01398A0 /* UserStateCodableTests.swift in Sources */,
+				A2330B67A365CB46FF09704D /* UserStateMigrationTests.swift in Sources */,
 				26D04137E41B70F10B2F7D13 /* UserStateStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
