@@ -48,6 +48,7 @@
 		D331FDFBEF4FF39710E1652A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8DC8175E35A48E034D43B2 /* Theme.swift */; };
 		E666C0E632706999518F4001 /* UserStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A44606ACBCB19CA2627 /* UserStateStore.swift */; };
 		F65B1E044B023BC75C9C3388 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70602BBD41448CC070305C00 /* GameEngine.swift */; };
+		F699FD0E3F00F620207674B3 /* WinCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDACBE0B8380D8CF09D3084 /* WinCelebrationView.swift */; };
 		F90ED87F4D329EE1C6A75B46 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BA6915DCCA92F60FE8D05E /* NotificationScheduler.swift */; };
 		FB9BFF0F373AAB11B0A29537 /* PuzzleLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57133764C77FB13F6578F081 /* PuzzleLoaderTests.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,7 @@
 		5950DE50423D9B8518D25C03 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		595A0B6F4CE708A3114C0523 /* NotificationSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSchedulerTests.swift; sourceTree = "<group>"; };
 		6D45F1328DC783D4946DBCB2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6DDACBE0B8380D8CF09D3084 /* WinCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinCelebrationView.swift; sourceTree = "<group>"; };
 		70602BBD41448CC070305C00 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		71BA6915DCCA92F60FE8D05E /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		7AF36FFE705EEAEFE0A36CB7 /* wrong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wrong.wav; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				AABD7922CDA9DB2F79D874D5 /* FireworksEmitter.swift */,
+				6DDACBE0B8380D8CF09D3084 /* WinCelebrationView.swift */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				07AC6742D8DAE2B6D55806B6 /* TodayView.swift in Sources */,
 				069B2368FB786C8F4E653CDB /* UserState.swift in Sources */,
 				E666C0E632706999518F4001 /* UserStateStore.swift in Sources */,
+				F699FD0E3F00F620207674B3 /* WinCelebrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
