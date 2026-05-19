@@ -3,14 +3,13 @@ import AVFoundation
 enum Sound: String {
     case correct, wrong, win, fail
 
-    /// Filename (without extension) of the .wav backing this sound. `.fail`
-    /// currently reuses `wrong.wav`; replace with a dedicated asset in Task 29.
+    /// Filename (without extension) of the .wav backing this sound.
     var filename: String {
         switch self {
         case .correct: return "correct"
         case .wrong:   return "wrong"
         case .win:     return "win"
-        case .fail:    return "wrong"
+        case .fail:    return "fail"
         }
     }
 }

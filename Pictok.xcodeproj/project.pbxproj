@@ -48,6 +48,7 @@
 		C8B70E4449443703508BE272 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = D66D81E61B59A7FA3AD074BF /* win.wav */; };
 		D11E875F1C3BEEA2A6013823 /* FireworksEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABD7922CDA9DB2F79D874D5 /* FireworksEmitter.swift */; };
 		D331FDFBEF4FF39710E1652A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8DC8175E35A48E034D43B2 /* Theme.swift */; };
+		D90C7BEA895520B75E70C9B9 /* fail.wav in Resources */ = {isa = PBXBuildFile; fileRef = 670E8A52CC4C28A1F326FF5C /* fail.wav */; };
 		E666C0E632706999518F4001 /* UserStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A44606ACBCB19CA2627 /* UserStateStore.swift */; };
 		F192DAD970CF00148F953623 /* FailCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416574E86B8B462930D050B5 /* FailCelebrationView.swift */; };
 		F65B1E044B023BC75C9C3388 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70602BBD41448CC070305C00 /* GameEngine.swift */; };
@@ -84,6 +85,7 @@
 		57133764C77FB13F6578F081 /* PuzzleLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLoaderTests.swift; sourceTree = "<group>"; };
 		5950DE50423D9B8518D25C03 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		595A0B6F4CE708A3114C0523 /* NotificationSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSchedulerTests.swift; sourceTree = "<group>"; };
+		670E8A52CC4C28A1F326FF5C /* fail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fail.wav; sourceTree = "<group>"; };
 		6D45F1328DC783D4946DBCB2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DDACBE0B8380D8CF09D3084 /* WinCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinCelebrationView.swift; sourceTree = "<group>"; };
 		70602BBD41448CC070305C00 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				D317115F4C77FC1155F3BF13 /* correct.wav */,
+				670E8A52CC4C28A1F326FF5C /* fail.wav */,
 				D66D81E61B59A7FA3AD074BF /* win.wav */,
 				7AF36FFE705EEAEFE0A36CB7 /* wrong.wav */,
 			);
@@ -356,6 +359,7 @@
 			files = (
 				5B1C27E92963089DDDF493C9 /* Assets.xcassets in Resources */,
 				99A09D1492EC6E0160F21F22 /* correct.wav in Resources */,
+				D90C7BEA895520B75E70C9B9 /* fail.wav in Resources */,
 				54B46C73462E6DD6279E7DC0 /* puzzles.json in Resources */,
 				C8B70E4449443703508BE272 /* win.wav in Resources */,
 				1EECD660052C3A436F5375A1 /* wrong.wav in Resources */,
