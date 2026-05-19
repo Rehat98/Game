@@ -4,9 +4,8 @@ struct EndlessView: View {
     @State var session: EndlessSession
     @Environment(\.dismiss) private var dismiss
 
-    @State private var showResultOverlay = false
-    @State private var resultLabel: String = ""
     @State private var showWinCelebration: Bool = false
+    @State private var showFailCelebration: Bool = false
 
     var body: some View {
         ZStack {
@@ -16,8 +15,8 @@ struct EndlessView: View {
                 WinCelebrationView(answer: puzzle.answer)
                     .transition(.opacity)
             }
-            if showResultOverlay {
-                resultOverlay
+            if showFailCelebration, let puzzle = session.currentPuzzle {
+                FailCelebrationView(answer: puzzle.answer)
                     .transition(.opacity)
             }
         }
@@ -33,8 +32,14 @@ struct EndlessView: View {
             }
         }
         .onChange(of: session.isFailed) { _, failed in
-            if failed, let puzzle = session.currentPuzzle {
-                showResult(label: "Answer was \(puzzle.answer)")
+            if failed {
+                showFailCelebration = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + FailCelebrationView.totalDuration) {
+                    showFailCelebration = false
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        session.advance()
+                    }
+                }
             }
         }
     }
@@ -94,31 +99,6 @@ struct EndlessView: View {
                     .foregroundStyle(Color.pkInk)
             }
             Spacer()
-        }
-    }
-
-    private var resultOverlay: some View {
-        VStack(spacing: 12) {
-            Text(resultLabel)
-                .font(.pkTitle)
-                .foregroundStyle(Color.pkInk)
-            ProgressView()
-        }
-        .padding(28)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.pkPaper.opacity(0.95))
-        )
-    }
-
-    private func showResult(label: String) {
-        resultLabel = label
-        withAnimation { showResultOverlay = true }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            withAnimation { showResultOverlay = false }
-            withAnimation(.easeInOut(duration: 0.25)) {
-                session.advance()
-            }
         }
     }
 }

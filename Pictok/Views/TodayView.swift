@@ -12,6 +12,7 @@ struct TodayView: View {
     @State private var showHowToPlay = false
     @State private var showPermissionPrompt = false
     @State private var showWinCelebration: Bool = false
+    @State private var showFailCelebration: Bool = false
 
     var body: some View {
         ZStack {
@@ -37,12 +38,26 @@ struct TodayView: View {
                     .transition(.opacity)
                     .zIndex(10)
             }
+
+            if showFailCelebration, let puzzle {
+                FailCelebrationView(answer: puzzle.answer)
+                    .transition(.opacity)
+                    .zIndex(10)
+            }
         }
         .onChange(of: store.state.todaySolved) { _, solved in
             if solved {
                 showWinCelebration = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + WinCelebrationView.totalDuration) {
                     showWinCelebration = false
+                }
+            }
+        }
+        .onChange(of: store.state.todayFailed) { _, failed in
+            if failed {
+                showFailCelebration = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + FailCelebrationView.totalDuration) {
+                    showFailCelebration = false
                 }
             }
         }
