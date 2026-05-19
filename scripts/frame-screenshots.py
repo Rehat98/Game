@@ -23,12 +23,13 @@ REPO = Path(__file__).resolve().parents[1]
 SRC_DIR = REPO / "docs" / "launch" / "screenshots"
 OUT_DIR = SRC_DIR / "framed"
 
+CANVAS_PADDING = 90   # px white margin around the device on all sides
 BEZEL_PX = 14         # black device edge thickness
 SCREEN_CORNER = 60    # px corner radius for the screen edge
 BEZEL_CORNER = 74     # px corner radius for the outer black bezel (screen + bezel)
-SHADOW_BLUR = 32      # px gaussian blur for drop shadow
-SHADOW_OFFSET = 16    # px Y offset for drop shadow
-SHADOW_OPACITY = 80   # 0-255
+SHADOW_BLUR = 36      # px gaussian blur for drop shadow
+SHADOW_OFFSET = 22    # px Y offset for drop shadow
+SHADOW_OPACITY = 90   # 0-255
 BG_COLOR = (255, 255, 255, 255)   # white — App-Store-marketing standard
 BEZEL_COLOR = (16, 16, 16, 255)    # near-black device edge
 
@@ -45,9 +46,11 @@ def frame_one(src_path: Path, dst_path: Path) -> None:
     screen = Image.open(src_path).convert("RGBA")
     canvas_w, canvas_h = screen.size
 
-    # Scale screen down to leave room for the bezel inside the canvas.
-    inner_w = canvas_w - 2 * BEZEL_PX
-    inner_h = canvas_h - 2 * BEZEL_PX
+    # The device sits inset by CANVAS_PADDING with the bezel inside that.
+    device_w = canvas_w - 2 * CANVAS_PADDING
+    device_h = canvas_h - 2 * CANVAS_PADDING
+    inner_w = device_w - 2 * BEZEL_PX
+    inner_h = device_h - 2 * BEZEL_PX
     screen_scaled = screen.resize((inner_w, inner_h), Image.LANCZOS)
 
     # Apply rounded corners to the scaled screen content.
@@ -55,36 +58,37 @@ def frame_one(src_path: Path, dst_path: Path) -> None:
     rounded_screen = Image.new("RGBA", (inner_w, inner_h), (0, 0, 0, 0))
     rounded_screen.paste(screen_scaled, (0, 0), screen_mask)
 
-    # Build the black bezel as a rounded rectangle.
-    bezel_layer = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))
+    # Build the black bezel as a rounded rectangle at device size.
+    bezel_layer = Image.new("RGBA", (device_w, device_h), (0, 0, 0, 0))
     bezel_draw = ImageDraw.Draw(bezel_layer)
     bezel_draw.rounded_rectangle(
-        (0, 0, canvas_w - 1, canvas_h - 1),
+        (0, 0, device_w - 1, device_h - 1),
         radius=BEZEL_CORNER,
         fill=BEZEL_COLOR,
     )
 
-    # Compose: bezel on bottom, screen on top inset by BEZEL_PX.
-    device = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))
+    # Compose: bezel on bottom, screen inset by BEZEL_PX inside the device layer.
+    device = Image.new("RGBA", (device_w, device_h), (0, 0, 0, 0))
     device = Image.alpha_composite(device, bezel_layer)
     device.paste(rounded_screen, (BEZEL_PX, BEZEL_PX), rounded_screen)
 
-    # Drop shadow under the device.
-    shadow = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))
+    # Drop shadow under the device (rendered at device size, blurred).
+    shadow = Image.new("RGBA", (device_w + 2 * SHADOW_BLUR, device_h + 2 * SHADOW_BLUR), (0, 0, 0, 0))
     sd_draw = ImageDraw.Draw(shadow)
     sd_draw.rounded_rectangle(
-        (0, 0, canvas_w - 1, canvas_h - 1),
+        (SHADOW_BLUR, SHADOW_BLUR, SHADOW_BLUR + device_w - 1, SHADOW_BLUR + device_h - 1),
         radius=BEZEL_CORNER,
         fill=(0, 0, 0, SHADOW_OPACITY),
     )
-    shadow = shadow.filter(ImageFilter.GaussianBlur(SHADOW_BLUR))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(SHADOW_BLUR / 2))
 
-    # Final composite onto a cream background, with shadow offset down.
+    # Final composite onto a white background.
     background = Image.new("RGBA", (canvas_w, canvas_h), BG_COLOR)
-    # Paste shadow with Y offset (clipped to canvas — shadow falls within canvas).
-    background.alpha_composite(shadow, dest=(0, SHADOW_OFFSET))
-    # Paste device on top.
-    background.alpha_composite(device)
+    background.alpha_composite(
+        shadow,
+        dest=(CANVAS_PADDING - SHADOW_BLUR, CANVAS_PADDING - SHADOW_BLUR + SHADOW_OFFSET),
+    )
+    background.alpha_composite(device, dest=(CANVAS_PADDING, CANVAS_PADDING))
 
     background.save(dst_path, "PNG", optimize=True)
 
