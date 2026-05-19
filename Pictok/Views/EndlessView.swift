@@ -6,11 +6,16 @@ struct EndlessView: View {
 
     @State private var showResultOverlay = false
     @State private var resultLabel: String = ""
+    @State private var showWinCelebration: Bool = false
 
     var body: some View {
         ZStack {
             Color.pkPaper.ignoresSafeArea()
             content
+            if showWinCelebration, let puzzle = session.currentPuzzle {
+                WinCelebrationView(answer: puzzle.answer)
+                    .transition(.opacity)
+            }
             if showResultOverlay {
                 resultOverlay
                     .transition(.opacity)
@@ -18,7 +23,11 @@ struct EndlessView: View {
         }
         .onChange(of: session.isSolved) { _, solved in
             if solved {
-                showResult(label: "Solved!")
+                showWinCelebration = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + WinCelebrationView.totalDuration) {
+                    showWinCelebration = false
+                    session.advance()
+                }
             }
         }
         .onChange(of: session.isFailed) { _, failed in

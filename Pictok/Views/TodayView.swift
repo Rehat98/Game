@@ -11,6 +11,7 @@ struct TodayView: View {
     @State private var showResult   = false
     @State private var showHowToPlay = false
     @State private var showPermissionPrompt = false
+    @State private var showWinCelebration: Bool = false
 
     var body: some View {
         ZStack {
@@ -29,6 +30,20 @@ struct TodayView: View {
                     .padding(.top, 12)
                 }
                 .padding()
+            }
+
+            if showWinCelebration, let puzzle {
+                WinCelebrationView(answer: puzzle.answer)
+                    .transition(.opacity)
+                    .zIndex(10)
+            }
+        }
+        .onChange(of: store.state.todaySolved) { _, solved in
+            if solved {
+                showWinCelebration = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + WinCelebrationView.totalDuration) {
+                    showWinCelebration = false
+                }
             }
         }
         .sheet(isPresented: $showResult) {
