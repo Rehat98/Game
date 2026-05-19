@@ -24,9 +24,9 @@ SRC_DIR = REPO / "docs" / "launch" / "screenshots"
 OUT_DIR = SRC_DIR / "framed"
 
 CANVAS_PADDING = 90   # px white margin around the device on all sides
-BEZEL_PX = 14         # black device edge thickness
+BEZEL_PX = 28         # black device edge thickness
 SCREEN_CORNER = 60    # px corner radius for the screen edge
-BEZEL_CORNER = 74     # px corner radius for the outer black bezel (screen + bezel)
+BEZEL_CORNER = 88     # px corner radius for the outer black bezel (BEZEL_PX + SCREEN_CORNER)
 SHADOW_BLUR = 36      # px gaussian blur for drop shadow
 SHADOW_OFFSET = 22    # px Y offset for drop shadow
 SHADOW_OPACITY = 90   # 0-255
