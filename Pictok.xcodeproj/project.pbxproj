@@ -13,6 +13,7 @@
 		146413CC0AD4FD648B7CA9EF /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3A12B2EF436D47AC853B5B /* Puzzle.swift */; };
 		173A6C6A7F67E1C4C7580F2A /* EndlessSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4618C9E2657EAFB2B5B01B0 /* EndlessSelector.swift */; };
 		1BB4EE9401AB3E2D4135FE5B /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AD70635A5B9CABD91C573 /* HowToPlayView.swift */; };
+		1D1296602F89AF61D5CF294E /* EndlessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3C770D77B5CE56FA085549 /* EndlessView.swift */; };
 		1EECD660052C3A436F5375A1 /* wrong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7AF36FFE705EEAEFE0A36CB7 /* wrong.wav */; };
 		21799DCFD49E3A24B9B54D4B /* CategoryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5CFDC62B7B51056546E265 /* CategoryChip.swift */; };
 		2181CF102C43333F8F7952C3 /* HeartsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC27D0BF336D5BAB1C75355C /* HeartsRow.swift */; };
@@ -67,6 +68,7 @@
 		0C3153578C4A7975ABCAE0CC /* StickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerButton.swift; sourceTree = "<group>"; };
 		0CC6517C4105EA1996FA749A /* EmojiHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiHeader.swift; sourceTree = "<group>"; };
 		1C54800A38A92625234739AC /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		1E3C770D77B5CE56FA085549 /* EndlessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessView.swift; sourceTree = "<group>"; };
 		2D5CFDC62B7B51056546E265 /* CategoryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChip.swift; sourceTree = "<group>"; };
 		33334A44606ACBCB19CA2627 /* UserStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateStore.swift; sourceTree = "<group>"; };
 		413C0E6587F361FB98785EC3 /* NotificationPermissionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionSheet.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				92CABFE0CC85028404CAACE7 /* Components */,
+				1E3C770D77B5CE56FA085549 /* EndlessView.swift */,
 				7E5AD70635A5B9CABD91C573 /* HowToPlayView.swift */,
 				413C0E6587F361FB98785EC3 /* NotificationPermissionSheet.swift */,
 				BAC22EE038406BC101D95FF1 /* ResultSheet.swift */,
@@ -345,6 +348,7 @@
 				5DBE77C491F4D855C3447AB2 /* EmojiHeader.swift in Sources */,
 				173A6C6A7F67E1C4C7580F2A /* EndlessSelector.swift in Sources */,
 				AFC2E6F63B63FCFEF1A145B0 /* EndlessSession.swift in Sources */,
+				1D1296602F89AF61D5CF294E /* EndlessView.swift in Sources */,
 				F65B1E044B023BC75C9C3388 /* GameEngine.swift in Sources */,
 				521F5012DAE5301AE6DD95AC /* HapticsService.swift in Sources */,
 				2181CF102C43333F8F7952C3 /* HeartsRow.swift in Sources */,
