@@ -28,7 +28,6 @@ struct PictokApp: App {
         } catch {
             loadError = "Failed to load puzzles: \(error.localizedDescription)"
         }
-        store.refillLives()
         store.save()
         Task { await rescheduleNotification() }
     }

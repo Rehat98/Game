@@ -55,7 +55,6 @@ struct TodayView: View {
             if store.state.todayPuzzleId != puzzle.id {
                 resetTodayState(for: puzzle.id)
             }
-            store.refillLives()
             store.save()
             // If puzzle already finished, surface the result sheet.
             if store.state.todaySolved || store.state.todayFailed {

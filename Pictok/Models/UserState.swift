@@ -19,7 +19,6 @@ struct UserState: Codable, Equatable {
 
     // Lives
     var lives: Int                  // 0..5
-    var livesLastRefilledAt: Date   // anchor for +1/4h math
 
     // Today's puzzle progress (resumable)
     var todayPuzzleId: String?
@@ -52,7 +51,6 @@ struct UserState: Codable, Equatable {
             totalPlayed: 0,
             guessDistribution: [:],
             lives: 5,
-            livesLastRefilledAt: now,
             todayPuzzleId: nil,
             todayWrongGuesses: [],
             todayCorrectGuesses: [],
@@ -75,7 +73,7 @@ extension UserState {
     enum CodingKeys: String, CodingKey {
         case currentStreak, longestStreak, lastSolvedDate, streakFreezesAvailable
         case totalSolved, totalPlayed, guessDistribution
-        case lives, livesLastRefilledAt
+        case lives
         case todayPuzzleId, todayWrongGuesses, todayCorrectGuesses
         case todayHintUsed, todayRevealedLetter, todaySolved, todayFailed
         case hasEverSolved, hasAskedForNotificationPermission
@@ -92,9 +90,6 @@ extension UserState {
         totalPlayed             = try c.decode(Int.self, forKey: .totalPlayed)
         guessDistribution       = try c.decode([Int: Int].self, forKey: .guessDistribution)
         lives                   = try c.decode(Int.self, forKey: .lives)
-        // Tolerate legacy/foreign date encodings (e.g. ISO-8601 strings); the field
-        // is being phased out in Task 2 of the endless-mode plan.
-        livesLastRefilledAt     = (try? c.decodeIfPresent(Date.self, forKey: .livesLastRefilledAt)) ?? Date()
         todayPuzzleId           = try c.decodeIfPresent(String.self, forKey: .todayPuzzleId)
 
         let wrongStrings        = try c.decode([String].self, forKey: .todayWrongGuesses)
@@ -128,7 +123,6 @@ extension UserState {
         try c.encode(totalPlayed,            forKey: .totalPlayed)
         try c.encode(guessDistribution,      forKey: .guessDistribution)
         try c.encode(lives,                  forKey: .lives)
-        try c.encode(livesLastRefilledAt,    forKey: .livesLastRefilledAt)
         try c.encodeIfPresent(todayPuzzleId, forKey: .todayPuzzleId)
         try c.encode(todayWrongGuesses.map  { String($0) }, forKey: .todayWrongGuesses)
         try c.encode(todayCorrectGuesses.map { String($0) }, forKey: .todayCorrectGuesses)
