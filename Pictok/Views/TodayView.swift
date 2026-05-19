@@ -43,7 +43,8 @@ struct TodayView: View {
             CategoryChip(category: puzzle.category,
                          subcategory: revealedSubcategory(for: puzzle))
             BlanksView(answer: puzzle.answer,
-                       revealedLetters: revealedLetters(for: puzzle))
+                       correctGuesses: blanksCorrectGuesses(for: puzzle),
+                       revealedLetter: store.state.todayRevealedLetter)
             Spacer(minLength: 0)
             KeyboardView(guessed: guessedLetters) { letter in
                 handleGuess(letter, in: puzzle)
@@ -86,9 +87,12 @@ struct TodayView: View {
         Set(store.state.todayWrongGuesses + store.state.todayCorrectGuesses)
     }
 
-    private func revealedLetters(for puzzle: Puzzle) -> Set<Character> {
+    /// Correct guesses surfaced to `BlanksView`. When the puzzle is finished
+    /// (solved or failed) we expand this to every letter in the answer so the
+    /// full solution is revealed in the result state. The hint-revealed letter
+    /// is passed separately so it can be shown across all words.
+    private func blanksCorrectGuesses(for puzzle: Puzzle) -> Set<Character> {
         var set = Set(store.state.todayCorrectGuesses)
-        if let r = store.state.todayRevealedLetter { set.insert(r) }
         if store.state.todaySolved || store.state.todayFailed {
             set.formUnion(puzzle.answer.filter { $0.isLetter })
         }

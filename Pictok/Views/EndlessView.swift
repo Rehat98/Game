@@ -37,7 +37,8 @@ struct EndlessView: View {
                 EmojiHeader(emoji: puzzle.emoji)
                 CategoryChip(category: puzzle.category, subcategory: nil)
                 BlanksView(answer: puzzle.answer,
-                           revealedLetters: session.correctGuesses)
+                           correctGuesses: session.correctGuesses,
+                           revealedLetter: nil)
                 Spacer()
                 KeyboardView(guessed: session.correctGuesses.union(session.wrongGuesses)) { letter in
                     session.guess(letter: letter)
