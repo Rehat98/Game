@@ -51,6 +51,8 @@ struct RootView: View {
     let loadError: String?
     let onSolveOrFail: () async -> Void
 
+    @State private var presentingEndless: Bool = false
+
     var body: some View {
         if let loader {
             let todays = loader.puzzle(for: Date())
@@ -59,7 +61,8 @@ struct RootView: View {
                     store: store,
                     puzzle: todays,
                     puzzleNumber: todays.map { loader.puzzleNumber(for: $0) } ?? 1,
-                    onSolveOrFail: onSolveOrFail
+                    onSolveOrFail: onSolveOrFail,
+                    onPlayEndless: { presentingEndless = true }
                 )
                 .tabItem { Label("Today", systemImage: "calendar") }
 
@@ -67,6 +70,13 @@ struct RootView: View {
                     .tabItem { Label("Stats", systemImage: "chart.bar") }
             }
             .tint(.pkBlue)
+            .fullScreenCover(isPresented: $presentingEndless) {
+                let today = PuzzleLoader.dateString(for: Date())
+                let session = EndlessSession(allPuzzles: loader.allPuzzles,
+                                             store: store,
+                                             today: today)
+                EndlessView(session: session)
+            }
         } else if let loadError {
             VStack(spacing: 12) {
                 Text("⚠️").font(.system(size: 64))
