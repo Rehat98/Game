@@ -26,7 +26,9 @@ struct EndlessView: View {
                 showWinCelebration = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + WinCelebrationView.totalDuration) {
                     showWinCelebration = false
-                    session.advance()
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        session.advance()
+                    }
                 }
             }
         }
@@ -64,6 +66,11 @@ struct EndlessView: View {
                 )
             }
             .padding(.horizontal, 16)
+            .id(puzzle.id)
+            .transition(.asymmetric(
+                insertion: .move(edge: .trailing).combined(with: .opacity),
+                removal: .move(edge: .leading).combined(with: .opacity)
+            ))
         } else {
             VStack(spacing: 12) {
                 Text("🎉").font(.system(size: 64))
@@ -109,7 +116,9 @@ struct EndlessView: View {
         withAnimation { showResultOverlay = true }
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             withAnimation { showResultOverlay = false }
-            session.advance()
+            withAnimation(.easeInOut(duration: 0.25)) {
+                session.advance()
+            }
         }
     }
 }
