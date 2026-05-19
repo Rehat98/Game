@@ -44,6 +44,7 @@
 		AFC2E6F63B63FCFEF1A145B0 /* EndlessSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B7D9A1B47C4C0C61384BE /* EndlessSession.swift */; };
 		B0786467093D51F3A2D6BF2B /* PictokApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF7A7BF6F338B281CC2F8FA /* PictokApp.swift */; };
 		C8B70E4449443703508BE272 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = D66D81E61B59A7FA3AD074BF /* win.wav */; };
+		D11E875F1C3BEEA2A6013823 /* FireworksEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABD7922CDA9DB2F79D874D5 /* FireworksEmitter.swift */; };
 		D331FDFBEF4FF39710E1652A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8DC8175E35A48E034D43B2 /* Theme.swift */; };
 		E666C0E632706999518F4001 /* UserStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A44606ACBCB19CA2627 /* UserStateStore.swift */; };
 		F65B1E044B023BC75C9C3388 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70602BBD41448CC070305C00 /* GameEngine.swift */; };
@@ -92,6 +93,7 @@
 		A2505F793D42F5DF88BA4465 /* EndlessSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSelectorTests.swift; sourceTree = "<group>"; };
 		A4618C9E2657EAFB2B5B01B0 /* EndlessSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSelector.swift; sourceTree = "<group>"; };
 		A6BDC4CC64BB64F51860B7AD /* UserStateStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateStoreTests.swift; sourceTree = "<group>"; };
+		AABD7922CDA9DB2F79D874D5 /* FireworksEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireworksEmitter.swift; sourceTree = "<group>"; };
 		AC27D0BF336D5BAB1C75355C /* HeartsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartsRow.swift; sourceTree = "<group>"; };
 		AE8DC8175E35A48E034D43B2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		AEDDCDEC38190D3BC62F57C6 /* Pictok.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Pictok.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +111,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		219783C3A79BC7E804A968DA /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				AABD7922CDA9DB2F79D874D5 /* FireworksEmitter.swift */,
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
 		32D08B9769014F147611BAFA /* Pictok */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				92CABFE0CC85028404CAACE7 /* Components */,
+				219783C3A79BC7E804A968DA /* Effects */,
 				1E3C770D77B5CE56FA085549 /* EndlessView.swift */,
 				7E5AD70635A5B9CABD91C573 /* HowToPlayView.swift */,
 				413C0E6587F361FB98785EC3 /* NotificationPermissionSheet.swift */,
@@ -352,6 +363,7 @@
 				173A6C6A7F67E1C4C7580F2A /* EndlessSelector.swift in Sources */,
 				AFC2E6F63B63FCFEF1A145B0 /* EndlessSession.swift in Sources */,
 				1D1296602F89AF61D5CF294E /* EndlessView.swift in Sources */,
+				D11E875F1C3BEEA2A6013823 /* FireworksEmitter.swift in Sources */,
 				F65B1E044B023BC75C9C3388 /* GameEngine.swift in Sources */,
 				521F5012DAE5301AE6DD95AC /* HapticsService.swift in Sources */,
 				2181CF102C43333F8F7952C3 /* HeartsRow.swift in Sources */,
