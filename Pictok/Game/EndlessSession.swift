@@ -34,11 +34,15 @@ final class EndlessSession {
         let upper = Character(String(letter).uppercased())
         if correctGuesses.contains(upper) || wrongGuesses.contains(upper) { return }
 
-        if GameEngine.isCorrect(letter: upper, in: puzzle) {
+        guard let activeIdx = GameEngine.activeWordIndex(answer: puzzle.answer,
+                                                         correctGuesses: correctGuesses) else {
+            // Already solved (shouldn't happen because of the isSolved guard, but safe).
+            return
+        }
+
+        if GameEngine.isCorrect(letter: upper, inWord: activeIdx, of: puzzle.answer) {
             correctGuesses.insert(upper)
-            if GameEngine.isSolved(answer: puzzle.answer,
-                                   correctGuesses: correctGuesses,
-                                   revealedLetter: nil) {
+            if GameEngine.isSolvedByWord(answer: puzzle.answer, correctGuesses: correctGuesses) {
                 isSolved = true
                 recordSolve(id: puzzle.id)
             }

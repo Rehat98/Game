@@ -106,6 +106,28 @@ final class EndlessSessionTests: XCTestCase {
         XCTAssertNotEqual(session.currentPuzzle?.id, firstId)
     }
 
+    func test_wrongGuessInCurrentWord_evenIfLetterInLaterWord_decrementsHearts() {
+        // Create a puzzle with multi-word answer where letters in word 2 are NOT in word 1.
+        let multiPuzzle = Puzzle(id: "p_multi", date: "2026-05-28", emoji: "🐝🦴",
+                                 answer: "BEE BONE",
+                                 category: .brand, subcategory: "t", difficulty: .medium)
+        let allPuzzles = [
+            Puzzle(id: "p1", date: "2026-05-19", emoji: "🐝", answer: "X",
+                   category: .brand, subcategory: "t", difficulty: .medium),
+            multiPuzzle
+        ]
+        let store = makeStore()
+        let session = EndlessSession(allPuzzles: allPuzzles,
+                                     store: store,
+                                     today: "2026-05-19")
+        // Force the session onto the multi-word puzzle.
+        XCTAssertEqual(session.currentPuzzle?.id, "p_multi")
+
+        // 'O' is in BONE (word 1) but NOT in BEE (word 0, active). Should cost a heart.
+        session.guess(letter: "O")
+        XCTAssertEqual(session.hearts, 4, "O is not in active word BEE — must cost a heart")
+    }
+
     func test_advance_addsPreviousIdToRecentEndlessIds_ringBufferAt5() {
         let store = makeStore()
         let session = EndlessSession(allPuzzles: makePuzzles(),
