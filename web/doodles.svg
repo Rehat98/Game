@@ -1,86 +1,107 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid slice">
-  <g opacity="0.18">
-    <!-- top-left: sparkle cluster -->
-    <g transform="translate(110 110)">
-      <path d="M0 -22 L0 22 M-22 0 L22 0 M-15 -15 L15 15 M-15 15 L15 -15"/>
-    </g>
-    <g transform="translate(170 60)">
-      <path d="M0 -10 L0 10 M-10 0 L10 0"/>
-    </g>
-    <g transform="translate(220 150)">
-      <path d="M0 -8 L0 8 M-8 0 L8 0 M-6 -6 L6 6 M-6 6 L6 -6"/>
-    </g>
-
-    <!-- top-right: plus + small star + arrow -->
-    <g transform="translate(1490 110)">
-      <path d="M0 -14 L0 14 M-14 0 L14 0"/>
-    </g>
-    <g transform="translate(1390 70)">
-      <path d="M0 -9 L0 9 M-9 0 L9 0 M-6 -6 L6 6 M-6 6 L6 -6"/>
-    </g>
-    <g transform="translate(1440 200)">
-      <path d="M0 0 C 18 -14, 38 -14, 56 0 M50 -6 L56 0 L50 6"/>
+  <g opacity="0.26">
+    <!-- BOOK with face (top-left) -->
+    <g transform="translate(115 130)">
+      <path d="M-26 -20 L26 -20 L26 22 L-26 22 Z"/>
+      <path d="M0 -20 L0 22"/>
+      <line x1="9" y1="-4" x2="9" y2="-4" stroke-width="4"/>
+      <line x1="19" y1="-4" x2="19" y2="-4" stroke-width="4"/>
+      <path d="M9 8 Q14 13 19 8"/>
+      <!-- left page hatch -->
+      <path d="M-18 -6 L-6 -6 M-18 0 L-6 0 M-18 6 L-12 6"/>
     </g>
 
-    <!-- mid-left: squiggly underline + label-style -->
-    <g transform="translate(80 320)">
-      <path d="M0 0 Q15 -12 30 0 T60 0 T90 0 T120 0"/>
-    </g>
-    <g transform="translate(210 290)">
-      <path d="M-26 0 L-2 0 L-8 -6 M-2 0 L-8 6"/>
-    </g>
-
-    <!-- mid-right: dotted circle + question mark -->
-    <g transform="translate(1500 350)">
-      <circle cx="0" cy="0" r="22" stroke-dasharray="2 5"/>
-    </g>
-    <g transform="translate(1410 410)">
-      <path d="M-7 -8 Q0 -16 7 -10 Q11 -4 0 2 L0 8 M0 13 L0 15"/>
+    <!-- LIGHTBULB with face (top-right) -->
+    <g transform="translate(1470 120)">
+      <path d="M0 -22 C -16 -22, -22 -8, -14 4 C -10 10, -10 14, -8 18 L 8 18 C 10 14, 10 10, 14 4 C 22 -8, 16 -22, 0 -22 Z"/>
+      <!-- base lines -->
+      <path d="M-8 22 L8 22 M-6 26 L6 26"/>
+      <!-- face -->
+      <line x1="-5" y1="-8" x2="-5" y2="-8" stroke-width="4"/>
+      <line x1="5" y1="-8" x2="5" y2="-8" stroke-width="4"/>
+      <path d="M-5 0 Q0 4 5 0"/>
+      <!-- shiny rays -->
+      <path d="M-22 -22 L-30 -28 M22 -22 L30 -28 M0 -32 L0 -38"/>
     </g>
 
-    <!-- left-bottom: heart + scribble swirl -->
-    <g transform="translate(150 600)">
+    <!-- MUSIC NOTE with face (mid-left) -->
+    <g transform="translate(140 380)">
+      <path d="M-12 14 C -12 10, -4 8, 0 12 L 0 -14 L 18 -20 L 18 0 C 18 4, 10 6, 6 2 L 6 -10 L 0 -8"/>
+      <line x1="-3" y1="-2" x2="-3" y2="-2" stroke-width="3.5"/>
+      <line x1="-9" y1="-2" x2="-9" y2="-2" stroke-width="3.5"/>
+    </g>
+
+    <!-- SPEECH BUBBLE saying AHA -->
+    <g transform="translate(1500 360)">
+      <path d="M-32 -16 Q-32 -26, -22 -26 L 18 -26 Q 28 -26, 28 -16 L 28 4 Q 28 14, 18 14 L 4 14 L -2 22 L -2 14 L -22 14 Q -32 14, -32 4 Z"/>
+      <!-- A H A text-ish marks -->
+      <path d="M-18 -2 L-14 -10 L-10 -2 M-16 -5 L-12 -5"/>
+      <path d="M-6 -10 L-6 -2 M-6 -6 L2 -6 M2 -10 L2 -2"/>
+      <path d="M6 -2 L10 -10 L14 -2 M8 -5 L12 -5"/>
+    </g>
+
+    <!-- SMILING CLOUD (bottom-left) -->
+    <g transform="translate(180 760)">
+      <path d="M-26 4 C -34 4, -34 -8, -24 -10 C -22 -20, -8 -22, -2 -14 C 6 -22, 22 -18, 22 -8 C 32 -6, 32 6, 22 6 Z"/>
+      <line x1="-10" y1="-4" x2="-10" y2="-4" stroke-width="4"/>
+      <line x1="6" y1="-4" x2="6" y2="-4" stroke-width="4"/>
+      <path d="M-6 0 Q-2 4 2 0"/>
+    </g>
+
+    <!-- PENCIL (bottom-right) -->
+    <g transform="translate(1430 760)">
+      <path d="M-30 12 L18 -36 L26 -28 L-22 20 Z"/>
+      <path d="M-30 12 L-22 20 M-30 12 L-26 4 L-22 20 M14 -32 L22 -24"/>
+    </g>
+
+    <!-- HEART with face (left mid-bottom) -->
+    <g transform="translate(80 600)">
       <path d="M0 6 C -10 -8, -28 -8, -28 8 C -28 22, -12 32, 0 42 C 12 32, 28 22, 28 8 C 28 -8, 10 -8, 0 6 Z"/>
-    </g>
-    <g transform="translate(60 770)">
-      <path d="M0 0 C -10 -10, -22 0, -14 12 C -4 22, 10 14, 12 4 C 14 -8, 0 -14, -8 -6"/>
-    </g>
-
-    <!-- right-bottom: zigzag + coffee ring + exclam -->
-    <g transform="translate(1380 720)">
-      <path d="M0 0 L12 -12 L24 0 L36 -12 L48 0 L60 -12"/>
-    </g>
-    <g opacity="0.6" transform="translate(1500 820)">
-      <circle cx="0" cy="0" r="38" stroke-width="3.5"/>
-    </g>
-    <g transform="translate(1200 800)">
-      <path d="M0 -16 L0 4 M0 9 L0 12"/>
+      <line x1="-9" y1="14" x2="-9" y2="14" stroke-width="3.5"/>
+      <line x1="9" y1="14" x2="9" y2="14" stroke-width="3.5"/>
+      <path d="M-5 22 Q0 26 5 22"/>
     </g>
 
-    <!-- center-bottom: a couple of stars -->
-    <g transform="translate(540 830)">
-      <path d="M0 -10 L0 10 M-10 0 L10 0 M-7 -7 L7 7 M-7 7 L7 -7"/>
-    </g>
-    <g transform="translate(1060 830)">
-      <path d="M0 -8 L0 8 M-8 0 L8 0"/>
-    </g>
-
-    <!-- center-top: small "aha!" cluster -->
-    <g transform="translate(540 70)">
-      <path d="M0 -10 L0 4 M0 9 L0 11"/>
-    </g>
-    <g transform="translate(1060 70)">
-      <path d="M-6 -6 Q0 -12 6 -8 Q9 -4 0 0 L0 6 M0 10 L0 12"/>
+    <!-- COFFEE CUP with steam (right mid-bottom) -->
+    <g transform="translate(1080 820)">
+      <path d="M-18 -8 L-18 14 Q-18 20, -12 20 L 10 20 Q 16 20, 16 14 L 16 -8 Z"/>
+      <path d="M16 -2 Q 24 -2, 24 4 Q 24 10, 16 10"/>
+      <!-- steam swirls -->
+      <path d="M-8 -18 Q-4 -22, -8 -26 Q-12 -30, -8 -34"/>
+      <path d="M4 -18 Q8 -22, 4 -26 Q0 -30, 4 -34"/>
     </g>
 
-    <!-- left mid-bottom: stack of little dashes (like notebook hatch) -->
-    <g transform="translate(80 480)">
-      <path d="M0 0 L18 0 M0 8 L24 8 M0 16 L14 16"/>
+    <!-- TINY STARS scattered -->
+    <g transform="translate(330 60)"><path d="M0 -9 L0 9 M-9 0 L9 0 M-6 -6 L6 6 M-6 6 L6 -6"/></g>
+    <g transform="translate(1300 70)"><path d="M0 -7 L0 7 M-7 0 L7 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
+    <g transform="translate(420 820)"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
+    <g transform="translate(1180 130)"><path d="M0 -6 L0 6 M-6 0 L6 0"/></g>
+    <g transform="translate(220 260)"><path d="M0 -7 L0 7 M-7 0 L7 0"/></g>
+    <g transform="translate(1380 540)"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
+    <g transform="translate(80 480)"><path d="M0 -6 L0 6 M-6 0 L6 0"/></g>
+
+    <!-- SMALL HEARTS scattered (no face) -->
+    <g transform="translate(1140 460)">
+      <path d="M0 2 C -5 -4, -14 -4, -14 4 C -14 11, -6 16, 0 21 C 6 16, 14 11, 14 4 C 14 -4, 5 -4, 0 2 Z"/>
+    </g>
+    <g transform="translate(350 540)">
+      <path d="M0 2 C -4 -3, -11 -3, -11 3 C -11 9, -5 13, 0 17 C 5 13, 11 9, 11 3 C 11 -3, 4 -3, 0 2 Z"/>
     </g>
 
-    <!-- right mid: bracket-like doodle -->
-    <g transform="translate(1500 600)">
-      <path d="M0 -16 Q -8 -16 -8 -8 L -8 8 Q -8 16 0 16"/>
+    <!-- SQUIGGLE highlights -->
+    <g transform="translate(80 230)">
+      <path d="M0 0 Q15 -10 30 0 T60 0 T90 0"/>
+    </g>
+    <g transform="translate(1290 240)">
+      <path d="M0 0 Q12 -8 24 0 T48 0 T72 0"/>
+    </g>
+
+    <!-- TINY WAVY ARROWS pointing inward -->
+    <g transform="translate(380 480)">
+      <path d="M-30 0 Q-20 -8, -10 0 Q0 8, 10 0 M5 -5 L10 0 L5 5"/>
+    </g>
+    <g transform="translate(1220 600)">
+      <path d="M30 0 Q20 -8, 10 0 Q0 8, -10 0 M-5 -5 L-10 0 L-5 5"/>
     </g>
   </g>
 </svg>
