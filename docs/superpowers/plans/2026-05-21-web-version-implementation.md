@@ -119,7 +119,7 @@ Expected: `Synced 59 puzzles + 4 sounds → web/`
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "node --test tests/",
+    "test": "node --test 'tests/**/*.test.js'",
     "serve": "python3 -m http.server 8080"
   }
 }
