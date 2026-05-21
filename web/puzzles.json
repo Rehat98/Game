@@ -1,0 +1,533 @@
+[
+  {
+    "id": "puzzle-001",
+    "date": "2026-05-18",
+    "emoji": "🧸📖",
+    "answer": "TOY STORY",
+    "category": "Movie",
+    "subcategory": "Pixar · 1995",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-002",
+    "date": "2026-05-19",
+    "emoji": "👁️🤖",
+    "answer": "I ROBOT",
+    "category": "Movie",
+    "subcategory": "Will Smith sci-fi · 2004",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-003",
+    "date": "2026-05-20",
+    "emoji": "📅⬅️",
+    "answer": "YESTERDAY",
+    "category": "Song",
+    "subcategory": "The Beatles · 1965",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-004",
+    "date": "2026-05-21",
+    "emoji": "💧🚽",
+    "answer": "WATERLOO",
+    "category": "Song",
+    "subcategory": "ABBA · 1974",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-005",
+    "date": "2026-05-22",
+    "emoji": "🌙😴",
+    "answer": "GOODNIGHT MOON",
+    "category": "Book",
+    "subcategory": "Margaret Wise Brown · 1947",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-006",
+    "date": "2026-05-23",
+    "emoji": "🐝❤️",
+    "answer": "BELOVED",
+    "category": "Book",
+    "subcategory": "Toni Morrison · 1987",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-007",
+    "date": "2026-05-24",
+    "emoji": "⭐💰",
+    "answer": "STARBUCKS",
+    "category": "Brand",
+    "subcategory": "Coffee · founded 1971",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-008",
+    "date": "2026-05-25",
+    "emoji": "🌊⤵️🚗",
+    "answer": "FORD",
+    "category": "Brand",
+    "subcategory": "Automotive · founded 1903",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-009",
+    "date": "2026-05-26",
+    "emoji": "🐉🎤",
+    "answer": "DRAKE",
+    "category": "Celeb",
+    "subcategory": "Rapper · Canadian",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-010",
+    "date": "2026-05-27",
+    "emoji": "🪡🏃",
+    "answer": "TAYLOR SWIFT",
+    "category": "Celeb",
+    "subcategory": "Singer · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-011",
+    "date": "2026-05-28",
+    "emoji": "👁️📱",
+    "answer": "IPHONE",
+    "category": "Brand",
+    "subcategory": "Apple smartphone · 2007",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-012",
+    "date": "2026-05-29",
+    "emoji": "🚪🏃",
+    "answer": "DOORDASH",
+    "category": "Brand",
+    "subcategory": "Food delivery · founded 2013",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-013",
+    "date": "2026-05-30",
+    "emoji": "🏝️🔚",
+    "answer": "LANDS END",
+    "category": "Brand",
+    "subcategory": "Mail-order apparel · 1963",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-014",
+    "date": "2026-05-31",
+    "emoji": "🦆🦆🏃",
+    "answer": "DUCKDUCKGO",
+    "category": "Brand",
+    "subcategory": "Search engine · 2008",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-015",
+    "date": "2026-06-01",
+    "emoji": "🛣️🎪",
+    "answer": "WAYFAIR",
+    "category": "Brand",
+    "subcategory": "Home goods · founded 2002",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-016",
+    "date": "2026-06-02",
+    "emoji": "👁️🔑🅰️",
+    "answer": "IKEA",
+    "category": "Brand",
+    "subcategory": "Furniture · founded 1943",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-017",
+    "date": "2026-06-03",
+    "emoji": "⚖️👀",
+    "answer": "WEIGHT WATCHERS",
+    "category": "Brand",
+    "subcategory": "Diet program · founded 1963",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-018",
+    "date": "2026-06-04",
+    "emoji": "🏛️1️⃣",
+    "answer": "CAPITAL ONE",
+    "category": "Brand",
+    "subcategory": "Bank · founded 1994",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-019",
+    "date": "2026-06-05",
+    "emoji": "🐱👢",
+    "answer": "PUSS IN BOOTS",
+    "category": "Movie",
+    "subcategory": "DreamWorks · 2011",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-020",
+    "date": "2026-06-06",
+    "emoji": "😠👧👧",
+    "answer": "MEAN GIRLS",
+    "category": "Movie",
+    "subcategory": "Teen comedy · 2004",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-021",
+    "date": "2026-06-07",
+    "emoji": "🏎️😡",
+    "answer": "FAST AND FURIOUS",
+    "category": "Movie",
+    "subcategory": "Action franchise · 2001",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-022",
+    "date": "2026-06-08",
+    "emoji": "🦶🆓",
+    "answer": "FOOTLOOSE",
+    "category": "Movie",
+    "subcategory": "Musical drama · 1984",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-023",
+    "date": "2026-06-09",
+    "emoji": "📖🧠",
+    "answer": "BOOK SMART",
+    "category": "Movie",
+    "subcategory": "Coming-of-age comedy · 2019",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-024",
+    "date": "2026-06-10",
+    "emoji": "✅🤥",
+    "answer": "TRUE LIES",
+    "category": "Movie",
+    "subcategory": "Cameron action · 1994",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-025",
+    "date": "2026-06-11",
+    "emoji": "💀🪨",
+    "answer": "DIE HARD",
+    "category": "Movie",
+    "subcategory": "Action classic · 1988",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-026",
+    "date": "2026-06-12",
+    "emoji": "😡🐂",
+    "answer": "RAGING BULL",
+    "category": "Movie",
+    "subcategory": "Scorsese · 1980",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-027",
+    "date": "2026-06-13",
+    "emoji": "🥊♣️",
+    "answer": "FIGHT CLUB",
+    "category": "Movie",
+    "subcategory": "Fincher cult · 1999",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-028",
+    "date": "2026-06-14",
+    "emoji": "🤫🐑",
+    "answer": "SILENCE OF THE LAMBS",
+    "category": "Movie",
+    "subcategory": "Thriller · 1991",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-029",
+    "date": "2026-06-15",
+    "emoji": "☠️🧲",
+    "answer": "FATAL ATTRACTION",
+    "category": "Movie",
+    "subcategory": "Thriller · 1987",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-030",
+    "date": "2026-06-16",
+    "emoji": "🪦🏊",
+    "answer": "DEADPOOL",
+    "category": "Movie",
+    "subcategory": "Marvel R-rated · 2016",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-031",
+    "date": "2026-06-17",
+    "emoji": "👎❤️",
+    "answer": "BAD ROMANCE",
+    "category": "Song",
+    "subcategory": "Lady Gaga · 2009",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-032",
+    "date": "2026-06-18",
+    "emoji": "🔥❄️",
+    "answer": "HOT N COLD",
+    "category": "Song",
+    "subcategory": "Katy Perry · 2008",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-033",
+    "date": "2026-06-19",
+    "emoji": "⬜🌌",
+    "answer": "BLANK SPACE",
+    "category": "Song",
+    "subcategory": "Taylor Swift · 2014",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-034",
+    "date": "2026-06-20",
+    "emoji": "❤️📖",
+    "answer": "LOVE STORY",
+    "category": "Song",
+    "subcategory": "Taylor Swift · 2008",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-035",
+    "date": "2026-06-21",
+    "emoji": "💃👑",
+    "answer": "DANCING QUEEN",
+    "category": "Song",
+    "subcategory": "ABBA · 1976",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-036",
+    "date": "2026-06-22",
+    "emoji": "🪜☁️",
+    "answer": "STAIRWAY TO HEAVEN",
+    "category": "Song",
+    "subcategory": "Led Zeppelin · 1971",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-037",
+    "date": "2026-06-23",
+    "emoji": "🛣️🔥",
+    "answer": "HIGHWAY TO HELL",
+    "category": "Song",
+    "subcategory": "AC/DC · 1979",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-038",
+    "date": "2026-06-24",
+    "emoji": "☀️6️⃣9️⃣",
+    "answer": "SUMMER OF 69",
+    "category": "Song",
+    "subcategory": "Bryan Adams · 1984",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-039",
+    "date": "2026-06-25",
+    "emoji": "🔥🔨",
+    "answer": "FIREWORK",
+    "category": "Song",
+    "subcategory": "Katy Perry · 2010",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-040",
+    "date": "2026-06-26",
+    "emoji": "👶🇺🇸",
+    "answer": "BORN IN THE USA",
+    "category": "Song",
+    "subcategory": "Bruce Springsteen · 1984",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-041",
+    "date": "2026-06-27",
+    "emoji": "⏰🤖",
+    "answer": "THE TIME MACHINE",
+    "category": "Book",
+    "subcategory": "H.G. Wells · 1895",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-042",
+    "date": "2026-06-28",
+    "emoji": "💎🏝️",
+    "answer": "TREASURE ISLAND",
+    "category": "Book",
+    "subcategory": "R.L. Stevenson · 1883",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-043",
+    "date": "2026-06-29",
+    "emoji": "🎮🪑",
+    "answer": "GAME OF THRONES",
+    "category": "Book",
+    "subcategory": "George R.R. Martin · 1996",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-044",
+    "date": "2026-06-30",
+    "emoji": "🤏🤴",
+    "answer": "THE LITTLE PRINCE",
+    "category": "Book",
+    "subcategory": "Saint-Exupéry · 1943",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-045",
+    "date": "2026-07-01",
+    "emoji": "⚪🔊",
+    "answer": "WHITE NOISE",
+    "category": "Book",
+    "subcategory": "Don DeLillo · 1985",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-046",
+    "date": "2026-07-02",
+    "emoji": "⚔️🕊️",
+    "answer": "WAR AND PEACE",
+    "category": "Book",
+    "subcategory": "Leo Tolstoy · 1869",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-047",
+    "date": "2026-07-03",
+    "emoji": "🦁⚖️",
+    "answer": "PRIDE AND PREJUDICE",
+    "category": "Book",
+    "subcategory": "Jane Austen · 1813",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-048",
+    "date": "2026-07-04",
+    "emoji": "👻👨",
+    "answer": "INVISIBLE MAN",
+    "category": "Book",
+    "subcategory": "Ralph Ellison · 1952",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-049",
+    "date": "2026-07-05",
+    "emoji": "❤️🖤",
+    "answer": "HEART OF DARKNESS",
+    "category": "Book",
+    "subcategory": "Joseph Conrad · 1899",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-050",
+    "date": "2026-07-06",
+    "emoji": "📞🌳",
+    "answer": "CALL OF THE WILD",
+    "category": "Book",
+    "subcategory": "Jack London · 1903",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-051",
+    "date": "2026-07-07",
+    "emoji": "🐅🌳",
+    "answer": "TIGER WOODS",
+    "category": "Celeb",
+    "subcategory": "Golfer · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-052",
+    "date": "2026-07-08",
+    "emoji": "👩👶",
+    "answer": "LADY GAGA",
+    "category": "Celeb",
+    "subcategory": "Singer · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-053",
+    "date": "2026-07-09",
+    "emoji": "💰🚪",
+    "answer": "BILL GATES",
+    "category": "Celeb",
+    "subcategory": "Microsoft founder",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-054",
+    "date": "2026-07-10",
+    "emoji": "🐱🇳🇱",
+    "answer": "TOM HOLLAND",
+    "category": "Celeb",
+    "subcategory": "Actor · Spider-Man",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-055",
+    "date": "2026-07-11",
+    "emoji": "📜🔨",
+    "answer": "WILL SMITH",
+    "category": "Celeb",
+    "subcategory": "Actor · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-056",
+    "date": "2026-07-12",
+    "emoji": "5️⃣0️⃣💰",
+    "answer": "50 CENT",
+    "category": "Celeb",
+    "subcategory": "Rapper · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-057",
+    "date": "2026-07-13",
+    "emoji": "👶🌧️",
+    "answer": "LIL WAYNE",
+    "category": "Celeb",
+    "subcategory": "Rapper · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-058",
+    "date": "2026-07-14",
+    "emoji": "🐱🛳️",
+    "answer": "TOM CRUISE",
+    "category": "Celeb",
+    "subcategory": "Actor · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-060",
+    "date": "2026-07-16",
+    "emoji": "🌅🆓👨",
+    "answer": "MORGAN FREEMAN",
+    "category": "Celeb",
+    "subcategory": "Actor · American",
+    "difficulty": "hard"
+  }
+]
