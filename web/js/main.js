@@ -118,7 +118,7 @@ function showOneChanceModal() {
 }
 
 function showResultModal(session, state, success, allPuzzles, today, storage) {
-  const url = 'pictok.app';
+  const url = 'pictok.pages.dev';
   const shareTextValue = success
     ? share.successCard({
         heartsRemaining: state.lives,
