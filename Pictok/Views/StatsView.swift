@@ -1,5 +1,4 @@
 import SwiftUI
-import Charts
 
 struct StatsView: View {
     @Bindable var store: UserStateStore
@@ -36,8 +35,9 @@ struct StatsView: View {
                     )
                 }
 
-                section("Guess distribution") {
-                    distributionChart
+                section("Last 4 weeks") {
+                    CalendarHeatmapView(history: store.state.solveHistory,
+                                        today: PuzzleLoader.dateString(for: Date(), timeZone: .current))
                 }
             }
             .padding(.horizontal, 20)
@@ -112,44 +112,4 @@ struct StatsView: View {
         return "\(pct)%"
     }
 
-    private var distributionChart: some View {
-        let dist = store.state.guessDistribution
-        let maxKey = (dist.keys.max() ?? 0)
-        let buckets = (0...max(5, maxKey)).map { ($0, dist[$0] ?? 0) }
-
-        return Chart {
-            ForEach(buckets, id: \.0) { bucket in
-                BarMark(
-                    x: .value("Wrong", "\(bucket.0)"),
-                    y: .value("Count", bucket.1),
-                    width: .fixed(20)
-                )
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [Color.pkInk.opacity(0.85), Color.pkInk.opacity(0.55)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .cornerRadius(4)
-            }
-        }
-        .chartYAxis(.hidden)
-        .chartXAxis {
-            AxisMarks(values: .automatic) { _ in
-                AxisValueLabel()
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
-                    .foregroundStyle(Color.pkInk.opacity(0.55))
-            }
-        }
-        .frame(height: 160)
-        .padding(.horizontal, 18)
-        .padding(.vertical, 18)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.white)
-                .shadow(color: Color.pkInk.opacity(0.07), radius: 14, x: 0, y: 6)
-                .shadow(color: Color.pkInk.opacity(0.04), radius: 2, x: 0, y: 1)
-        )
-    }
 }

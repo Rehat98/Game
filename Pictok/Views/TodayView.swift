@@ -277,6 +277,10 @@ struct TodayView: View {
         let wrongs = store.state.todayWrongGuesses.count
         store.state.guessDistribution[wrongs, default: 0] += 1
 
+        let hintUsed = store.state.todayHintUsed != nil
+        let result: SolveResult = (wrongs == 0 && !hintUsed) ? .perfect : .solved
+        appendSolveHistory(date: today, result: result)
+
         // First-ever solve → arm the contextual notification permission prompt
         if !store.state.hasEverSolved {
             store.state.hasEverSolved = true
@@ -289,5 +293,13 @@ struct TodayView: View {
     private func applyFailSideEffects() {
         store.state.currentStreak = GameEngine.streakAfterFail(currentStreak: store.state.currentStreak)
         store.state.totalPlayed += 1
+        let today = PuzzleLoader.dateString(for: Date(), timeZone: .current)
+        appendSolveHistory(date: today, result: .failed)
+    }
+
+    private func appendSolveHistory(date: String, result: SolveResult) {
+        var history = store.state.solveHistory.filter { $0.date != date }
+        history.append(SolveRecord(date: date, result: result))
+        store.state.solveHistory = history
     }
 }

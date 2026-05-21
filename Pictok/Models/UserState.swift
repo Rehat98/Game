@@ -5,6 +5,17 @@ enum HintType: String, Codable, Equatable {
     case letter
 }
 
+enum SolveResult: String, Codable, Equatable {
+    case perfect    // solved with no hint and no wrong guesses
+    case solved     // solved with hint or at least one wrong guess
+    case failed     // hearts ran out
+}
+
+struct SolveRecord: Codable, Equatable {
+    let date: String        // "YYYY-MM-DD"
+    let result: SolveResult
+}
+
 struct UserState: Codable, Equatable {
     // Streak
     var currentStreak: Int
@@ -41,6 +52,10 @@ struct UserState: Codable, Equatable {
     // Endless dedup ring buffer (last 5 picks)
     var recentEndlessIds: [String]
 
+    // Daily solve history (one entry per played Daily date) — drives the
+    // last-4-weeks calendar on the Stats screen. Endless plays are NOT recorded.
+    var solveHistory: [SolveRecord]
+
     static func fresh(at now: Date) -> UserState {
         UserState(
             currentStreak: 0,
@@ -63,7 +78,8 @@ struct UserState: Codable, Equatable {
             solvedPuzzleIds: [],
             failedPuzzleIds: [],
             lifetimeSolvedCount: 0,
-            recentEndlessIds: []
+            recentEndlessIds: [],
+            solveHistory: []
         )
     }
 }
@@ -78,6 +94,7 @@ extension UserState {
         case todayHintUsed, todayRevealedLetter, todaySolved, todayFailed
         case hasEverSolved, hasAskedForNotificationPermission
         case solvedPuzzleIds, failedPuzzleIds, lifetimeSolvedCount, recentEndlessIds
+        case solveHistory
     }
 
     init(from decoder: Decoder) throws {
@@ -111,6 +128,7 @@ extension UserState {
         failedPuzzleIds        = try c.decodeIfPresent(Set<String>.self, forKey: .failedPuzzleIds) ?? []
         lifetimeSolvedCount    = try c.decodeIfPresent(Int.self, forKey: .lifetimeSolvedCount) ?? totalSolved
         recentEndlessIds       = try c.decodeIfPresent([String].self, forKey: .recentEndlessIds) ?? []
+        solveHistory           = try c.decodeIfPresent([SolveRecord].self, forKey: .solveHistory) ?? []
     }
 
     func encode(to encoder: Encoder) throws {
@@ -136,5 +154,6 @@ extension UserState {
         try c.encode(failedPuzzleIds,     forKey: .failedPuzzleIds)
         try c.encode(lifetimeSolvedCount, forKey: .lifetimeSolvedCount)
         try c.encode(recentEndlessIds,    forKey: .recentEndlessIds)
+        try c.encode(solveHistory,        forKey: .solveHistory)
     }
 }
