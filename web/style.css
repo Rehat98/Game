@@ -16,16 +16,27 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #ECDDB3;
-  background-image:
-    radial-gradient(circle at 20% 25%, rgba(255,214,10,0.10) 0, transparent 35%),
-    radial-gradient(circle at 80% 75%, rgba(6,214,160,0.08) 0, transparent 35%),
-    radial-gradient(circle at 50% 95%, rgba(17,138,178,0.06) 0, transparent 40%);
+  background-color: #ECDDB3;
   color: var(--pk-ink);
   font-family: var(--font-rounded);
   font-weight: 600;
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
+}
+
+/* Doodled surround — hand-drawn ink marks scattered around the central card.
+   Fixed-attached so the doodles stay in the viewport as the page scrolls.
+   Mobile (max-width: 600px) hides the surround entirely — see below. */
+body {
+  background-image:
+    url('/doodles.svg'),
+    radial-gradient(circle at 20% 25%, rgba(255,214,10,0.10) 0, transparent 35%),
+    radial-gradient(circle at 80% 75%, rgba(6,214,160,0.08) 0, transparent 35%),
+    radial-gradient(circle at 50% 95%, rgba(17,138,178,0.06) 0, transparent 40%);
+  background-size: cover, auto, auto, auto;
+  background-position: center center, 0 0, 0 0, 0 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed, scroll, scroll, scroll;
 }
 
 /* Outer "desk" — three-column layout (left rail, game, right rail).

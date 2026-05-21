@@ -1,12 +1,13 @@
 // Pictok service worker. Cache-first for all listed assets.
 
-const CACHE = 'pictok-v4';
+const CACHE = 'pictok-v5';
 const ASSETS = [
   '/',
   '/index.html',
   '/style.css',
   '/manifest.webmanifest',
   '/puzzles.json',
+  '/doodles.svg',
   '/icon-192.png',
   '/icon-512.png',
   '/sounds/correct.wav',
