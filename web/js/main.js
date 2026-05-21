@@ -40,6 +40,68 @@ async function boot() {
 
   const session = createTodaySession(todayPuzzle, state, storage, today);
   renderToday(session, state, today, loader.allPuzzles, storage);
+
+  // Right rail (Today panel) — only meaningful on wide viewports where it's visible.
+  renderRightRail(state, loader, today);
+  setInterval(() => renderRightRail(state, loader, today), 60_000);
+}
+
+function renderRightRail(state, loader, today) {
+  const root = document.querySelector('#rail-right');
+  if (!root) return;
+  const ymd = yesterdayKey(today);
+  const yp = loader.puzzleFor(ymd);
+  const countdown = timeUntilNextPuzzle();
+
+  ui.setChildren(root,
+    ui.el('div', { class: 'rail-title' }, ['Today']),
+    ui.el('div', { class: 'rail-block' }, [
+      ui.el('div', { class: 'rail-block-eyebrow' }, ['Next puzzle in']),
+      ui.el('div', { class: 'rail-block-value' }, [countdown]),
+    ]),
+    ui.el('div', { class: 'rail-block' }, [
+      ui.el('div', { class: 'rail-block-eyebrow' }, ['Streak']),
+      ui.el('div', { class: 'rail-block-value' }, [
+        state.currentStreak === 0 ? '—' : `🔥 ${state.currentStreak}`,
+      ]),
+      ui.el('div', { class: 'rail-block-sub' }, [
+        state.longestStreak > state.currentStreak ? `Best: ${state.longestStreak}` : 'Keep it alive',
+      ]),
+    ]),
+    yp
+      ? ui.el('div', { class: 'rail-block' }, [
+          ui.el('div', { class: 'rail-block-eyebrow' }, ['Yesterday was']),
+          ui.el('div', { class: 'rail-yesterday-emoji' }, [yp.emoji]),
+          ui.el('div', { class: 'rail-yesterday-blanks' }, [maskAnswer(yp.answer)]),
+        ])
+      : null,
+  );
+}
+
+function yesterdayKey(today) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(today);
+  if (!m) return today;
+  const ms = Date.UTC(+m[1], +m[2] - 1, +m[3]) - 86_400_000;
+  const d = new Date(ms);
+  const y = d.getUTCFullYear();
+  const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+  const dd = String(d.getUTCDate()).padStart(2, '0');
+  return `${y}-${mm}-${dd}`;
+}
+
+function timeUntilNextPuzzle() {
+  const now = new Date();
+  const next = new Date(now);
+  next.setHours(24, 0, 0, 0);
+  const ms = next - now;
+  const h = Math.floor(ms / 3_600_000);
+  const m = Math.floor((ms % 3_600_000) / 60_000);
+  if (h <= 0) return `${m}m`;
+  return `${h}h ${m}m`;
+}
+
+function maskAnswer(answer) {
+  return [...answer].map(ch => ch === ' ' ? '   ' : '_').join(' ');
 }
 
 function goToEndless(allPuzzles, state, today, storage) {

@@ -28,9 +28,28 @@ html, body {
   min-height: 100dvh;
 }
 
-#app {
-  max-width: 520px;
+/* Outer "desk" — three-column layout (left rail, game, right rail).
+   Rails collapse away on viewports < 1100px so the column-only experience is preserved. */
+.desk {
+  max-width: 1180px;
   margin: 28px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 24px;
+}
+@media (min-width: 1180px) {
+  .desk {
+    grid-template-columns: 260px 520px 280px;
+    justify-items: stretch;
+    align-items: start;
+  }
+}
+
+#app {
+  width: 100%;
+  max-width: 520px;
   padding: 22px 20px 28px;
   display: flex;
   flex-direction: column;
@@ -39,14 +58,112 @@ html, body {
   border: 3px solid var(--pk-ink);
   border-radius: 22px;
   box-shadow: 8px 8px 0 0 var(--pk-ink);
+  position: relative;
 }
 
-/* Mobile: ditch the floating-card treatment — full-bleed for phone-app feel. */
+/* Side rails — hidden by default, shown alongside the game on wide screens. */
+.rail {
+  display: none;
+  background: var(--pk-paper);
+  border: 3px solid var(--pk-ink);
+  border-radius: 22px;
+  box-shadow: 6px 6px 0 0 var(--pk-ink);
+  padding: 22px 18px;
+  flex-direction: column;
+  gap: 16px;
+}
+@media (min-width: 1180px) {
+  .rail { display: flex; }
+}
+.rail-title {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 4px;
+}
+.rail-footer {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.45;
+  margin-top: auto;
+  letter-spacing: 0.02em;
+}
+
+/* Left rail — How to Pictok */
+.rail-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.rail-step {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.rail-step-num {
+  flex: 0 0 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--pk-ink);
+  color: var(--pk-paper);
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rail-step-body { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.rail-step-emoji { font-size: 20px; line-height: 1; }
+.rail-step-text { font-size: 13px; line-height: 1.4; font-weight: 700; }
+
+/* Right rail — Today */
+.rail-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.55);
+  border: 2px dashed rgba(0,0,0,0.18);
+  border-radius: 12px;
+}
+.rail-block-eyebrow {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.rail-block-value {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.rail-block-sub {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.6;
+}
+.rail-yesterday-emoji { font-size: 32px; line-height: 1.2; margin-top: 2px; }
+.rail-yesterday-blanks {
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0.5;
+  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+}
+
+/* Mobile: full-bleed game, no surround/border. */
 @media (max-width: 600px) {
   body { background: var(--pk-paper); background-image: none; }
+  .desk { padding: 0; margin: 0; max-width: 100%; }
   #app {
     max-width: 100%;
-    margin: 0;
     padding: 16px;
     border: none;
     border-radius: 0;
