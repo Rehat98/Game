@@ -38,7 +38,7 @@ body {
 .doodles-bg {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
 }
@@ -55,6 +55,8 @@ body {
   grid-template-columns: minmax(0, 1fr);
   justify-items: center;
   gap: 24px;
+  position: relative;   /* lift content above the fixed .doodles-bg layer */
+  z-index: 1;
 }
 @media (min-width: 1180px) {
   .desk {
