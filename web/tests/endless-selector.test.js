@@ -29,7 +29,9 @@ test('tier 1: prefers unseen + spoiler-safe (>7 days from today)', () => {
 test('excludes today\'s Daily from every tier', () => {
   const state = fresh();
   for (let i = 0; i < 20; i++) {
-    const pick = nextPuzzle(POOL, state, TODAY, fixedRng([i % POOL.length]));
+    // Sweep rng across [0, 1) to exercise every candidate index.
+    const r = (i * 0.13) % 1;
+    const pick = nextPuzzle(POOL, state, TODAY, () => r);
     assert.notEqual(pick.id, 'today');
   }
 });
