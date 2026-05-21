@@ -3,9 +3,8 @@ import * as engine from './game-engine.js';
 import * as us from './user-state.js';
 
 const MAX_HEARTS = 5;
-const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-export function createTodaySession(puzzle, state, storage) {
+export function createTodaySession(puzzle, state, storage, today) {
   // Reset today's progress when the date rolls over (different puzzle than stored).
   if (state.todayPuzzleId !== puzzle.id) {
     state.todayPuzzleId = puzzle.id;
@@ -50,7 +49,7 @@ export function createTodaySession(puzzle, state, storage) {
         }
         if (engine.isFailed(state.lives)) {
           state.todayFailed = true;
-          recordFailure(state, puzzle);
+          recordFailure(state, puzzle, today);
         }
       }
       us.save(state, storage);
@@ -65,11 +64,11 @@ export function createTodaySession(puzzle, state, storage) {
       state.lives = Math.max(0, state.lives - engine.heartCost('letter'));
       if (engine.isFailed(state.lives)) {
         state.todayFailed = true;
-        recordFailure(state, puzzle);
+        recordFailure(state, puzzle, today);
       }
       us.save(state, storage);
     },
-    submit(today) {
+    submit() {
       if (!this.needsSubmit) return;
       state.todaySolved = true;
       recordSolve(state, puzzle, today);
@@ -94,12 +93,21 @@ function recordSolve(state, puzzle, today) {
   state.streakFreezesAvailable = r.freezesAvailable;
   state.longestStreak = Math.max(state.longestStreak, state.currentStreak);
   state.lastSolvedDate = today;
+  const hintUsed = state.todayHintUsed !== null;
+  appendSolveHistory(state, today, (wrongCount === 0 && !hintUsed) ? 'perfect' : 'solved');
 }
 
-function recordFailure(state, puzzle) {
+function recordFailure(state, puzzle, today) {
   state.totalPlayed += 1;
   state.currentStreak = engine.streakAfterFail(state.currentStreak);
   if (!state.failedPuzzleIds.includes(puzzle.id)) {
     state.failedPuzzleIds = [...state.failedPuzzleIds, puzzle.id];
   }
+  appendSolveHistory(state, today, 'failed');
+}
+
+function appendSolveHistory(state, date, result) {
+  // Replace existing entry for the same date (e.g., resumed-and-finished after refresh).
+  const existing = (state.solveHistory ?? []).filter(h => h.date !== date);
+  state.solveHistory = [...existing, { date, result }];
 }

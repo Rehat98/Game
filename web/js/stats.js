@@ -5,50 +5,113 @@ export function winPercent({ totalSolved, totalPlayed }) {
   return Math.round((totalSolved / totalPlayed) * 100);
 }
 
-export function maxDistributionCount(dist) {
-  const vals = Object.values(dist ?? {});
-  return vals.length ? Math.max(...vals) : 0;
+/// Builds a `weeks × 7` array of cells ending in the week that contains `today`.
+/// Each cell: `{ date, result: 'perfect'|'solved'|'failed'|null, isToday, isFuture }`.
+/// Weeks start on Monday.
+export function buildCalendarGrid(today, solveHistory, weeks = 4) {
+  const historyMap = new Map((solveHistory ?? []).map(h => [h.date, h.result]));
+  const todayMs = parseYMD(today);
+  if (todayMs === null) return [];
+
+  const todayDate = new Date(todayMs);
+  const dow = todayDate.getUTCDay();                  // 0=Sun, 1=Mon, ..., 6=Sat
+  const daysFromMonday = dow === 0 ? 6 : dow - 1;
+  const mondayThisWeek = todayMs - daysFromMonday * 86_400_000;
+  const startMs = mondayThisWeek - (weeks - 1) * 7 * 86_400_000;
+
+  const grid = [];
+  for (let w = 0; w < weeks; w++) {
+    const row = [];
+    for (let d = 0; d < 7; d++) {
+      const cellMs = startMs + (w * 7 + d) * 86_400_000;
+      const cellDate = msToYMD(cellMs);
+      row.push({
+        date: cellDate,
+        result: historyMap.get(cellDate) ?? null,
+        isToday: cellDate === today,
+        isFuture: cellMs > todayMs,
+      });
+    }
+    grid.push(row);
+  }
+  return grid;
+}
+
+function parseYMD(s) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (!m) return null;
+  return Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+}
+
+function msToYMD(ms) {
+  const d = new Date(ms);
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(d.getUTCDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
 }
 
 import { el } from './ui.js';
 
-export function renderStats(state) {
+export function renderStats(state, today) {
   const pct = winPercent(state);
-  const max = maxDistributionCount(state.guessDistribution);
-
-  return el('div', { style: 'display:flex;flex-direction:column;gap:14px' }, [
+  return el('div', { class: 'stats-screen' }, [
     pairCard('Current streak', state.currentStreak, 'Longest', state.longestStreak),
     pairCard('Lifetime solved', state.lifetimeSolvedCount, 'Win %', `${pct}%`),
-    distributionCard(state.guessDistribution, max),
+    calendarCard(today, state.solveHistory ?? []),
   ]);
 }
 
 function pairCard(labelA, valueA, labelB, valueB) {
-  return el('div', { class: 'sticker', style: 'display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;gap:0;padding:18px' }, [
+  return el('div', { class: 'sticker stats-pair' }, [
     statCell(labelA, valueA),
-    el('div', { style: 'width:1px;background:rgba(0,0,0,0.1);height:48px;justify-self:center' }),
+    el('div', { class: 'stats-pair-divider' }),
     statCell(labelB, valueB),
   ]);
 }
 
 function statCell(label, value) {
-  return el('div', { style: 'display:flex;flex-direction:column;align-items:center;gap:4px' }, [
-    el('div', { style: 'font-size:32px;font-weight:900' }, [String(value)]),
-    el('div', { style: 'font-size:12px;opacity:0.6;text-transform:uppercase;letter-spacing:0.06em' }, [label]),
+  return el('div', { class: 'stats-cell' }, [
+    el('div', { class: 'stats-value' }, [String(value)]),
+    el('div', { class: 'stats-label' }, [label]),
   ]);
 }
 
-function distributionCard(dist, max) {
-  const buckets = [0, 1, 2, 3, 4, 5];
-  return el('div', { class: 'sticker', style: 'padding:18px;display:flex;flex-direction:column;gap:8px' }, [
-    el('div', { style: 'font-size:12px;opacity:0.6;text-transform:uppercase;letter-spacing:0.06em' }, ['Guess distribution']),
-    ...buckets.map(b => {
-      const count = dist[b] ?? 0;
-      const widthPct = max ? Math.max(4, (count / max) * 100) : 4;
-      return el('div', { style: 'display:flex;align-items:center;gap:8px' }, [
-        el('div', { style: 'width:18px;font-size:13px;font-weight:700;text-align:right' }, [String(b)]),
-        el('div', { style: `background:var(--pk-green);height:18px;border-radius:4px;width:${widthPct}%;display:flex;align-items:center;justify-content:flex-end;padding:0 6px;font-size:12px;font-weight:800;color:var(--pk-ink);min-width:24px` }, [count > 0 ? String(count) : '']),
-      ]);
-    }),
+function calendarCard(today, history) {
+  const grid = buildCalendarGrid(today, history, 4);
+  const dayLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  return el('div', { class: 'sticker calendar-card' }, [
+    el('div', { class: 'stats-label calendar-eyebrow' }, ['Last 4 weeks']),
+    el('div', { class: 'calendar-grid' }, [
+      ...dayLabels.map(l => el('div', { class: 'calendar-day-label' }, [l])),
+      ...grid.flatMap(row => row.map(cell => {
+        const status = cell.isFuture ? 'future' : (cell.result ?? 'empty');
+        const todayMod = cell.isToday ? ' calendar-cell--today' : '';
+        return el('div', {
+          class: `calendar-cell calendar-cell--${status}${todayMod}`,
+          title: cellTooltip(cell),
+        });
+      })),
+    ]),
+    el('div', { class: 'calendar-legend' }, [
+      legendItem('perfect', 'Perfect'),
+      legendItem('solved', 'Solved with hint or lost hearts'),
+      legendItem('failed', 'Failed'),
+    ]),
   ]);
+}
+
+function legendItem(status, label) {
+  return el('div', { class: 'legend-item' }, [
+    el('div', { class: `calendar-cell calendar-cell--${status} calendar-cell--legend` }),
+    el('span', {}, [label]),
+  ]);
+}
+
+function cellTooltip(cell) {
+  if (cell.isFuture) return cell.date;
+  if (cell.result === 'perfect') return `${cell.date}: perfect`;
+  if (cell.result === 'solved')  return `${cell.date}: solved`;
+  if (cell.result === 'failed')  return `${cell.date}: failed`;
+  return `${cell.date}: didn't play`;
 }

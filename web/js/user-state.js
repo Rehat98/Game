@@ -25,6 +25,7 @@ export function fresh() {
     failedPuzzleIds: [],
     lifetimeSolvedCount: 0,
     recentEndlessIds: [],
+    solveHistory: [],
   };
 }
 

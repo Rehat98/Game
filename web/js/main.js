@@ -23,7 +23,7 @@ async function boot() {
         ensureEndlessScreen(loader.allPuzzles, state, today, storage);
       }
       if (tab.dataset.screen === 'stats') {
-        document.querySelector('#screen-stats').replaceChildren(stats.renderStats(state));
+        document.querySelector('#screen-stats').replaceChildren(stats.renderStats(state, today));
       }
     });
   }
@@ -38,7 +38,7 @@ async function boot() {
     return;
   }
 
-  const session = createTodaySession(todayPuzzle, state, storage);
+  const session = createTodaySession(todayPuzzle, state, storage, today);
   renderToday(session, state, today, loader.allPuzzles, storage);
 }
 
@@ -66,7 +66,7 @@ function renderToday(session, state, today, allPuzzles, storage) {
       session.needsSubmit
         ? ui.el('button', {
             class: 'btn-sticker btn-sticker--green',
-            onclick: () => { session.submit(today); afterAction(); },
+            onclick: () => { session.submit(); afterAction(); },
           }, ['Submit ✓'])
         : null,
       ui.renderKeyboard({
