@@ -1,102 +1,114 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid slice">
-  <g opacity="0.26">
-    <!-- BOOK with face (top-left) -->
-    <g transform="translate(115 130)">
-      <path d="M-26 -20 L26 -20 L26 22 L-26 22 Z"/>
-      <path d="M0 -20 L0 22"/>
-      <line x1="9" y1="-4" x2="9" y2="-4" stroke-width="4"/>
-      <line x1="19" y1="-4" x2="19" y2="-4" stroke-width="4"/>
-      <path d="M9 8 Q14 13 19 8"/>
-      <!-- left page hatch -->
-      <path d="M-18 -6 L-6 -6 M-18 0 L-6 0 M-18 6 L-12 6"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid slice">
+  <!-- Each doodle has its own stroke (and sometimes fill) so the surround feels colored,
+       not monochrome. Opacity is per-group so we can tune individually. -->
 
-    <!-- LIGHTBULB with face (top-right) -->
-    <g transform="translate(1470 120)">
-      <path d="M0 -22 C -16 -22, -22 -8, -14 4 C -10 10, -10 14, -8 18 L 8 18 C 10 14, 10 10, 14 4 C 22 -8, 16 -22, 0 -22 Z"/>
-      <!-- base lines -->
-      <path d="M-8 22 L8 22 M-6 26 L6 26"/>
-      <!-- face -->
-      <line x1="-5" y1="-8" x2="-5" y2="-8" stroke-width="4"/>
-      <line x1="5" y1="-8" x2="5" y2="-8" stroke-width="4"/>
-      <path d="M-5 0 Q0 4 5 0"/>
-      <!-- shiny rays -->
-      <path d="M-22 -22 L-30 -28 M22 -22 L30 -28 M0 -32 L0 -38"/>
-    </g>
+  <!-- BOOK with face (top-left) — blue ink -->
+  <g transform="translate(115 130)" stroke="#118AB2" opacity="0.55">
+    <path d="M-26 -20 L26 -20 L26 22 L-26 22 Z"/>
+    <path d="M0 -20 L0 22"/>
+    <line x1="9"  y1="-4" x2="9"  y2="-4" stroke-width="4"/>
+    <line x1="19" y1="-4" x2="19" y2="-4" stroke-width="4"/>
+    <path d="M9 8 Q14 13 19 8"/>
+    <path d="M-18 -6 L-6 -6 M-18 0 L-6 0 M-18 6 L-12 6"/>
+  </g>
 
-    <!-- MUSIC NOTE with face (mid-left) -->
-    <g transform="translate(140 380)">
-      <path d="M-12 14 C -12 10, -4 8, 0 12 L 0 -14 L 18 -20 L 18 0 C 18 4, 10 6, 6 2 L 6 -10 L 0 -8"/>
-      <line x1="-3" y1="-2" x2="-3" y2="-2" stroke-width="3.5"/>
-      <line x1="-9" y1="-2" x2="-9" y2="-2" stroke-width="3.5"/>
-    </g>
+  <!-- LIGHTBULB with face + soft yellow fill (top-right) -->
+  <g transform="translate(1470 120)" opacity="0.6">
+    <path d="M0 -22 C -16 -22, -22 -8, -14 4 C -10 10, -10 14, -8 18 L 8 18 C 10 14, 10 10, 14 4 C 22 -8, 16 -22, 0 -22 Z"
+          fill="#FFD60A" fill-opacity="0.45" stroke="#1A1A1A"/>
+    <path d="M-8 22 L8 22 M-6 26 L6 26" stroke="#1A1A1A"/>
+    <line x1="-5" y1="-8" x2="-5" y2="-8" stroke-width="4" stroke="#1A1A1A"/>
+    <line x1="5"  y1="-8" x2="5"  y2="-8" stroke-width="4" stroke="#1A1A1A"/>
+    <path d="M-5 0 Q0 4 5 0" stroke="#1A1A1A"/>
+    <path d="M-22 -22 L-30 -28 M22 -22 L30 -28 M0 -32 L0 -38" stroke="#FFD60A" stroke-width="3"/>
+  </g>
 
-    <!-- SPEECH BUBBLE saying AHA -->
-    <g transform="translate(1500 360)">
-      <path d="M-32 -16 Q-32 -26, -22 -26 L 18 -26 Q 28 -26, 28 -16 L 28 4 Q 28 14, 18 14 L 4 14 L -2 22 L -2 14 L -22 14 Q -32 14, -32 4 Z"/>
-      <!-- A H A text-ish marks -->
-      <path d="M-18 -2 L-14 -10 L-10 -2 M-16 -5 L-12 -5"/>
-      <path d="M-6 -10 L-6 -2 M-6 -6 L2 -6 M2 -10 L2 -2"/>
-      <path d="M6 -2 L10 -10 L14 -2 M8 -5 L12 -5"/>
-    </g>
+  <!-- MUSIC NOTE with face (mid-left) — red -->
+  <g transform="translate(140 380)" stroke="#E63946" opacity="0.6">
+    <path d="M-12 14 C -12 10, -4 8, 0 12 L 0 -14 L 18 -20 L 18 0 C 18 4, 10 6, 6 2 L 6 -10 L 0 -8"/>
+    <line x1="-3" y1="-2" x2="-3" y2="-2" stroke-width="3.5"/>
+    <line x1="-9" y1="-2" x2="-9" y2="-2" stroke-width="3.5"/>
+  </g>
 
-    <!-- SMILING CLOUD (bottom-left) -->
-    <g transform="translate(180 760)">
-      <path d="M-26 4 C -34 4, -34 -8, -24 -10 C -22 -20, -8 -22, -2 -14 C 6 -22, 22 -18, 22 -8 C 32 -6, 32 6, 22 6 Z"/>
-      <line x1="-10" y1="-4" x2="-10" y2="-4" stroke-width="4"/>
-      <line x1="6" y1="-4" x2="6" y2="-4" stroke-width="4"/>
-      <path d="M-6 0 Q-2 4 2 0"/>
-    </g>
+  <!-- SPEECH BUBBLE "AHA" with green fill (mid-right) -->
+  <g transform="translate(1500 360)" opacity="0.6">
+    <path d="M-32 -16 Q-32 -26, -22 -26 L 18 -26 Q 28 -26, 28 -16 L 28 4 Q 28 14, 18 14 L 4 14 L -2 22 L -2 14 L -22 14 Q -32 14, -32 4 Z"
+          fill="#06D6A0" fill-opacity="0.30" stroke="#1A1A1A"/>
+    <path d="M-18 -2 L-14 -10 L-10 -2 M-16 -5 L-12 -5" stroke="#1A1A1A"/>
+    <path d="M-6 -10 L-6 -2 M-6 -6 L2 -6 M2 -10 L2 -2" stroke="#1A1A1A"/>
+    <path d="M6 -2 L10 -10 L14 -2 M8 -5 L12 -5" stroke="#1A1A1A"/>
+  </g>
 
-    <!-- PENCIL (bottom-right) -->
-    <g transform="translate(1430 760)">
-      <path d="M-30 12 L18 -36 L26 -28 L-22 20 Z"/>
-      <path d="M-30 12 L-22 20 M-30 12 L-26 4 L-22 20 M14 -32 L22 -24"/>
-    </g>
+  <!-- SMILING CLOUD (bottom-left) — blue -->
+  <g transform="translate(180 760)" stroke="#118AB2" opacity="0.55">
+    <path d="M-26 4 C -34 4, -34 -8, -24 -10 C -22 -20, -8 -22, -2 -14 C 6 -22, 22 -18, 22 -8 C 32 -6, 32 6, 22 6 Z"
+          fill="#118AB2" fill-opacity="0.10"/>
+    <line x1="-10" y1="-4" x2="-10" y2="-4" stroke-width="4"/>
+    <line x1="6"   y1="-4" x2="6"   y2="-4" stroke-width="4"/>
+    <path d="M-6 0 Q-2 4 2 0"/>
+  </g>
 
-    <!-- HEART with face (left mid-bottom) -->
-    <g transform="translate(80 600)">
-      <path d="M0 6 C -10 -8, -28 -8, -28 8 C -28 22, -12 32, 0 42 C 12 32, 28 22, 28 8 C 28 -8, 10 -8, 0 6 Z"/>
-      <line x1="-9" y1="14" x2="-9" y2="14" stroke-width="3.5"/>
-      <line x1="9" y1="14" x2="9" y2="14" stroke-width="3.5"/>
-      <path d="M-5 22 Q0 26 5 22"/>
-    </g>
+  <!-- PENCIL (bottom-right) — yellow body, ink tip + eraser -->
+  <g transform="translate(1430 760)" opacity="0.65">
+    <path d="M-26 8 L 14 -32 L 22 -24 L -18 16 Z"
+          fill="#FFD60A" fill-opacity="0.45" stroke="#1A1A1A"/>
+    <path d="M-26 8 L-18 16 M-26 8 L-22 0 L-18 16" stroke="#1A1A1A"/>
+    <path d="M10 -36 L 18 -28" stroke="#E63946" stroke-width="3.2"/>
+    <path d="M-22 16 L-26 20 M-18 16 L-22 20" stroke="#1A1A1A"/>
+  </g>
 
-    <!-- COFFEE CUP with steam (right mid-bottom) -->
-    <g transform="translate(1080 820)">
-      <path d="M-18 -8 L-18 14 Q-18 20, -12 20 L 10 20 Q 16 20, 16 14 L 16 -8 Z"/>
-      <path d="M16 -2 Q 24 -2, 24 4 Q 24 10, 16 10"/>
-      <!-- steam swirls -->
-      <path d="M-8 -18 Q-4 -22, -8 -26 Q-12 -30, -8 -34"/>
-      <path d="M4 -18 Q8 -22, 4 -26 Q0 -30, 4 -34"/>
-    </g>
+  <!-- HEART with face (left mid-bottom) — red with soft fill -->
+  <g transform="translate(80 600)" opacity="0.6">
+    <path d="M0 6 C -10 -8, -28 -8, -28 8 C -28 22, -12 32, 0 42 C 12 32, 28 22, 28 8 C 28 -8, 10 -8, 0 6 Z"
+          fill="#E63946" fill-opacity="0.22" stroke="#E63946"/>
+    <line x1="-9" y1="14" x2="-9" y2="14" stroke-width="3.5" stroke="#1A1A1A"/>
+    <line x1="9"  y1="14" x2="9"  y2="14" stroke-width="3.5" stroke="#1A1A1A"/>
+    <path d="M-5 22 Q0 26 5 22" stroke="#1A1A1A"/>
+  </g>
 
-    <!-- TINY STARS scattered -->
+  <!-- COFFEE CUP with steam (right mid-bottom) — ink + green steam -->
+  <g transform="translate(1080 820)" opacity="0.6">
+    <path d="M-18 -8 L-18 14 Q-18 20, -12 20 L 10 20 Q 16 20, 16 14 L 16 -8 Z" stroke="#1A1A1A"/>
+    <path d="M16 -2 Q 24 -2, 24 4 Q 24 10, 16 10" stroke="#1A1A1A"/>
+    <path d="M-8 -18 Q-4 -22, -8 -26 Q-12 -30, -8 -34" stroke="#06D6A0" stroke-width="2.4"/>
+    <path d="M4 -18 Q8 -22, 4 -26 Q0 -30, 4 -34"      stroke="#06D6A0" stroke-width="2.4"/>
+  </g>
+
+  <!-- TINY STARS / SPARKLES scattered — yellow -->
+  <g stroke="#FFD60A" opacity="0.7">
     <g transform="translate(330 60)"><path d="M0 -9 L0 9 M-9 0 L9 0 M-6 -6 L6 6 M-6 6 L6 -6"/></g>
     <g transform="translate(1300 70)"><path d="M0 -7 L0 7 M-7 0 L7 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
     <g transform="translate(420 820)"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
+    <g transform="translate(1380 540)"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
     <g transform="translate(1180 130)"><path d="M0 -6 L0 6 M-6 0 L6 0"/></g>
     <g transform="translate(220 260)"><path d="M0 -7 L0 7 M-7 0 L7 0"/></g>
-    <g transform="translate(1380 540)"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
     <g transform="translate(80 480)"><path d="M0 -6 L0 6 M-6 0 L6 0"/></g>
+  </g>
 
-    <!-- SMALL HEARTS scattered (no face) -->
+  <!-- SMALL HEARTS scattered (no face) — red -->
+  <g stroke="#E63946" opacity="0.55">
     <g transform="translate(1140 460)">
-      <path d="M0 2 C -5 -4, -14 -4, -14 4 C -14 11, -6 16, 0 21 C 6 16, 14 11, 14 4 C 14 -4, 5 -4, 0 2 Z"/>
+      <path d="M0 2 C -5 -4, -14 -4, -14 4 C -14 11, -6 16, 0 21 C 6 16, 14 11, 14 4 C 14 -4, 5 -4, 0 2 Z"
+            fill="#E63946" fill-opacity="0.2"/>
     </g>
     <g transform="translate(350 540)">
-      <path d="M0 2 C -4 -3, -11 -3, -11 3 C -11 9, -5 13, 0 17 C 5 13, 11 9, 11 3 C 11 -3, 4 -3, 0 2 Z"/>
+      <path d="M0 2 C -4 -3, -11 -3, -11 3 C -11 9, -5 13, 0 17 C 5 13, 11 9, 11 3 C 11 -3, 4 -3, 0 2 Z"
+            fill="#E63946" fill-opacity="0.2"/>
     </g>
+  </g>
 
-    <!-- SQUIGGLE highlights -->
+  <!-- SQUIGGLE highlights — green -->
+  <g stroke="#06D6A0" opacity="0.55">
     <g transform="translate(80 230)">
       <path d="M0 0 Q15 -10 30 0 T60 0 T90 0"/>
     </g>
     <g transform="translate(1290 240)">
       <path d="M0 0 Q12 -8 24 0 T48 0 T72 0"/>
     </g>
+  </g>
 
-    <!-- TINY WAVY ARROWS pointing inward -->
+  <!-- TINY WAVY ARROWS pointing inward — ink -->
+  <g stroke="#1A1A1A" opacity="0.4">
     <g transform="translate(380 480)">
       <path d="M-30 0 Q-20 -8, -10 0 Q0 8, 10 0 M5 -5 L10 0 L5 5"/>
     </g>
