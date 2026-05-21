@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FEF3D9" />
+  <title>Pictok — Daily Emoji Puzzle</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="top-bar">
+      <h1>Pictok</h1>
+      <nav>
+        <button data-screen="today"   class="tab" aria-current="page">Play</button>
+        <button data-screen="endless" class="tab">Endless</button>
+        <button data-screen="stats"   class="tab">Stats</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="screen-today"   class="screen active"></section>
+      <section id="screen-endless" class="screen" hidden></section>
+      <section id="screen-stats"   class="screen" hidden></section>
+    </main>
+
+    <div id="modal-root"></div>
+    <div id="toast-root"></div>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
