@@ -15,8 +15,10 @@ final class ShareCardBuilderTests: XCTestCase {
         )
         let expected = """
         I solved today's Pictok with no hints — perfect run.
-        Streak: 7 · Pictok #142
-        Can you beat me? → pictok.app
+        Streak: 7
+
+        🎯 𝗖𝗮𝗻 𝘆𝗼𝘂 𝗯𝗲𝗮𝘁 𝗺𝗲? 🎯
+        → pictok.app
         """
         XCTAssertEqual(card, expected)
     }
@@ -31,8 +33,7 @@ final class ShareCardBuilderTests: XCTestCase {
             currentStreak: 7,
             url: "pictok.app"
         )
-        XCTAssertTrue(card.contains("I solved today's Pictok using 1 hint."),
-                      "Expected hint framing, got: \(card)")
+        XCTAssertTrue(card.contains("I solved today's Pictok using 1 hint."))
     }
 
     func test_successCard_oneWrongGuess_noHint() {
@@ -77,7 +78,7 @@ final class ShareCardBuilderTests: XCTestCase {
                       "Expected combo framing, got: \(card)")
     }
 
-    func test_successCard_includesStreakAndPuzzleNumber() {
+    func test_successCard_includesStreakWithoutPuzzleNumber() {
         let card = ShareCardBuilder.successCard(
             puzzleNumber: 142,
             category: .movie,
@@ -87,10 +88,11 @@ final class ShareCardBuilderTests: XCTestCase {
             currentStreak: 7,
             url: "pictok.app"
         )
-        XCTAssertTrue(card.contains("Streak: 7 · Pictok #142"))
+        XCTAssertTrue(card.contains("Streak: 7"))
+        XCTAssertFalse(card.contains("#"), "Internal puzzle number should not surface in the share text")
     }
 
-    func test_successCard_includesChallengeUrl() {
+    func test_successCard_includesBoldChallengeLine() {
         let card = ShareCardBuilder.successCard(
             puzzleNumber: 1,
             category: .brand,
@@ -100,7 +102,8 @@ final class ShareCardBuilderTests: XCTestCase {
             currentStreak: 1,
             url: "pictok.app"
         )
-        XCTAssertTrue(card.contains("Can you beat me? → pictok.app"))
+        XCTAssertTrue(card.contains("🎯 𝗖𝗮𝗻 𝘆𝗼𝘂 𝗯𝗲𝗮𝘁 𝗺𝗲? 🎯"))
+        XCTAssertTrue(card.contains("→ pictok.app"))
     }
 
     func test_failureCard_format() {
@@ -112,9 +115,11 @@ final class ShareCardBuilderTests: XCTestCase {
             url: "pictok.app"
         )
         let expected = """
-        Today's Pictok beat me. Pictok #142.
+        Today's Pictok beat me.
         Streak: 7 → 0
-        Want to take a swing? → pictok.app
+
+        🎯 𝗧𝗮𝗸𝗲 𝗮 𝘀𝘄𝗶𝗻𝗴? 🎯
+        → pictok.app
         """
         XCTAssertEqual(card, expected)
     }
