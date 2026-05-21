@@ -28,3 +28,24 @@ function challengeLine(hintUsed, heartsLost) {
   const noun = heartsLost === 1 ? 'guess' : 'guesses';
   return `I solved today's Pictok with 1 hint and ${heartsLost} wrong ${noun}.`;
 }
+
+/// Runtime share: native sheet if supported, else clipboard with toast.
+export async function shareText(text, { onClipboardSuccess } = {}) {
+  if (typeof navigator !== 'undefined' && navigator.share) {
+    try {
+      await navigator.share({ text });
+      return 'shared';
+    } catch (err) {
+      if (err && err.name === 'AbortError') return 'cancelled';
+      // Fall through to clipboard.
+    }
+  }
+  if (typeof navigator !== 'undefined' && navigator.clipboard) {
+    try {
+      await navigator.clipboard.writeText(text);
+      onClipboardSuccess?.();
+      return 'copied';
+    } catch { /* ignore */ }
+  }
+  return 'failed';
+}

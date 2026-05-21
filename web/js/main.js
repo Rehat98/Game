@@ -5,6 +5,7 @@ import { createEndlessSession } from './endless-session.js';
 import * as ui from './ui.js';
 import { celebrateWin, celebrateFail, tickCorrect, tickWrong } from './celebration.js';
 import * as stats from './stats.js';
+import * as share from './share.js';
 
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -100,11 +101,35 @@ function renderToday(session, state, today) {
 }
 
 function showResultModal(session, state, success) {
+  const url = 'pictok.app';
+  const shareTextValue = success
+    ? share.successCard({
+        heartsRemaining: state.lives,
+        hintUsed: session.hintUsed,
+        currentStreak: state.currentStreak,
+        url,
+      })
+    : share.failureCard({
+        previousStreak: Math.max(state.currentStreak, state.longestStreak),
+        url,
+      });
+
   ui.showModal(({ close }) => ui.el('div', {}, [
     ui.el('h2', {}, [success ? '🎉 You solved it!' : '💔 Better luck tomorrow']),
     ui.el('p', {}, [`Answer: ${session.puzzle.answer}`]),
     ui.el('p', {}, [`Streak: ${state.currentStreak}`]),
-    ui.el('button', { class: 'btn-sticker', onclick: close }, ['Close']),
+    ui.el('div', { style: 'display:flex;gap:8px' }, [
+      ui.el('button', {
+        class: 'btn-sticker btn-sticker--green',
+        onclick: async () => {
+          const r = await share.shareText(shareTextValue, {
+            onClipboardSuccess: () => ui.showToast('Copied — paste it anywhere!'),
+          });
+          if (r === 'failed') ui.showToast('Share unavailable');
+        },
+      }, ['Share']),
+      ui.el('button', { class: 'btn-sticker', onclick: close }, ['Close']),
+    ]),
   ]));
 }
 
