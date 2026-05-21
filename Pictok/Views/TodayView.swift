@@ -13,6 +13,8 @@ struct TodayView: View {
     @State private var showPermissionPrompt = false
     @State private var showWinCelebration: Bool = false
     @State private var showFailCelebration: Bool = false
+    @State private var hasShownOneChanceWarning: Bool = false
+    @State private var showOneChanceAlert: Bool = false
 
     var body: some View {
         ZStack {
@@ -70,6 +72,14 @@ struct TodayView: View {
         .sheet(isPresented: $showPermissionPrompt) {
             NotificationPermissionSheet(store: store)
         }
+        .alert("One chance left", isPresented: $showOneChanceAlert) {
+            Button("OK") { showOneChanceAlert = false }
+        } message: {
+            Text("Make it count — one more wrong guess ends the puzzle.")
+        }
+        .onChange(of: puzzle?.id) { _, _ in
+            hasShownOneChanceWarning = false
+        }
     }
 
     @ViewBuilder
@@ -88,12 +98,20 @@ struct TodayView: View {
                 wrongGuesses: Set(store.state.todayWrongGuesses),
                 onGuess: { letter in handleGuess(letter, in: puzzle) }
             )
+            if isSubmitReady {
+                StickerButton(title: "Submit ✓", icon: nil, fill: .pkGreen) {
+                    submitToday()
+                }
+                .padding(.top, 8)
+                .transition(.scale.combined(with: .opacity))
+            }
             StickerButton(title: "Continue Playing", icon: "▶️", fill: .pkGreen) {
                 onPlayEndless()
             }
             .padding(.top, 12)
         }
         .padding()
+        .animation(.spring(response: 0.35, dampingFraction: 0.7), value: isSubmitReady)
         .task {
             // First-time-app entry today: link store to this puzzle.
             if store.state.todayPuzzleId != puzzle.id {
@@ -158,35 +176,26 @@ struct TodayView: View {
     private func handleGuess(_ letter: Character, in puzzle: Puzzle) {
         guard !store.state.todaySolved, !store.state.todayFailed else { return }
         let upper = Character(String(letter).uppercased())
-        let known = knownLetters
-        guard let activeIdx = GameEngine.activeWordIndex(answer: puzzle.answer,
-                                                         correctGuesses: known) else {
-            // Already solved word-by-word — no-op.
-            return
-        }
-        let correct = GameEngine.isCorrect(letter: upper,
-                                           inWord: activeIdx,
-                                           of: puzzle.answer)
-        if correct {
+        if Set(store.state.todayCorrectGuesses).contains(upper) ||
+           Set(store.state.todayWrongGuesses).contains(upper) { return }
+
+        if GameEngine.isCorrect(letter: upper, in: puzzle) {
             store.state.todayCorrectGuesses.append(upper)
             HapticsService.correct()
             SoundService.shared.play(.correct)
+            // Submit-button gating handled by isSubmitReady (rendered in body).
         } else {
             store.state.todayWrongGuesses.append(upper)
             store.state.lives -= 1
             HapticsService.wrong()
             SoundService.shared.play(.wrong)
+            if store.state.lives == 1 && !hasShownOneChanceWarning {
+                hasShownOneChanceWarning = true
+                showOneChanceAlert = true
+            }
         }
-        checkEndState(for: puzzle)
         store.save()
-    }
-
-    /// Merge of correctGuesses and the hint-revealed letter (if any), used as the
-    /// "known letters" input for word-by-word active-word and solve-check logic.
-    private var knownLetters: Set<Character> {
-        var set = Set(store.state.todayCorrectGuesses)
-        if let r = store.state.todayRevealedLetter { set.insert(r) }
-        return set
+        checkEndState(for: puzzle)
     }
 
     private func useHint(_ hint: HintType) {
@@ -207,22 +216,47 @@ struct TodayView: View {
 
     private func currentPuzzleSnapshot() -> Puzzle? { puzzle }
 
+    /// Now handles only the FAIL side. The solve side is gated on the user
+    /// tapping the Submit button (see `submitToday()` + `isSubmitReady`).
     private func checkEndState(for puzzle: Puzzle?) {
-        guard let puzzle else { return }
-        if GameEngine.isSolvedByWord(answer: puzzle.answer,
-                                     correctGuesses: knownLetters) {
-            store.state.todaySolved = true
-            applySolveSideEffects(for: puzzle)
-            HapticsService.solved()
-            showResult = true
-            Task { await onSolveOrFail() }
-        } else if GameEngine.isFailed(lives: store.state.lives) {
+        guard puzzle != nil else { return }
+        guard !store.state.todaySolved, !store.state.todayFailed else { return }
+        if GameEngine.isFailed(lives: store.state.lives) {
             store.state.todayFailed = true
             applyFailSideEffects()
             HapticsService.failed()
             showResult = true
             Task { await onSolveOrFail() }
         }
+    }
+
+    /// True when every letter in the answer is known (via correct guesses or the
+    /// hint-revealed letter) and the puzzle is still active — i.e. the player
+    /// can confirm the solve by tapping Submit.
+    private var isSubmitReady: Bool {
+        guard let puzzle else { return false }
+        guard !store.state.todaySolved, !store.state.todayFailed else { return false }
+        let correct = Set(store.state.todayCorrectGuesses)
+        return GameEngine.isSolved(answer: puzzle.answer,
+                                   correctGuesses: correct,
+                                   revealedLetter: store.state.todayRevealedLetter)
+    }
+
+    /// Confirms a daily solve. Runs the win-side bookkeeping that the old
+    /// `checkEndState` used to do automatically; now gated on the Submit button.
+    private func submitToday() {
+        guard let puzzle else { return }
+        guard !store.state.todaySolved, !store.state.todayFailed else { return }
+        let correct = Set(store.state.todayCorrectGuesses)
+        guard GameEngine.isSolved(answer: puzzle.answer,
+                                  correctGuesses: correct,
+                                  revealedLetter: store.state.todayRevealedLetter) else { return }
+        store.state.todaySolved = true
+        applySolveSideEffects(for: puzzle)
+        HapticsService.solved()
+        showResult = true
+        store.save()
+        Task { await onSolveOrFail() }
     }
 
     private func applySolveSideEffects(for puzzle: Puzzle) {
