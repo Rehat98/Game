@@ -67,6 +67,7 @@ final class EndlessSessionTests: XCTestCase {
         for ch in Set(session.currentPuzzle!.answer.filter { $0.isLetter }) {
             session.guess(letter: ch)
         }
+        session.submit()  // <-- new step; required after the revert
         XCTAssertTrue(session.isSolved)
         XCTAssertTrue(store.state.solvedPuzzleIds.contains(solvedId))
         XCTAssertEqual(store.state.lifetimeSolvedCount, 1)
@@ -101,31 +102,10 @@ final class EndlessSessionTests: XCTestCase {
         for ch in Set(session.currentPuzzle!.answer.filter { $0.isLetter }) {
             session.guess(letter: ch)
         }
+        session.submit()
         session.advance()
         XCTAssertEqual(session.hearts, 5)
         XCTAssertNotEqual(session.currentPuzzle?.id, firstId)
-    }
-
-    func test_wrongGuessInCurrentWord_evenIfLetterInLaterWord_decrementsHearts() {
-        // Create a puzzle with multi-word answer where letters in word 2 are NOT in word 1.
-        let multiPuzzle = Puzzle(id: "p_multi", date: "2026-05-28", emoji: "🐝🦴",
-                                 answer: "BEE BONE",
-                                 category: .brand, subcategory: "t", difficulty: .medium)
-        let allPuzzles = [
-            Puzzle(id: "p1", date: "2026-05-19", emoji: "🐝", answer: "X",
-                   category: .brand, subcategory: "t", difficulty: .medium),
-            multiPuzzle
-        ]
-        let store = makeStore()
-        let session = EndlessSession(allPuzzles: allPuzzles,
-                                     store: store,
-                                     today: "2026-05-19")
-        // Force the session onto the multi-word puzzle.
-        XCTAssertEqual(session.currentPuzzle?.id, "p_multi")
-
-        // 'O' is in BONE (word 1) but NOT in BEE (word 0, active). Should cost a heart.
-        session.guess(letter: "O")
-        XCTAssertEqual(session.hearts, 4, "O is not in active word BEE — must cost a heart")
     }
 
     func test_advance_addsPreviousIdToRecentEndlessIds_ringBufferAt5() {
@@ -202,7 +182,6 @@ final class EndlessSessionTests: XCTestCase {
         let session = EndlessSession(allPuzzles: makePuzzles(), store: store, today: "2026-05-19")
         let answer = session.currentPuzzle!.answer
 
-        // Manually guess every letter EXCEPT the first.
         let allLetters = Set(answer.filter { $0.isLetter })
         let firstLetter = answer.first(where: { $0.isLetter })!
         for ch in allLetters where ch != firstLetter {
@@ -211,6 +190,58 @@ final class EndlessSessionTests: XCTestCase {
         XCTAssertFalse(session.isSolved)
 
         session.useHint()
-        XCTAssertTrue(session.isSolved, "Hint that reveals last needed letter must solve the puzzle")
+        XCTAssertTrue(session.needsSubmit, "Hint revealing the last letter triggers Submit")
+        XCTAssertFalse(session.isSolved, "Submit must still be tapped")
+
+        session.submit()
+        XCTAssertTrue(session.isSolved)
+    }
+
+    func test_solvingDoesNotSetIsSolved_butSetsNeedsSubmit() {
+        let store = makeStore()
+        let session = EndlessSession(allPuzzles: makePuzzles(), store: store, today: "2026-05-19")
+        let answer = session.currentPuzzle!.answer
+        // Guess every unique letter of the answer.
+        for ch in Set(answer.filter { $0.isLetter }) {
+            session.guess(letter: ch)
+        }
+        XCTAssertFalse(session.isSolved,
+                       "guess() must not auto-solve; player must tap Submit first")
+        XCTAssertTrue(session.needsSubmit,
+                      "all letters revealed → needsSubmit must be true")
+    }
+
+    func test_submit_flipsIsSolved_andRecordsSolve() {
+        let store = makeStore()
+        let session = EndlessSession(allPuzzles: makePuzzles(), store: store, today: "2026-05-19")
+        let solvedId = session.currentPuzzle!.id
+        for ch in Set(session.currentPuzzle!.answer.filter { $0.isLetter }) {
+            session.guess(letter: ch)
+        }
+        XCTAssertTrue(session.needsSubmit)
+
+        session.submit()
+        XCTAssertTrue(session.isSolved)
+        XCTAssertTrue(store.state.solvedPuzzleIds.contains(solvedId))
+        XCTAssertEqual(store.state.lifetimeSolvedCount, 1)
+    }
+
+    func test_oneChanceWarning_firesOnceWhenHeartsHitOne() {
+        let store = makeStore()
+        let session = EndlessSession(allPuzzles: makePuzzles(), store: store, today: "2026-05-19")
+        let answerLetters = Set(session.currentPuzzle!.answer.filter { $0.isLetter })
+        // Burn 4 wrong guesses → hearts go 5→4→3→2→1.
+        let wrongLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".filter { !answerLetters.contains($0) }
+        for ch in wrongLetters.prefix(4) {
+            session.guess(letter: ch)
+        }
+        XCTAssertEqual(session.hearts, 1)
+        XCTAssertTrue(session.hasShownOneChanceWarning,
+                      "Transitioning into hearts == 1 should mark hasShownOneChanceWarning")
+
+        // Advance to next puzzle → flag should reset.
+        session.advance()
+        XCTAssertFalse(session.hasShownOneChanceWarning,
+                       "advance() must reset hasShownOneChanceWarning")
     }
 }
