@@ -1,6 +1,7 @@
 import * as us from './user-state.js';
 import * as puzzleLoader from './puzzle-loader.js';
 import { createTodaySession } from './today-session.js';
+import { createEndlessSession } from './endless-session.js';
 import * as ui from './ui.js';
 
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -14,7 +15,12 @@ async function boot() {
 
   // Tab routing
   for (const tab of document.querySelectorAll('.tab')) {
-    tab.addEventListener('click', () => ui.showScreen(tab.dataset.screen));
+    tab.addEventListener('click', () => {
+      ui.showScreen(tab.dataset.screen);
+      if (tab.dataset.screen === 'endless') {
+        ensureEndlessScreen(loader.allPuzzles, state, today, storage);
+      }
+    });
   }
 
   if (!todayPuzzle) {
@@ -89,3 +95,83 @@ function showResultModal(session, state, success) {
 }
 
 boot();
+
+let endlessRendered = false;
+function ensureEndlessScreen(allPuzzles, state, today, storage) {
+  if (endlessRendered) return;
+  endlessRendered = true;
+  const session = createEndlessSession(allPuzzles, state, today, storage);
+  const root = document.querySelector('#screen-endless');
+
+  function rerender(awaitingNext = false) {
+    if (!session.currentPuzzle) {
+      root.replaceChildren(ui.el('div', { class: 'sticker' }, [
+        ui.el('h2', {}, ['🎉 You\'ve played every puzzle!']),
+        ui.el('p', {}, ['Come back tomorrow for a fresh Daily.']),
+      ]));
+      return;
+    }
+    if (awaitingNext) {
+      root.replaceChildren(ui.el('div', { style: 'display:flex;flex-direction:column;gap:18px;align-items:center;padding:48px 16px' }, [
+        ui.el('p', { style: 'opacity:0.7' }, [session.solvedThisSession === 0 ? 'Better luck next round.' : 'Nice. Keep going?']),
+        ui.el('button', {
+          class: 'btn-sticker btn-sticker--green',
+          onclick: () => { session.advance(); rerender(false); },
+        }, ['Next puzzle →']),
+      ]));
+      return;
+    }
+    const p = session.currentPuzzle;
+    root.replaceChildren(
+      ui.el('div', { style: 'display:flex;justify-content:space-between;align-items:center' }, [
+        ui.el('button', {
+          class: 'btn-sticker sticker--soft',
+          style: 'padding:8px 12px;font-size:14px',
+          onclick: () => ui.showScreen('today'),
+        }, ['✕ End Session']),
+        ui.el('span', { style: 'font-size:14px;opacity:0.7;font-weight:800' }, [
+          session.solvedThisSession === 0 ? 'Just started'
+            : session.solvedThisSession === 1 ? '1 solved'
+            : `${session.solvedThisSession} solved`
+        ]),
+      ]),
+      ui.renderHearts(session.hearts),
+      ui.el('div', { class: 'emoji-header' }, [p.emoji]),
+      ui.renderCategoryChip(p.category, null),
+      ui.renderBlanks(p.answer, session.correct, null),
+      ui.el('div', { style: 'display:flex;justify-content:flex-end' }, [
+        ui.el('button', {
+          class: 'btn-sticker btn-sticker--yellow',
+          disabled: session.hintUsed || session.solved || session.failed,
+          onclick: () => { session.useHint(); afterAction(); },
+        }, ['💡 Hint']),
+      ]),
+      session.needsSubmit ? ui.el('button', {
+        class: 'btn-sticker btn-sticker--green',
+        onclick: () => { session.submit(); afterAction(); },
+      }, ['Submit ✓']) : null,
+      ui.renderKeyboard({
+        correct: session.correct,
+        wrong: session.wrong,
+        disabled: session.solved || session.failed || session.needsSubmit,
+        onGuess: (l) => { session.guess(l); afterAction(); },
+      }),
+    );
+  }
+
+  function afterAction() {
+    rerender(false);
+    if (session.hasShownOneChanceWarning && !session._warnedShown) {
+      session._warnedShown = true;
+      ui.showModal(({ close }) => ui.el('div', {}, [
+        ui.el('h2', {}, ['One chance left']),
+        ui.el('p', {}, ['Make it count — one more wrong guess ends the puzzle.']),
+        ui.el('button', { class: 'btn-sticker', onclick: close }, ['OK']),
+      ]));
+    }
+    if (session.solved || session.failed) {
+      setTimeout(() => rerender(true), 1500);
+    }
+  }
+  rerender(false);
+}
