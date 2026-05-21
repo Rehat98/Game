@@ -4,6 +4,7 @@ import { createTodaySession } from './today-session.js';
 import { createEndlessSession } from './endless-session.js';
 import * as ui from './ui.js';
 import { celebrateWin, celebrateFail, tickCorrect, tickWrong } from './celebration.js';
+import * as stats from './stats.js';
 
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -20,6 +21,9 @@ async function boot() {
       ui.showScreen(tab.dataset.screen);
       if (tab.dataset.screen === 'endless') {
         ensureEndlessScreen(loader.allPuzzles, state, today, storage);
+      }
+      if (tab.dataset.screen === 'stats') {
+        document.querySelector('#screen-stats').replaceChildren(stats.renderStats(state));
       }
     });
   }
