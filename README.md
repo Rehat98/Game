@@ -1,6 +1,9 @@
 # Pictok
 
-A daily emoji-decode puzzle game for iOS. One puzzle a day. Decode the emojis into a word. Keep your streak alive.
+A daily emoji-decode puzzle game. One puzzle a day. Decode the emojis into a word. Keep your streak alive.
+
+- **Web:** [https://pictok.pages.dev](https://pictok.pages.dev) (live)
+- **iOS:** Personal Team build, TestFlight pending
 
 <img src="Pictok/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png" alt="Pictok app icon" width="180" align="right">
 
@@ -40,7 +43,7 @@ You get 5 hearts. Each wrong letter costs one. Hints exist but cost hearts too. 
 Pictok/
 ├── PictokApp.swift                          # @main App entry
 ├── Resources/
-│   ├── puzzles.json                         # 60 hand-authored puzzles
+│   ├── puzzles.json                         # 59 hand-authored puzzles
 │   ├── Assets.xcassets/                     # App icon, color sets
 │   └── Sounds/                              # correct.wav, wrong.wav, win.wav
 ├── Models/         Puzzle, Category, Difficulty, UserState, HintType
@@ -50,8 +53,15 @@ Pictok/
 └── Views/          TodayView, ResultSheet, NotificationPermissionSheet,
                     StatsView, HowToPlayView, Theme, Components/
 
-PictokTests/        7 test files covering models, game logic, share card,
+PictokTests/        Test files covering models, game logic, share card,
                     notification scheduling, state persistence, puzzle loading
+
+web/                Feature-parity browser version (vanilla HTML/CSS/JS,
+├── index.html      no build step). Deployed to Cloudflare Pages at
+├── style.css       pictok.pages.dev. Companion to the iOS app — share
+├── js/             links from iOS open into the playable web game.
+├── puzzles.json    Synced from Pictok/Resources/puzzles.json via
+└── sounds/         web/sync-puzzles.sh.
 
 docs/
 ├── superpowers/specs/                       # v1 design spec

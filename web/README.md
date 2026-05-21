@@ -1,6 +1,6 @@
 # Pictok Web
 
-The browser version of [Pictok](https://pictok.app), the daily emoji-decode puzzle. Companion to the iOS app.
+The browser version of [Pictok](https://pictok.pages.dev), the daily emoji-decode puzzle. Companion to the iOS app.
 
 ## Local development
 
@@ -50,7 +50,7 @@ Two options. **Option A** requires a GitHub repo. **Option B** uploads directly 
 
 4. Save and deploy. Cloudflare assigns a `*.pages.dev` URL.
 
-5. **Custom domain:** In the Pages project → **Custom domains** → enter `pictok.app`. Since `pictok.app` already uses Cloudflare DNS (user owns it on Cloudflare), the CNAME is auto-created.
+5. **Custom domain:** In the Pages project → **Custom domains** → enter `pictok.pages.dev`. Since `pictok.pages.dev` already uses Cloudflare DNS (user owns it on Cloudflare), the CNAME is auto-created.
 
 6. After deploy: every push to `main` triggers an auto-deploy.
 
@@ -69,7 +69,7 @@ Two options. **Option A** requires a GitHub repo. **Option B** uploads directly 
    wrangler pages deploy . --project-name pictok --branch main
    ```
 
-4. Attach `pictok.app` via Cloudflare dashboard → Pages → Custom domains (same as Option A step 5).
+4. Attach `pictok.pages.dev` via Cloudflare dashboard → Pages → Custom domains (same as Option A step 5).
 
 ## Architecture
 
