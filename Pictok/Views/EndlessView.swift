@@ -6,6 +6,7 @@ struct EndlessView: View {
 
     @State private var showWinCelebration: Bool = false
     @State private var showFailCelebration: Bool = false
+    @State private var showOneChanceAlert: Bool = false
 
     var body: some View {
         ZStack {
@@ -42,6 +43,16 @@ struct EndlessView: View {
                 }
             }
         }
+        .onChange(of: session.hasShownOneChanceWarning) { _, shown in
+            if shown {
+                showOneChanceAlert = true
+            }
+        }
+        .alert("One chance left", isPresented: $showOneChanceAlert) {
+            Button("OK") { showOneChanceAlert = false }
+        } message: {
+            Text("Make it count — one more wrong guess ends the puzzle.")
+        }
     }
 
     @ViewBuilder
@@ -63,6 +74,13 @@ struct EndlessView: View {
                     )
                 }
                 .padding(.horizontal, 8)
+                if session.needsSubmit {
+                    StickerButton(title: "Submit ✓", icon: nil, fill: .pkGreen) {
+                        session.submit()
+                    }
+                    .padding(.top, 8)
+                    .transition(.scale.combined(with: .opacity))
+                }
                 Spacer()
                 KeyboardView(
                     correctGuesses: session.correctGuesses,
@@ -71,6 +89,7 @@ struct EndlessView: View {
                 )
             }
             .padding(.horizontal, 16)
+            .animation(.spring(response: 0.35, dampingFraction: 0.7), value: session.needsSubmit)
             .id(puzzle.id)
             .transition(.asymmetric(
                 insertion: .move(edge: .trailing).combined(with: .opacity),
