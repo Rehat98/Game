@@ -1,119 +1,160 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid slice">
-  <!-- Each doodle has its own stroke (and sometimes fill) so the surround feels colored,
-       not monochrome. Opacity is per-group so we can tune individually. -->
+  <style>
+    /* Each doodle's animated inner group gets its own bbox-relative origin so
+       `transform: translateY/rotate/scale` swings around that doodle's center. */
+    .anim {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+      will-change: transform;
+    }
+    .bob       { animation-name: bob;     animation-duration: 4.5s; }
+    .bob-slow  { animation-name: bob;     animation-duration: 6s;   }
+    .bob-tilt  { animation-name: bobTilt; animation-duration: 5.2s; }
+    .bob-tiltL { animation-name: bobTiltL; animation-duration: 4.8s; }
+    .pulse     { animation-name: pulse;   animation-duration: 3.6s; }
+    .pulse-fast{ animation-name: pulseFast; animation-duration: 2.8s; }
+    .wiggle    { animation-name: wiggle;  animation-duration: 4s;   }
+    .twinkle   { animation-name: twinkle; animation-duration: 3.4s; }
 
-  <!-- BOOK with face (top-left) — blue ink -->
+    @keyframes bob       { 0%,100% { transform: translateY(0); }            50% { transform: translateY(-7px); } }
+    @keyframes bobTilt   { 0%,100% { transform: translateY(0)   rotate(0);  } 50% { transform: translateY(-6px) rotate(3deg);  } }
+    @keyframes bobTiltL  { 0%,100% { transform: translateY(0)   rotate(0);  } 50% { transform: translateY(-6px) rotate(-3deg); } }
+    @keyframes pulse     { 0%,100% { transform: scale(1); }                  50% { transform: scale(1.08); } }
+    @keyframes pulseFast { 0%,100% { transform: scale(1); }                  50% { transform: scale(1.14); } }
+    @keyframes wiggle    { 0%,100% { transform: rotate(0); }                 25% { transform: rotate(4deg);  } 75% { transform: rotate(-4deg); } }
+    @keyframes twinkle   { 0%,100% { transform: scale(1) rotate(0); opacity: 0.55; } 50% { transform: scale(1.25) rotate(20deg); opacity: 0.95; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .anim { animation: none; }
+    }
+  </style>
+
+  <!-- BOOK — blue, gentle tilt-bob -->
   <g transform="translate(115 130)" stroke="#118AB2" opacity="0.55">
-    <path d="M-26 -20 L26 -20 L26 22 L-26 22 Z"/>
-    <path d="M0 -20 L0 22"/>
-    <line x1="9"  y1="-4" x2="9"  y2="-4" stroke-width="4"/>
-    <line x1="19" y1="-4" x2="19" y2="-4" stroke-width="4"/>
-    <path d="M9 8 Q14 13 19 8"/>
-    <path d="M-18 -6 L-6 -6 M-18 0 L-6 0 M-18 6 L-12 6"/>
+    <g class="anim bob-tilt" style="animation-delay: 0s">
+      <path d="M-26 -20 L26 -20 L26 22 L-26 22 Z"/>
+      <path d="M0 -20 L0 22"/>
+      <line x1="9"  y1="-4" x2="9"  y2="-4" stroke-width="4"/>
+      <line x1="19" y1="-4" x2="19" y2="-4" stroke-width="4"/>
+      <path d="M9 8 Q14 13 19 8"/>
+      <path d="M-18 -6 L-6 -6 M-18 0 L-6 0 M-18 6 L-12 6"/>
+    </g>
   </g>
 
-  <!-- LIGHTBULB with face + soft yellow fill (top-right) -->
+  <!-- LIGHTBULB — pulsing (idea!) -->
   <g transform="translate(1470 120)" opacity="0.6">
-    <path d="M0 -22 C -16 -22, -22 -8, -14 4 C -10 10, -10 14, -8 18 L 8 18 C 10 14, 10 10, 14 4 C 22 -8, 16 -22, 0 -22 Z"
-          fill="#FFD60A" fill-opacity="0.45" stroke="#1A1A1A"/>
-    <path d="M-8 22 L8 22 M-6 26 L6 26" stroke="#1A1A1A"/>
-    <line x1="-5" y1="-8" x2="-5" y2="-8" stroke-width="4" stroke="#1A1A1A"/>
-    <line x1="5"  y1="-8" x2="5"  y2="-8" stroke-width="4" stroke="#1A1A1A"/>
-    <path d="M-5 0 Q0 4 5 0" stroke="#1A1A1A"/>
-    <path d="M-22 -22 L-30 -28 M22 -22 L30 -28 M0 -32 L0 -38" stroke="#FFD60A" stroke-width="3"/>
+    <g class="anim pulse" style="animation-delay: 0.4s">
+      <path d="M0 -22 C -16 -22, -22 -8, -14 4 C -10 10, -10 14, -8 18 L 8 18 C 10 14, 10 10, 14 4 C 22 -8, 16 -22, 0 -22 Z"
+            fill="#FFD60A" fill-opacity="0.45" stroke="#1A1A1A"/>
+      <path d="M-8 22 L8 22 M-6 26 L6 26" stroke="#1A1A1A"/>
+      <line x1="-5" y1="-8" x2="-5" y2="-8" stroke-width="4" stroke="#1A1A1A"/>
+      <line x1="5"  y1="-8" x2="5"  y2="-8" stroke-width="4" stroke="#1A1A1A"/>
+      <path d="M-5 0 Q0 4 5 0" stroke="#1A1A1A"/>
+      <path d="M-22 -22 L-30 -28 M22 -22 L30 -28 M0 -32 L0 -38" stroke="#FFD60A" stroke-width="3"/>
+    </g>
   </g>
 
-  <!-- MUSIC NOTE with face (mid-left) — red -->
+  <!-- MUSIC NOTE — bob, suggests rhythm -->
   <g transform="translate(140 380)" stroke="#E63946" opacity="0.6">
-    <path d="M-12 14 C -12 10, -4 8, 0 12 L 0 -14 L 18 -20 L 18 0 C 18 4, 10 6, 6 2 L 6 -10 L 0 -8"/>
-    <line x1="-3" y1="-2" x2="-3" y2="-2" stroke-width="3.5"/>
-    <line x1="-9" y1="-2" x2="-9" y2="-2" stroke-width="3.5"/>
+    <g class="anim bob" style="animation-delay: 1s">
+      <path d="M-12 14 C -12 10, -4 8, 0 12 L 0 -14 L 18 -20 L 18 0 C 18 4, 10 6, 6 2 L 6 -10 L 0 -8"/>
+      <line x1="-3" y1="-2" x2="-3" y2="-2" stroke-width="3.5"/>
+      <line x1="-9" y1="-2" x2="-9" y2="-2" stroke-width="3.5"/>
+    </g>
   </g>
 
-  <!-- SPEECH BUBBLE "AHA" with green fill (mid-right) -->
+  <!-- AHA SPEECH BUBBLE — left-tilt bob -->
   <g transform="translate(1500 360)" opacity="0.6">
-    <path d="M-32 -16 Q-32 -26, -22 -26 L 18 -26 Q 28 -26, 28 -16 L 28 4 Q 28 14, 18 14 L 4 14 L -2 22 L -2 14 L -22 14 Q -32 14, -32 4 Z"
-          fill="#06D6A0" fill-opacity="0.30" stroke="#1A1A1A"/>
-    <path d="M-18 -2 L-14 -10 L-10 -2 M-16 -5 L-12 -5" stroke="#1A1A1A"/>
-    <path d="M-6 -10 L-6 -2 M-6 -6 L2 -6 M2 -10 L2 -2" stroke="#1A1A1A"/>
-    <path d="M6 -2 L10 -10 L14 -2 M8 -5 L12 -5" stroke="#1A1A1A"/>
+    <g class="anim bob-tiltL" style="animation-delay: 0.2s">
+      <path d="M-32 -16 Q-32 -26, -22 -26 L 18 -26 Q 28 -26, 28 -16 L 28 4 Q 28 14, 18 14 L 4 14 L -2 22 L -2 14 L -22 14 Q -32 14, -32 4 Z"
+            fill="#06D6A0" fill-opacity="0.30" stroke="#1A1A1A"/>
+      <path d="M-18 -2 L-14 -10 L-10 -2 M-16 -5 L-12 -5" stroke="#1A1A1A"/>
+      <path d="M-6 -10 L-6 -2 M-6 -6 L2 -6 M2 -10 L2 -2" stroke="#1A1A1A"/>
+      <path d="M6 -2 L10 -10 L14 -2 M8 -5 L12 -5" stroke="#1A1A1A"/>
+    </g>
   </g>
 
-  <!-- SMILING CLOUD (bottom-left) — blue -->
+  <!-- CLOUD — slow bob -->
   <g transform="translate(180 760)" stroke="#118AB2" opacity="0.55">
-    <path d="M-26 4 C -34 4, -34 -8, -24 -10 C -22 -20, -8 -22, -2 -14 C 6 -22, 22 -18, 22 -8 C 32 -6, 32 6, 22 6 Z"
-          fill="#118AB2" fill-opacity="0.10"/>
-    <line x1="-10" y1="-4" x2="-10" y2="-4" stroke-width="4"/>
-    <line x1="6"   y1="-4" x2="6"   y2="-4" stroke-width="4"/>
-    <path d="M-6 0 Q-2 4 2 0"/>
+    <g class="anim bob-slow" style="animation-delay: 1.5s">
+      <path d="M-26 4 C -34 4, -34 -8, -24 -10 C -22 -20, -8 -22, -2 -14 C 6 -22, 22 -18, 22 -8 C 32 -6, 32 6, 22 6 Z"
+            fill="#118AB2" fill-opacity="0.10"/>
+      <line x1="-10" y1="-4" x2="-10" y2="-4" stroke-width="4"/>
+      <line x1="6"   y1="-4" x2="6"   y2="-4" stroke-width="4"/>
+      <path d="M-6 0 Q-2 4 2 0"/>
+    </g>
   </g>
 
-  <!-- PENCIL (bottom-right) — yellow body, ink tip + eraser -->
+  <!-- PENCIL — wiggle (writing!) -->
   <g transform="translate(1430 760)" opacity="0.65">
-    <path d="M-26 8 L 14 -32 L 22 -24 L -18 16 Z"
-          fill="#FFD60A" fill-opacity="0.45" stroke="#1A1A1A"/>
-    <path d="M-26 8 L-18 16 M-26 8 L-22 0 L-18 16" stroke="#1A1A1A"/>
-    <path d="M10 -36 L 18 -28" stroke="#E63946" stroke-width="3.2"/>
-    <path d="M-22 16 L-26 20 M-18 16 L-22 20" stroke="#1A1A1A"/>
+    <g class="anim wiggle" style="animation-delay: 0.8s">
+      <path d="M-26 8 L 14 -32 L 22 -24 L -18 16 Z"
+            fill="#FFD60A" fill-opacity="0.45" stroke="#1A1A1A"/>
+      <path d="M-26 8 L-18 16 M-26 8 L-22 0 L-18 16" stroke="#1A1A1A"/>
+      <path d="M10 -36 L 18 -28" stroke="#E63946" stroke-width="3.2"/>
+      <path d="M-22 16 L-26 20 M-18 16 L-22 20" stroke="#1A1A1A"/>
+    </g>
   </g>
 
-  <!-- HEART with face (left mid-bottom) — red with soft fill -->
+  <!-- HEART with face — heartbeat pulse -->
   <g transform="translate(80 600)" opacity="0.6">
-    <path d="M0 6 C -10 -8, -28 -8, -28 8 C -28 22, -12 32, 0 42 C 12 32, 28 22, 28 8 C 28 -8, 10 -8, 0 6 Z"
-          fill="#E63946" fill-opacity="0.22" stroke="#E63946"/>
-    <line x1="-9" y1="14" x2="-9" y2="14" stroke-width="3.5" stroke="#1A1A1A"/>
-    <line x1="9"  y1="14" x2="9"  y2="14" stroke-width="3.5" stroke="#1A1A1A"/>
-    <path d="M-5 22 Q0 26 5 22" stroke="#1A1A1A"/>
+    <g class="anim pulse-fast" style="animation-delay: 0.3s">
+      <path d="M0 6 C -10 -8, -28 -8, -28 8 C -28 22, -12 32, 0 42 C 12 32, 28 22, 28 8 C 28 -8, 10 -8, 0 6 Z"
+            fill="#E63946" fill-opacity="0.22" stroke="#E63946"/>
+      <line x1="-9" y1="14" x2="-9" y2="14" stroke-width="3.5" stroke="#1A1A1A"/>
+      <line x1="9"  y1="14" x2="9"  y2="14" stroke-width="3.5" stroke="#1A1A1A"/>
+      <path d="M-5 22 Q0 26 5 22" stroke="#1A1A1A"/>
+    </g>
   </g>
 
-  <!-- COFFEE CUP with steam (right mid-bottom) — ink + green steam -->
+  <!-- COFFEE CUP — slow bob, steam swims -->
   <g transform="translate(1080 820)" opacity="0.6">
-    <path d="M-18 -8 L-18 14 Q-18 20, -12 20 L 10 20 Q 16 20, 16 14 L 16 -8 Z" stroke="#1A1A1A"/>
-    <path d="M16 -2 Q 24 -2, 24 4 Q 24 10, 16 10" stroke="#1A1A1A"/>
-    <path d="M-8 -18 Q-4 -22, -8 -26 Q-12 -30, -8 -34" stroke="#06D6A0" stroke-width="2.4"/>
-    <path d="M4 -18 Q8 -22, 4 -26 Q0 -30, 4 -34"      stroke="#06D6A0" stroke-width="2.4"/>
-  </g>
-
-  <!-- TINY STARS / SPARKLES scattered — yellow -->
-  <g stroke="#FFD60A" opacity="0.7">
-    <g transform="translate(330 60)"><path d="M0 -9 L0 9 M-9 0 L9 0 M-6 -6 L6 6 M-6 6 L6 -6"/></g>
-    <g transform="translate(1300 70)"><path d="M0 -7 L0 7 M-7 0 L7 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
-    <g transform="translate(420 820)"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
-    <g transform="translate(1380 540)"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g>
-    <g transform="translate(1180 130)"><path d="M0 -6 L0 6 M-6 0 L6 0"/></g>
-    <g transform="translate(220 260)"><path d="M0 -7 L0 7 M-7 0 L7 0"/></g>
-    <g transform="translate(80 480)"><path d="M0 -6 L0 6 M-6 0 L6 0"/></g>
-  </g>
-
-  <!-- SMALL HEARTS scattered (no face) — red -->
-  <g stroke="#E63946" opacity="0.55">
-    <g transform="translate(1140 460)">
-      <path d="M0 2 C -5 -4, -14 -4, -14 4 C -14 11, -6 16, 0 21 C 6 16, 14 11, 14 4 C 14 -4, 5 -4, 0 2 Z"
-            fill="#E63946" fill-opacity="0.2"/>
-    </g>
-    <g transform="translate(350 540)">
-      <path d="M0 2 C -4 -3, -11 -3, -11 3 C -11 9, -5 13, 0 17 C 5 13, 11 9, 11 3 C 11 -3, 4 -3, 0 2 Z"
-            fill="#E63946" fill-opacity="0.2"/>
+    <g class="anim bob-slow" style="animation-delay: 2s">
+      <path d="M-18 -8 L-18 14 Q-18 20, -12 20 L 10 20 Q 16 20, 16 14 L 16 -8 Z" stroke="#1A1A1A"/>
+      <path d="M16 -2 Q 24 -2, 24 4 Q 24 10, 16 10" stroke="#1A1A1A"/>
+      <path d="M-8 -18 Q-4 -22, -8 -26 Q-12 -30, -8 -34" stroke="#06D6A0" stroke-width="2.4"/>
+      <path d="M4 -18 Q8 -22, 4 -26 Q0 -30, 4 -34"      stroke="#06D6A0" stroke-width="2.4"/>
     </g>
   </g>
 
-  <!-- SQUIGGLE highlights — green -->
+  <!-- TWINKLING SPARKLES — yellow -->
+  <g stroke="#FFD60A">
+    <g transform="translate(330 60)"  opacity="0.7"><g class="anim twinkle" style="animation-delay: 0s"><path d="M0 -9 L0 9 M-9 0 L9 0 M-6 -6 L6 6 M-6 6 L6 -6"/></g></g>
+    <g transform="translate(1300 70)" opacity="0.7"><g class="anim twinkle" style="animation-delay: 0.7s"><path d="M0 -7 L0 7 M-7 0 L7 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g></g>
+    <g transform="translate(420 820)" opacity="0.7"><g class="anim twinkle" style="animation-delay: 1.4s"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g></g>
+    <g transform="translate(1380 540)"opacity="0.7"><g class="anim twinkle" style="animation-delay: 2s"><path d="M0 -8 L0 8 M-8 0 L8 0 M-5 -5 L5 5 M-5 5 L5 -5"/></g></g>
+    <g transform="translate(1180 130)"opacity="0.7"><g class="anim twinkle" style="animation-delay: 1.1s"><path d="M0 -6 L0 6 M-6 0 L6 0"/></g></g>
+    <g transform="translate(220 260)" opacity="0.7"><g class="anim twinkle" style="animation-delay: 0.4s"><path d="M0 -7 L0 7 M-7 0 L7 0"/></g></g>
+    <g transform="translate(80 480)"  opacity="0.7"><g class="anim twinkle" style="animation-delay: 1.8s"><path d="M0 -6 L0 6 M-6 0 L6 0"/></g></g>
+  </g>
+
+  <!-- SMALL HEARTS — pulse -->
+  <g stroke="#E63946">
+    <g transform="translate(1140 460)" opacity="0.55">
+      <g class="anim pulse" style="animation-delay: 0.6s">
+        <path d="M0 2 C -5 -4, -14 -4, -14 4 C -14 11, -6 16, 0 21 C 6 16, 14 11, 14 4 C 14 -4, 5 -4, 0 2 Z"
+              fill="#E63946" fill-opacity="0.2"/>
+      </g>
+    </g>
+    <g transform="translate(350 540)"  opacity="0.55">
+      <g class="anim pulse" style="animation-delay: 1.3s">
+        <path d="M0 2 C -4 -3, -11 -3, -11 3 C -11 9, -5 13, 0 17 C 5 13, 11 9, 11 3 C 11 -3, 4 -3, 0 2 Z"
+              fill="#E63946" fill-opacity="0.2"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- SQUIGGLES — bob -->
   <g stroke="#06D6A0" opacity="0.55">
-    <g transform="translate(80 230)">
-      <path d="M0 0 Q15 -10 30 0 T60 0 T90 0"/>
-    </g>
-    <g transform="translate(1290 240)">
-      <path d="M0 0 Q12 -8 24 0 T48 0 T72 0"/>
-    </g>
+    <g transform="translate(80 230)"><g class="anim bob" style="animation-delay: 0.5s"><path d="M0 0 Q15 -10 30 0 T60 0 T90 0"/></g></g>
+    <g transform="translate(1290 240)"><g class="anim bob" style="animation-delay: 1.6s"><path d="M0 0 Q12 -8 24 0 T48 0 T72 0"/></g></g>
   </g>
 
-  <!-- TINY WAVY ARROWS pointing inward — ink -->
+  <!-- WAVY ARROWS — subtle wiggle -->
   <g stroke="#1A1A1A" opacity="0.4">
-    <g transform="translate(380 480)">
-      <path d="M-30 0 Q-20 -8, -10 0 Q0 8, 10 0 M5 -5 L10 0 L5 5"/>
-    </g>
-    <g transform="translate(1220 600)">
-      <path d="M30 0 Q20 -8, 10 0 Q0 8, -10 0 M-5 -5 L-10 0 L-5 5"/>
-    </g>
+    <g transform="translate(380 480)"><g class="anim wiggle" style="animation-delay: 0.9s"><path d="M-30 0 Q-20 -8, -10 0 Q0 8, 10 0 M5 -5 L10 0 L5 5"/></g></g>
+    <g transform="translate(1220 600)"><g class="anim wiggle" style="animation-delay: 2.1s"><path d="M30 0 Q20 -8, 10 0 Q0 8, -10 0 M-5 -5 L-10 0 L-5 5"/></g></g>
   </g>
 </svg>

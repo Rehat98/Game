@@ -244,6 +244,16 @@ if ('serviceWorker' in navigator) {
   );
 }
 
+// Inject the doodle layer inline so the SVG's CSS animations run.
+(async () => {
+  try {
+    const r = await fetch('doodles.svg');
+    if (!r.ok) return;
+    const layer = document.querySelector('.doodles-bg');
+    if (layer) layer.innerHTML = await r.text();
+  } catch { /* doodles are decorative — failure is non-blocking */ }
+})();
+
 boot();
 
 let endlessRendered = false;
