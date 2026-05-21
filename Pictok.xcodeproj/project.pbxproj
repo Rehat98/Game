@@ -36,7 +36,6 @@
 		82414934CE6E36FBA6CD91C4 /* PuzzleDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003CB8564184917BE05D66CB /* PuzzleDecodingTests.swift */; };
 		8C28463D2D653E9FD0BF4330 /* PuzzleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC809FFAE31499658C91AEA /* PuzzleLoader.swift */; };
 		8F32B3FEC94BC5D6EEC83FB0 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE69DC4F410F20449AB55464 /* StatsView.swift */; };
-		96130ED319FBFEA84542DA2F /* GameEngineWordByWordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F914FDF9876BFC7AB6E70017 /* GameEngineWordByWordTests.swift */; };
 		993B68AEE1B7227CBCAAD048 /* SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05028FD518A160175B3AF316 /* SoundService.swift */; };
 		99A09D1492EC6E0160F21F22 /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = D317115F4C77FC1155F3BF13 /* correct.wav */; };
 		A2330B67A365CB46FF09704D /* UserStateMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D028777F6BC1AE088C73016D /* UserStateMigrationTests.swift */; };
@@ -117,7 +116,6 @@
 		EF40436B6B5C44CC58037435 /* ShareCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardBuilder.swift; sourceTree = "<group>"; };
 		F1703FB8EEBE690DE896C960 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		F792ADC96F923C0EC036126D /* puzzles.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = puzzles.json; sourceTree = "<group>"; };
-		F914FDF9876BFC7AB6E70017 /* GameEngineWordByWordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineWordByWordTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -253,7 +251,6 @@
 				A2505F793D42F5DF88BA4465 /* EndlessSelectorTests.swift */,
 				E76F51A4C675058DC58B20BA /* EndlessSessionTests.swift */,
 				8A6AC4A474E65EE9832F5126 /* GameEngineTests.swift */,
-				F914FDF9876BFC7AB6E70017 /* GameEngineWordByWordTests.swift */,
 				595A0B6F4CE708A3114C0523 /* NotificationSchedulerTests.swift */,
 				003CB8564184917BE05D66CB /* PuzzleDecodingTests.swift */,
 				57133764C77FB13F6578F081 /* PuzzleLoaderTests.swift */,
@@ -413,7 +410,6 @@
 				0173E40D3747DA34FF4A2920 /* EndlessSelectorTests.swift in Sources */,
 				4AD352AF3BCCCD1BA3C1085D /* EndlessSessionTests.swift in Sources */,
 				44013AD409B1DFEB6F17BD94 /* GameEngineTests.swift in Sources */,
-				96130ED319FBFEA84542DA2F /* GameEngineWordByWordTests.swift in Sources */,
 				7B3F7C02449E6AA0D35C2BCF /* NotificationSchedulerTests.swift in Sources */,
 				82414934CE6E36FBA6CD91C4 /* PuzzleDecodingTests.swift in Sources */,
 				FB9BFF0F373AAB11B0A29537 /* PuzzleLoaderTests.swift in Sources */,
