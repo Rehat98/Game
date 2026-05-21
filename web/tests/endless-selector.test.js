@@ -65,3 +65,24 @@ test('returns null when pool only contains today\'s puzzle', () => {
   const pick = nextPuzzle(tiny, fresh(), TODAY, fixedRng([0]));
   assert.equal(pick, null);
 });
+
+test('rng [0,1) values map across the full pool index range', () => {
+  // Regression: an earlier impl used Math.floor(rng()) % pool.length, which
+  // collapses every Math.random() return value to index 0. Verify the
+  // selector actually maps [0, 1) floats across pool indexes.
+  const state = fresh();
+  state.solvedPuzzleIds = ['next-week', 'far'];   // narrow tier-1 to ['past'] only
+  // Force tier-2 (any unseen): unseen candidates left = ['tomorrow'].
+  // Try an rng() = 0.99 — must still pick the only candidate, not crash or return undefined.
+  const pick = nextPuzzle(POOL, state, TODAY, () => 0.99);
+  assert.equal(pick.id, 'past'); // tier-1 'past' is spoiler-safe (>7 days before today)
+
+  // With pool of 3 spoiler-safe candidates and rng() = 0.99,
+  // Math.floor(0.99 * 3) = 2 -> index 2. Previously buggy code gave 0.
+  const state2 = fresh();
+  const pick2 = nextPuzzle(POOL, state2, TODAY, () => 0.99);
+  // tier-1 candidates in POOL order: tomorrow (excluded — inside window), next-week, far, past
+  // safe filter keeps {next-week, far, past}. Index 2 must be 'past'.
+  assert.equal(pick2.id, 'past',
+    'rng=0.99 with 3 spoiler-safe candidates should pick index 2 (\'past\'), not index 0');
+});

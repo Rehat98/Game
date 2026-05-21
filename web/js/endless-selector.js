@@ -29,8 +29,7 @@ export function nextPuzzle(allPuzzles, state, today, rng = Math.random) {
 
 function randomPick(pool, rng) {
   if (!pool.length) return null;
-  const index = Math.floor(rng()) % pool.length;
-  return pool[index];
+  return pool[Math.floor(rng() * pool.length)];
 }
 
 function daysBetween(a, b) {
