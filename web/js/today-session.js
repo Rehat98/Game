@@ -36,10 +36,11 @@ export function createTodaySession(puzzle, state, storage) {
       return engine.isSolved(puzzle.answer, this.correct, state.todayRevealedLetter);
     },
     guess(letter) {
-      if (state.todaySolved || state.todayFailed) return;
+      if (state.todaySolved || state.todayFailed) return null;
       const u = String(letter).toUpperCase();
-      if (this.correct.has(u) || this.wrong.has(u)) return;
-      if (engine.isCorrect(u, puzzle.answer)) {
+      if (this.correct.has(u) || this.wrong.has(u)) return null;
+      const correct = engine.isCorrect(u, puzzle.answer);
+      if (correct) {
         state.todayCorrectGuesses = [...state.todayCorrectGuesses, u];
       } else {
         state.todayWrongGuesses = [...state.todayWrongGuesses, u];
@@ -53,6 +54,7 @@ export function createTodaySession(puzzle, state, storage) {
         }
       }
       us.save(state, storage);
+      return correct ? 'correct' : 'wrong';
     },
     useHint() {
       if (state.todayHintUsed || state.todaySolved || state.todayFailed) return;

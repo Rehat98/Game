@@ -3,6 +3,7 @@ import * as puzzleLoader from './puzzle-loader.js';
 import { createTodaySession } from './today-session.js';
 import { createEndlessSession } from './endless-session.js';
 import * as ui from './ui.js';
+import { celebrateWin, celebrateFail, tickCorrect, tickWrong } from './celebration.js';
 
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -63,7 +64,12 @@ function renderToday(session, state, today) {
         correct: session.correct,
         wrong: session.wrong,
         disabled: session.solved || session.failed || session.needsSubmit,
-        onGuess: (letter) => { session.guess(letter); afterAction(); },
+        onGuess: (letter) => {
+          const r = session.guess(letter);
+          if (r === 'correct') tickCorrect();
+          if (r === 'wrong')   tickWrong();
+          afterAction();
+        },
       }),
     );
   }
@@ -78,8 +84,12 @@ function renderToday(session, state, today) {
         ui.el('button', { class: 'btn-sticker', onclick: close }, ['OK']),
       ]));
     }
-    if (session.solved) showResultModal(session, state, true);
-    if (session.failed) showResultModal(session, state, false);
+    if (session.solved) {
+      celebrateWin().then(() => showResultModal(session, state, true));
+    }
+    if (session.failed) {
+      celebrateFail().then(() => showResultModal(session, state, false));
+    }
   }
 
   rerender();
@@ -154,7 +164,12 @@ function ensureEndlessScreen(allPuzzles, state, today, storage) {
         correct: session.correct,
         wrong: session.wrong,
         disabled: session.solved || session.failed || session.needsSubmit,
-        onGuess: (l) => { session.guess(l); afterAction(); },
+        onGuess: (l) => {
+          const r = session.guess(l);
+          if (r === 'correct') tickCorrect();
+          if (r === 'wrong')   tickWrong();
+          afterAction();
+        },
       }),
     );
   }
@@ -169,8 +184,10 @@ function ensureEndlessScreen(allPuzzles, state, today, storage) {
         ui.el('button', { class: 'btn-sticker', onclick: close }, ['OK']),
       ]));
     }
-    if (session.solved || session.failed) {
-      setTimeout(() => rerender(true), 1500);
+    if (session.solved) {
+      celebrateWin().then(() => rerender(true));
+    } else if (session.failed) {
+      celebrateFail().then(() => rerender(true));
     }
   }
   rerender(false);

@@ -23,10 +23,11 @@ export function createEndlessSession(allPuzzles, state, today, storage) {
       return engine.isSolved(puzzle.answer, session.correct, null);
     },
     guess(letter) {
-      if (!puzzle || session.solved || session.failed) return;
+      if (!puzzle || session.solved || session.failed) return null;
       const u = String(letter).toUpperCase();
-      if (session.correct.has(u) || session.wrong.has(u)) return;
-      if (engine.isCorrect(u, puzzle.answer)) {
+      if (session.correct.has(u) || session.wrong.has(u)) return null;
+      const correct = engine.isCorrect(u, puzzle.answer);
+      if (correct) {
         session.correct.add(u);
       } else {
         session.wrong.add(u);
@@ -39,6 +40,7 @@ export function createEndlessSession(allPuzzles, state, today, storage) {
           recordFail(state, puzzle, storage);
         }
       }
+      return correct ? 'correct' : 'wrong';
     },
     useHint() {
       if (session.hintUsed || !puzzle || session.solved || session.failed) return;
