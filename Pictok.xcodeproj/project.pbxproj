@@ -93,7 +93,7 @@
 		7DC809FFAE31499658C91AEA /* PuzzleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLoader.swift; sourceTree = "<group>"; };
 		7E5AD70635A5B9CABD91C573 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		8A6AC4A474E65EE9832F5126 /* GameEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTests.swift; sourceTree = "<group>"; };
-		8ABC79C275D2086DDE654E35 /* PictokTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PictokTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ABC79C275D2086DDE654E35 /* PictokTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PictokTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E30CB7F4E3606B665F8EC8A /* test-puzzles.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "test-puzzles.json"; sourceTree = "<group>"; };
 		8F3A12B2EF436D47AC853B5B /* Puzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
 		9E3E8D1E8A1C605C85FE2844 /* BlanksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlanksView.swift; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 		AABD7922CDA9DB2F79D874D5 /* FireworksEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireworksEmitter.swift; sourceTree = "<group>"; };
 		AC27D0BF336D5BAB1C75355C /* HeartsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartsRow.swift; sourceTree = "<group>"; };
 		AE8DC8175E35A48E034D43B2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		AEDDCDEC38190D3BC62F57C6 /* Pictok.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Pictok.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEDDCDEC38190D3BC62F57C6 /* Pictok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pictok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B72B7D9A1B47C4C0C61384BE /* EndlessSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSession.swift; sourceTree = "<group>"; };
 		BAC22EE038406BC101D95FF1 /* ResultSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSheet.swift; sourceTree = "<group>"; };
 		C986CD024C47B111318DE1CE /* RainEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainEmitter.swift; sourceTree = "<group>"; };
@@ -309,14 +309,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					8AD5D776F894CD4DC57AD86D = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 97S862UPYS;
 						ProvisioningStyle = Automatic;
 					};
 					BB70BEE75D86B147D69F7F99 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 97S862UPYS;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -467,6 +467,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 97S862UPYS;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -491,6 +492,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -504,7 +506,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Pictok;
@@ -528,7 +529,6 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -578,6 +578,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 97S862UPYS;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -595,6 +596,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -608,7 +610,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Pictok;
@@ -632,7 +633,6 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

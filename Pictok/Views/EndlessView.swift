@@ -7,6 +7,11 @@ struct EndlessView: View {
     @State private var showWinCelebration: Bool = false
     @State private var showFailCelebration: Bool = false
     @State private var showOneChanceAlert: Bool = false
+    /// Set true after a celebration finishes its animation. Surfaces a "Next puzzle →"
+    /// button so the player advances on their own beat instead of being auto-queued.
+    @State private var awaitingNext: Bool = false
+    /// Solved count for the current Endless session. Resets when the view is re-presented.
+    @State private var solvedThisSession: Int = 0
 
     var body: some View {
         ZStack {
@@ -20,14 +25,19 @@ struct EndlessView: View {
                 FailCelebrationView(answer: puzzle.answer)
                     .transition(.opacity)
             }
+            if awaitingNext {
+                nextPuzzleOverlay
+                    .transition(.scale(scale: 0.9).combined(with: .opacity))
+            }
         }
         .onChange(of: session.isSolved) { _, solved in
             if solved {
+                solvedThisSession += 1
                 showWinCelebration = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + WinCelebrationView.totalDuration) {
-                    showWinCelebration = false
                     withAnimation(.easeInOut(duration: 0.25)) {
-                        session.advance()
+                        showWinCelebration = false
+                        awaitingNext = true
                     }
                 }
             }
@@ -36,9 +46,9 @@ struct EndlessView: View {
             if failed {
                 showFailCelebration = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + FailCelebrationView.totalDuration) {
-                    showFailCelebration = false
                     withAnimation(.easeInOut(duration: 0.25)) {
-                        session.advance()
+                        showFailCelebration = false
+                        awaitingNext = true
                     }
                 }
             }
@@ -96,28 +106,86 @@ struct EndlessView: View {
                 removal: .move(edge: .leading).combined(with: .opacity)
             ))
         } else {
-            VStack(spacing: 12) {
-                Text("🎉").font(.system(size: 64))
-                Text("You've played every puzzle for now! Come back tomorrow for a new Daily.")
-                    .font(.pkBody)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                Button("Done") { dismiss() }
-                    .buttonStyle(.bordered)
-            }
+            emptyPoolFallback
         }
     }
 
     private var topBar: some View {
-        HStack {
+        HStack(alignment: .center) {
             Button {
                 dismiss()
             } label: {
-                Image(systemName: "xmark")
-                    .font(.title2.bold())
-                    .foregroundStyle(Color.pkInk)
+                HStack(spacing: 6) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 14, weight: .heavy))
+                    Text("End Session")
+                        .font(.system(size: 14, weight: .heavy, design: .rounded))
+                }
+                .foregroundStyle(Color.pkInk)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .sticker(fill: .white, cornerRadius: 16, strokeWidth: 2, shadowOffset: 2)
             }
+            .buttonStyle(.plain)
+
             Spacer()
+
+            Text(solvedCountLabel)
+                .font(.system(size: 14, weight: .heavy, design: .rounded))
+                .foregroundStyle(Color.pkInk.opacity(0.7))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+        }
+    }
+
+    private var solvedCountLabel: String {
+        switch solvedThisSession {
+        case 0: return "Just started"
+        case 1: return "1 solved"
+        default: return "\(solvedThisSession) solved"
+        }
+    }
+
+    private var nextPuzzleOverlay: some View {
+        ZStack {
+            Color.pkPaper.opacity(0.95).ignoresSafeArea()
+            VStack(spacing: 18) {
+                Text(solvedThisSession == 0
+                     ? "Better luck next round."
+                     : "Nice. Keep going?")
+                    .font(.pkSubtitle)
+                    .foregroundStyle(Color.pkInk.opacity(0.7))
+
+                StickerButton(title: "Next puzzle →", icon: nil, fill: .pkGreen) {
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        awaitingNext = false
+                        session.advance()
+                    }
+                }
+
+                Button {
+                    dismiss()
+                } label: {
+                    Text("End Session")
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .foregroundStyle(Color.pkInk.opacity(0.5))
+                        .underline()
+                }
+                .buttonStyle(.plain)
+                .padding(.top, 4)
+            }
+        }
+    }
+
+    private var emptyPoolFallback: some View {
+        VStack(spacing: 12) {
+            Text("🎉").font(.system(size: 64))
+            Text("You've played every puzzle for now! Come back tomorrow for a new Daily.")
+                .font(.pkBody)
+                .multilineTextAlignment(.center)
+                .padding()
+            Button("Done") { dismiss() }
+                .buttonStyle(.bordered)
         }
     }
 }
