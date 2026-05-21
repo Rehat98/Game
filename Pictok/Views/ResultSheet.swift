@@ -76,7 +76,7 @@ struct ResultSheet: View {
                 heartsRemaining: store.state.lives,
                 hintUsed: store.state.todayHintUsed != nil,
                 currentStreak: store.state.currentStreak,
-                url: "pictok.app"
+                url: "pictok.pages.dev"
             )
         } else {
             // For failure, "previous streak" is the streak before fail reset.
@@ -86,7 +86,7 @@ struct ResultSheet: View {
                 category: puzzle.category,
                 difficulty: puzzle.difficulty,
                 previousStreak: prior,
-                url: "pictok.app"
+                url: "pictok.pages.dev"
             )
         }
     }

@@ -12,3 +12,6 @@ DerivedData/
 xcuserdata/
 *.xcscmblueprint
 *.xccheckout
+
+# Wrangler local cache (not deployed)
+web/.wrangler/
