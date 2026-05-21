@@ -16,7 +16,6 @@ async function boot() {
   const today = puzzleLoader.dateString(new Date(), TZ);
   const todayPuzzle = loader.puzzleFor(today);
 
-  // Tab routing
   for (const tab of document.querySelectorAll('.tab')) {
     tab.addEventListener('click', () => {
       ui.showScreen(tab.dataset.screen);
@@ -40,21 +39,26 @@ async function boot() {
   }
 
   const session = createTodaySession(todayPuzzle, state, storage);
-  renderToday(session, state, today);
+  renderToday(session, state, today, loader.allPuzzles, storage);
 }
 
-function renderToday(session, state, today) {
+function goToEndless(allPuzzles, state, today, storage) {
+  ui.showScreen('endless');
+  ensureEndlessScreen(allPuzzles, state, today, storage);
+}
+
+function renderToday(session, state, today, allPuzzles, storage) {
   const root = document.querySelector('#screen-today');
 
   function rerender() {
-    root.replaceChildren(
+    ui.setChildren(root,
       ui.renderHearts(session.lives),
       ui.el('div', { class: 'emoji-header' }, [session.puzzle.emoji]),
       ui.renderCategoryChip(session.puzzle.category, session.puzzle.subcategory),
       ui.renderBlanks(session.puzzle.answer, session.correct, session.revealed),
-      ui.el('div', { class: 'btn-row', style: 'display:flex;justify-content:flex-end;gap:8px' }, [
+      ui.el('div', { class: 'action-row' }, [
         ui.el('button', {
-          class: 'btn-sticker btn-sticker--yellow',
+          class: 'btn-sticker btn-sticker--yellow btn-sticker--sm',
           disabled: session.hintUsed || session.solved || session.failed,
           onclick: () => { session.useHint(); afterAction(); },
         }, ['💡 Hint (–2 ❤️)']),
@@ -76,6 +80,14 @@ function renderToday(session, state, today) {
           afterAction();
         },
       }),
+      ui.el('div', { class: 'continue-row' }, [
+        ui.el('button', {
+          class: 'btn-sticker btn-sticker--continue',
+          onclick: () => goToEndless(allPuzzles, state, today, storage),
+        }, [
+          (session.solved || session.failed) ? 'Continue playing →' : 'Want more? Play Endless →'
+        ]),
+      ]),
     );
   }
 
@@ -83,24 +95,29 @@ function renderToday(session, state, today) {
     rerender();
     if (session.hasShownOneChanceWarning && !session._warnedShown) {
       session._warnedShown = true;
-      ui.showModal(({ close }) => ui.el('div', {}, [
-        ui.el('h2', {}, ['One chance left']),
-        ui.el('p', {}, ['Make it count — one more wrong guess ends the puzzle.']),
-        ui.el('button', { class: 'btn-sticker', onclick: close }, ['OK']),
-      ]));
+      showOneChanceModal();
     }
     if (session.solved) {
-      celebrateWin().then(() => showResultModal(session, state, true));
+      celebrateWin().then(() => showResultModal(session, state, true, allPuzzles, today, storage));
     }
     if (session.failed) {
-      celebrateFail().then(() => showResultModal(session, state, false));
+      celebrateFail().then(() => showResultModal(session, state, false, allPuzzles, today, storage));
     }
   }
 
   rerender();
 }
 
-function showResultModal(session, state, success) {
+function showOneChanceModal() {
+  ui.showModal(({ close }) => ui.el('div', { class: 'modal-body' }, [
+    ui.el('div', { class: 'modal-eyebrow' }, ['Heads up']),
+    ui.el('h2', { class: 'modal-title' }, ['One chance left']),
+    ui.el('p', { class: 'modal-body-text' }, ['Make it count — one more wrong guess ends the puzzle.']),
+    ui.el('button', { class: 'btn-sticker btn-sticker--green btn-block', onclick: close }, ['OK']),
+  ]));
+}
+
+function showResultModal(session, state, success, allPuzzles, today, storage) {
   const url = 'pictok.app';
   const shareTextValue = success
     ? share.successCard({
@@ -114,23 +131,49 @@ function showResultModal(session, state, success) {
         url,
       });
 
-  ui.showModal(({ close }) => ui.el('div', {}, [
-    ui.el('h2', {}, [success ? '🎉 You solved it!' : '💔 Better luck tomorrow']),
-    ui.el('p', {}, [`Answer: ${session.puzzle.answer}`]),
-    ui.el('p', {}, [`Streak: ${state.currentStreak}`]),
-    ui.el('div', { style: 'display:flex;gap:8px' }, [
-      ui.el('button', {
-        class: 'btn-sticker btn-sticker--green',
-        onclick: async () => {
-          const r = await share.shareText(shareTextValue, {
-            onClipboardSuccess: () => ui.showToast('Copied — paste it anywhere!'),
-          });
-          if (r === 'failed') ui.showToast('Share unavailable');
-        },
-      }, ['Share']),
-      ui.el('button', { class: 'btn-sticker', onclick: close }, ['Close']),
+  const eyebrow = success ? "Today's Pictok" : "Today's Pictok";
+  const statusLine = success
+    ? successStatusLine(state, session)
+    : "Tough one — beat me today.";
+  const streakLine = success
+    ? `Streak: ${state.currentStreak}`
+    : `Streak: ${Math.max(state.currentStreak, state.longestStreak)} → 0`;
+
+  ui.showModal(({ close }) => ui.el('div', { class: 'modal-body result-modal' }, [
+    ui.el('div', { class: 'modal-eyebrow' }, [eyebrow]),
+    ui.el('h2', { class: 'result-answer' }, [session.puzzle.answer]),
+    ui.renderCategoryChip(session.puzzle.category, session.puzzle.subcategory),
+    ui.el('div', { class: 'result-divider' }, []),
+    ui.el('p', { class: 'result-status' }, [statusLine]),
+    ui.el('p', { class: 'result-streak' }, [streakLine]),
+    ui.el('div', { class: 'share-preview' }, [
+      ui.el('div', { class: 'share-preview-line share-preview-bold' }, [
+        success ? share.CHALLENGE_BOLD : share.FAIL_BOLD,
+      ]),
     ]),
+    ui.el('button', {
+      class: 'btn-sticker btn-sticker--green btn-block',
+      onclick: async () => {
+        const r = await share.shareText(shareTextValue, {
+          onClipboardSuccess: () => ui.showToast('Copied — paste it anywhere!'),
+        });
+        if (r === 'failed') ui.showToast('Share unavailable');
+      },
+    }, ['Share challenge']),
+    ui.el('button', {
+      class: 'btn-sticker btn-sticker--continue btn-block',
+      onclick: () => { close(); goToEndless(allPuzzles, state, today, storage); },
+    }, ['Continue playing →']),
+    ui.el('button', { class: 'modal-close-link', onclick: close }, ['Close']),
   ]));
+}
+
+function successStatusLine(state, session) {
+  const heartsLost = Math.max(0, Math.min(5, 5 - state.lives));
+  if (!session.hintUsed && heartsLost === 0) return 'Perfect run — no hints, no wrong guesses.';
+  if (session.hintUsed && heartsLost === 0) return 'Solved with 1 hint.';
+  if (!session.hintUsed) return `Solved with ${heartsLost} wrong ${heartsLost === 1 ? 'guess' : 'guesses'}.`;
+  return `Solved with 1 hint and ${heartsLost} wrong ${heartsLost === 1 ? 'guess' : 'guesses'}.`;
 }
 
 if ('serviceWorker' in navigator) {
@@ -150,15 +193,17 @@ function ensureEndlessScreen(allPuzzles, state, today, storage) {
 
   function rerender(awaitingNext = false) {
     if (!session.currentPuzzle) {
-      root.replaceChildren(ui.el('div', { class: 'sticker' }, [
+      ui.setChildren(root, ui.el('div', { class: 'sticker' }, [
         ui.el('h2', {}, ['🎉 You\'ve played every puzzle!']),
         ui.el('p', {}, ['Come back tomorrow for a fresh Daily.']),
       ]));
       return;
     }
     if (awaitingNext) {
-      root.replaceChildren(ui.el('div', { style: 'display:flex;flex-direction:column;gap:18px;align-items:center;padding:48px 16px' }, [
-        ui.el('p', { style: 'opacity:0.7' }, [session.solvedThisSession === 0 ? 'Better luck next round.' : 'Nice. Keep going?']),
+      ui.setChildren(root, ui.el('div', { class: 'next-overlay' }, [
+        ui.el('p', { class: 'next-overlay-text' }, [
+          session.solvedThisSession === 0 ? 'Better luck next round.' : 'Nice. Keep going?'
+        ]),
         ui.el('button', {
           class: 'btn-sticker btn-sticker--green',
           onclick: () => { session.advance(); rerender(false); },
@@ -167,14 +212,13 @@ function ensureEndlessScreen(allPuzzles, state, today, storage) {
       return;
     }
     const p = session.currentPuzzle;
-    root.replaceChildren(
-      ui.el('div', { style: 'display:flex;justify-content:space-between;align-items:center' }, [
+    ui.setChildren(root,
+      ui.el('div', { class: 'endless-topbar' }, [
         ui.el('button', {
-          class: 'btn-sticker sticker--soft',
-          style: 'padding:8px 12px;font-size:14px',
+          class: 'btn-sticker btn-sticker--sm',
           onclick: () => ui.showScreen('today'),
         }, ['✕ End Session']),
-        ui.el('span', { style: 'font-size:14px;opacity:0.7;font-weight:800' }, [
+        ui.el('span', { class: 'endless-counter' }, [
           session.solvedThisSession === 0 ? 'Just started'
             : session.solvedThisSession === 1 ? '1 solved'
             : `${session.solvedThisSession} solved`
@@ -184,9 +228,9 @@ function ensureEndlessScreen(allPuzzles, state, today, storage) {
       ui.el('div', { class: 'emoji-header' }, [p.emoji]),
       ui.renderCategoryChip(p.category, null),
       ui.renderBlanks(p.answer, session.correct, null),
-      ui.el('div', { style: 'display:flex;justify-content:flex-end' }, [
+      ui.el('div', { class: 'action-row' }, [
         ui.el('button', {
-          class: 'btn-sticker btn-sticker--yellow',
+          class: 'btn-sticker btn-sticker--yellow btn-sticker--sm',
           disabled: session.hintUsed || session.solved || session.failed,
           onclick: () => { session.useHint(); afterAction(); },
         }, ['💡 Hint']),
@@ -213,11 +257,7 @@ function ensureEndlessScreen(allPuzzles, state, today, storage) {
     rerender(false);
     if (session.hasShownOneChanceWarning && !session._warnedShown) {
       session._warnedShown = true;
-      ui.showModal(({ close }) => ui.el('div', {}, [
-        ui.el('h2', {}, ['One chance left']),
-        ui.el('p', {}, ['Make it count — one more wrong guess ends the puzzle.']),
-        ui.el('button', { class: 'btn-sticker', onclick: close }, ['OK']),
-      ]));
+      showOneChanceModal();
     }
     if (session.solved) {
       celebrateWin().then(() => rerender(true));

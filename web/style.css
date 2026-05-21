@@ -16,21 +16,43 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--pk-paper);
+  background: #ECDDB3;
+  background-image:
+    radial-gradient(circle at 20% 25%, rgba(255,214,10,0.10) 0, transparent 35%),
+    radial-gradient(circle at 80% 75%, rgba(6,214,160,0.08) 0, transparent 35%),
+    radial-gradient(circle at 50% 95%, rgba(17,138,178,0.06) 0, transparent 40%);
   color: var(--pk-ink);
   font-family: var(--font-rounded);
   font-weight: 600;
   -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
 }
 
 #app {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 16px;
-  min-height: 100dvh;
+  max-width: 520px;
+  margin: 28px auto;
+  padding: 22px 20px 28px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
+  background: var(--pk-paper);
+  border: 3px solid var(--pk-ink);
+  border-radius: 22px;
+  box-shadow: 8px 8px 0 0 var(--pk-ink);
+}
+
+/* Mobile: ditch the floating-card treatment — full-bleed for phone-app feel. */
+@media (max-width: 600px) {
+  body { background: var(--pk-paper); background-image: none; }
+  #app {
+    max-width: 100%;
+    margin: 0;
+    padding: 16px;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 100dvh;
+  }
 }
 
 #top-bar {
@@ -210,3 +232,125 @@ canvas.celebration {
   pointer-events: none;
   z-index: 40;
 }
+
+/* Action row (Hint and similar) */
+.action-row { display: flex; justify-content: flex-end; gap: 8px; }
+
+.btn-sticker--sm { font-size: 14px; padding: 8px 12px; border-width: 2px; box-shadow: 2px 2px 0 0 var(--pk-ink); }
+.btn-sticker--sm:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 0 var(--pk-ink); }
+
+.btn-block { width: 100%; padding: 14px; font-size: 16px; }
+
+/* Continue Playing CTA — subtle, sits below the keyboard */
+.continue-row { display: flex; justify-content: center; margin-top: 4px; }
+.btn-sticker--continue {
+  background: var(--pk-paper);
+  border-width: 2px;
+  box-shadow: 3px 3px 0 0 var(--pk-ink);
+  font-size: 14px;
+  padding: 10px 18px;
+  color: var(--pk-ink);
+  opacity: 0.85;
+}
+.btn-sticker--continue:hover { opacity: 1; }
+
+/* Endless top bar */
+.endless-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.endless-counter {
+  font-size: 13px;
+  opacity: 0.6;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Next puzzle overlay */
+.next-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  padding: 48px 16px;
+}
+.next-overlay-text { opacity: 0.7; margin: 0; }
+
+/* Result modal — editorial style */
+.modal-body { display: flex; flex-direction: column; gap: 12px; }
+.modal-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  text-align: center;
+}
+.modal-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+  text-align: center;
+}
+.modal-body-text {
+  margin: 0;
+  font-size: 15px;
+  opacity: 0.75;
+  text-align: center;
+  line-height: 1.45;
+}
+.result-modal { gap: 10px; }
+.result-modal .category-chip { align-self: center; }
+.result-answer {
+  margin: 0 0 4px;
+  font-size: 38px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+.result-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.1);
+  margin: 8px 0 4px;
+}
+.result-status {
+  margin: 0;
+  font-size: 15px;
+  opacity: 0.8;
+  text-align: center;
+}
+.result-streak {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.55;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.share-preview {
+  margin: 8px 0 4px;
+  padding: 14px;
+  background: rgba(255,255,255,0.55);
+  border: 2px dashed rgba(0,0,0,0.18);
+  border-radius: 12px;
+}
+.share-preview-line { margin: 0; text-align: center; }
+.share-preview-bold { font-size: 17px; }
+.modal-close-link {
+  background: transparent;
+  border: none;
+  color: var(--pk-ink);
+  opacity: 0.45;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  margin-top: 4px;
+  cursor: pointer;
+  align-self: center;
+}
+.modal-close-link:hover { opacity: 0.75; }

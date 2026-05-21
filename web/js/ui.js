@@ -18,6 +18,12 @@ export function el(tag, attrs = {}, children = []) {
   return node;
 }
 
+/// Like Node.replaceChildren but skips null/undefined — passing a literal `null`
+/// to replaceChildren leaks the text "null" into the DOM.
+export function setChildren(node, ...children) {
+  node.replaceChildren(...children.filter(c => c != null));
+}
+
 export function showScreen(name) {
   for (const s of document.querySelectorAll('.screen')) s.hidden = !s.id.endsWith(name);
   for (const t of document.querySelectorAll('.tab')) {
