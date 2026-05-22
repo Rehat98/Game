@@ -42,6 +42,7 @@
 		A2330B67A365CB46FF09704D /* UserStateMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D028777F6BC1AE088C73016D /* UserStateMigrationTests.swift */; };
 		A30656A04C6E96BC61CEF55F /* test-puzzles.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E30CB7F4E3606B665F8EC8A /* test-puzzles.json */; };
 		A6DACC4B4EDC68392FD82D08 /* ShareCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF40436B6B5C44CC58037435 /* ShareCardBuilder.swift */; };
+		A7E3DC4D5ECBADCC571D8792 /* AnswerPeekSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454B7F2F9A230FFE2D2425D /* AnswerPeekSheet.swift */; };
 		AA617127D6B9EEE3C9886E54 /* ResultSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC22EE038406BC101D95FF1 /* ResultSheet.swift */; };
 		AFC2E6F63B63FCFEF1A145B0 /* EndlessSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B7D9A1B47C4C0C61384BE /* EndlessSession.swift */; };
 		B0786467093D51F3A2D6BF2B /* PictokApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF7A7BF6F338B281CC2F8FA /* PictokApp.swift */; };
@@ -111,6 +112,7 @@
 		AEDDCDEC38190D3BC62F57C6 /* Pictok.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Pictok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B72B7D9A1B47C4C0C61384BE /* EndlessSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSession.swift; sourceTree = "<group>"; };
 		BAC22EE038406BC101D95FF1 /* ResultSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSheet.swift; sourceTree = "<group>"; };
+		C454B7F2F9A230FFE2D2425D /* AnswerPeekSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPeekSheet.swift; sourceTree = "<group>"; };
 		C986CD024C47B111318DE1CE /* RainEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainEmitter.swift; sourceTree = "<group>"; };
 		D028777F6BC1AE088C73016D /* UserStateMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateMigrationTests.swift; sourceTree = "<group>"; };
 		D317115F4C77FC1155F3BF13 /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			children = (
 				92CABFE0CC85028404CAACE7 /* Components */,
 				219783C3A79BC7E804A968DA /* Effects */,
+				C454B7F2F9A230FFE2D2425D /* AnswerPeekSheet.swift */,
 				1E3C770D77B5CE56FA085549 /* EndlessView.swift */,
 				7E5AD70635A5B9CABD91C573 /* HowToPlayView.swift */,
 				413C0E6587F361FB98785EC3 /* NotificationPermissionSheet.swift */,
@@ -379,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7E3DC4D5ECBADCC571D8792 /* AnswerPeekSheet.swift in Sources */,
 				93F59C01C1995A478DB3E995 /* ArchiveSession.swift in Sources */,
 				62FC212BE5236D99CF37DACC /* BlanksView.swift in Sources */,
 				DB95F29EA8ABF327B533BA1E /* CalendarHeatmapView.swift in Sources */,
