@@ -67,9 +67,38 @@ struct PictokApp: App {
             store.state.lifetimeSolvedCount = 47
         case "midSolve":
             applyScreenshotPresetIfRequested_populatedBase()
-            store.state.lives = 4
-            store.state.todayCorrectGuesses = ["I"]
-            store.state.todayWrongGuesses = ["X"]
+            if let loader = self.loader,
+               let todays = loader.puzzle(for: Date()) {
+                store.state.todayPuzzleId = todays.id
+                // Pick the first 3 distinct letters from the answer (in order)
+                // so the visible blanks show meaningful progress.
+                var seen: Set<Character> = []
+                var picks: [Character] = []
+                for ch in todays.answer.uppercased() where ch.isLetter && !seen.contains(ch) {
+                    seen.insert(ch)
+                    picks.append(ch)
+                    if picks.count >= 3 { break }
+                }
+                store.state.todayCorrectGuesses = picks
+                store.state.todayWrongGuesses = ["X"]
+                store.state.lives = 4
+            } else {
+                store.state.lives = 4
+                store.state.todayCorrectGuesses = ["I"]
+                store.state.todayWrongGuesses = ["X"]
+            }
+        case "nearSubmit":
+            // All letters of today's puzzle revealed but not yet submitted —
+            // shows the Submit ✓ sticker button mid-screen.
+            applyScreenshotPresetIfRequested_populatedBase()
+            if let loader = self.loader,
+               let todays = loader.puzzle(for: Date()) {
+                store.state.todayPuzzleId = todays.id
+                let allLetters = Array(Set(todays.answer.uppercased().filter { $0.isLetter }))
+                store.state.todayCorrectGuesses = allLetters
+                store.state.todayWrongGuesses = []
+                store.state.lives = 5
+            }
         case "solvedToday":
             applyScreenshotPresetIfRequested_populatedBase()
             store.state.currentStreak = 8

@@ -4,25 +4,26 @@ This folder holds the App Store preview-video output and its source frames.
 
 ## `preview.mp4`
 
-A 23.5-second cross-faded slideshow ready to upload to App Store Connect (My Apps → Pictok → App Preview & Screenshots).
+A 14.4-second cross-faded slideshow ready to upload to App Store Connect (My Apps → Pictok → App Preview & Screenshots).
 
-- 1290×2796, H.264, yuv420p, 30 fps, ~470 kbps, ~1.4 MB
+- 1290×2796, H.264, yuv420p, 30 fps, ~590 kbps, ~1.0 MB
 - Matches the iPhone 6.9" device spec exactly (iPhone 16/17 Pro Max bucket)
 - File size well under the 500 MB App Store ceiling
 
 ## What's in it
 
-| Time | Frame | Captures |
-|------|-------|----------|
-| 0:00 – 0:02.5 | `00-intro.png` | Pictok logo + tagline "Daily emoji puzzle" |
-| 0:02 – 0:06 | `01-howtoplay.png` | First-launch HowToPlay carousel card 1 |
-| 0:05.5 – 0:10.5 | `02-tutorial.png` | TOY STORY puzzle with yellow tutorial banner |
-| 0:10 – 0:14 | `03-midsolve.png` | Mid-solve state (1 correct letter, 1 wrong, hearts at 4) |
-| 0:13.5 – 0:18 | `04-stats.png` | Stats tab with the calendar heatmap (populated state) |
-| 0:17.5 – 0:21.5 | `05-endless.png` | Endless tab |
-| 0:21 – 0:23.5 | `06-outro.png` | Pictok logo + pictok.pages.dev |
+| Frame | Duration | Captures |
+|-------|----------|----------|
+| `00-intro.png`     | 1.5 s | Pictok logo + tagline "Daily emoji puzzle" |
+| `01-howtoplay.png` | 2.0 s | First-launch HowToPlay carousel card 1 |
+| `02-tutorial.png`  | 2.5 s | TOY STORY puzzle with yellow tutorial banner |
+| `03-midsolve.png`  | 2.5 s | Today's puzzle mid-solve — 3 distinct letters revealed + 1 wrong guess + hearts at 4 |
+| `03b-nearsubmit.png` | 2.5 s | All letters of today's puzzle revealed — Submit ✓ sticker mid-screen |
+| `04-stats.png`     | 2.0 s | Stats tab with the calendar heatmap (populated state) |
+| `05-endless.png`   | 2.0 s | Endless tab |
+| `06-outro.png`     | 1.5 s | Pictok logo + pictok.pages.dev |
 
-Cross-fade transitions of 0.5 s between every pair.
+Cross-fade transitions of 0.3 s between every pair.
 
 ## Regenerating
 
@@ -50,17 +51,25 @@ xcrun simctl terminate booted com.rehatchugh.pictok && xcrun simctl launch boote
 # 3. Regenerate intro/outro cards (Pillow):
 python3 docs/launch/preview-video/make_cards.py   # script is below
 
-# 4. Re-stitch:
+# 4. Re-stitch (8 frames, 14.4 s output):
 cd docs/launch/preview-video && ffmpeg -y \
-  -loop 1 -t 2.5 -i frames/00-intro.png \
-  -loop 1 -t 4   -i frames/01-howtoplay.png \
-  -loop 1 -t 5   -i frames/02-tutorial.png \
-  -loop 1 -t 4   -i frames/03-midsolve.png \
-  -loop 1 -t 4.5 -i frames/04-stats.png \
-  -loop 1 -t 4   -i frames/05-endless.png \
-  -loop 1 -t 2.5 -i frames/06-outro.png \
-  -filter_complex "[0]scale=1290:2796:flags=lanczos[s0];[1]scale=1290:2796:flags=lanczos[s1];[2]scale=1290:2796:flags=lanczos[s2];[3]scale=1290:2796:flags=lanczos[s3];[4]scale=1290:2796:flags=lanczos[s4];[5]scale=1290:2796:flags=lanczos[s5];[6]scale=1290:2796:flags=lanczos[s6];[s0][s1]xfade=transition=fade:duration=0.5:offset=2[v01];[v01][s2]xfade=transition=fade:duration=0.5:offset=5.5[v02];[v02][s3]xfade=transition=fade:duration=0.5:offset=10[v03];[v03][s4]xfade=transition=fade:duration=0.5:offset=13.5[v04];[v04][s5]xfade=transition=fade:duration=0.5:offset=17.5[v05];[v05][s6]xfade=transition=fade:duration=0.5:offset=21[vout]" \
+  -loop 1 -t 1.5 -i frames/00-intro.png \
+  -loop 1 -t 2   -i frames/01-howtoplay.png \
+  -loop 1 -t 2.5 -i frames/02-tutorial.png \
+  -loop 1 -t 2.5 -i frames/03-midsolve.png \
+  -loop 1 -t 2.5 -i frames/03b-nearsubmit.png \
+  -loop 1 -t 2   -i frames/04-stats.png \
+  -loop 1 -t 2   -i frames/05-endless.png \
+  -loop 1 -t 1.5 -i frames/06-outro.png \
+  -filter_complex "[0]scale=1290:2796:flags=lanczos[s0];[1]scale=1290:2796:flags=lanczos[s1];[2]scale=1290:2796:flags=lanczos[s2];[3]scale=1290:2796:flags=lanczos[s3];[4]scale=1290:2796:flags=lanczos[s4];[5]scale=1290:2796:flags=lanczos[s5];[6]scale=1290:2796:flags=lanczos[s6];[7]scale=1290:2796:flags=lanczos[s7];[s0][s1]xfade=transition=fade:duration=0.3:offset=1.2[v01];[v01][s2]xfade=transition=fade:duration=0.3:offset=2.9[v02];[v02][s3]xfade=transition=fade:duration=0.3:offset=5.1[v03];[v03][s4]xfade=transition=fade:duration=0.3:offset=7.3[v04];[v04][s5]xfade=transition=fade:duration=0.3:offset=9.5[v05];[v05][s6]xfade=transition=fade:duration=0.3:offset=11.2[v06];[v06][s7]xfade=transition=fade:duration=0.3:offset=12.9[vout]" \
   -map "[vout]" -c:v libx264 -pix_fmt yuv420p -r 30 -movflags +faststart preview.mp4
+```
+
+Capture commands for the new mid-solve frames:
+
+```bash
+xcrun simctl terminate booted com.rehatchugh.pictok && xcrun simctl launch booted com.rehatchugh.pictok --screenshot-state=midSolve     # 03
+xcrun simctl terminate booted com.rehatchugh.pictok && xcrun simctl launch booted com.rehatchugh.pictok --screenshot-state=nearSubmit   # 03b
 ```
 
 ## Slideshow vs gameplay video — when to upgrade
