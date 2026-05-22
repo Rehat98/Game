@@ -55,3 +55,89 @@ test('load: missing fields filled with defaults (forward-compat)', () => {
   assert.equal(s.lives, 5, 'missing lives field should default');
   assert.deepEqual(s.solvedPuzzleIds, []);
 });
+
+test('recordArchiveOutcome: solved with no hint or wrong → perfect, lifetime fields bump', () => {
+  const state = us.fresh();
+  us.recordArchiveOutcome(state, { id: 'puzzle-010', date: '2026-05-10' },
+                          { solved: true, wrongGuesses: 0, hintUsed: false });
+  assert.ok(state.solvedPuzzleIds.includes('puzzle-010'));
+  assert.equal(state.totalSolved, 1);
+  assert.equal(state.totalPlayed, 1);
+  assert.equal(state.lifetimeSolvedCount, 1);
+  assert.deepEqual(state.guessDistribution, { 0: 1 });
+  assert.deepEqual(state.solveHistory, [{ date: '2026-05-10', result: 'perfect' }]);
+});
+
+test('recordArchiveOutcome: solved with hint → "solved" not "perfect"', () => {
+  const state = us.fresh();
+  us.recordArchiveOutcome(state, { id: 'puzzle-011', date: '2026-05-11' },
+                          { solved: true, wrongGuesses: 0, hintUsed: true });
+  assert.equal(state.solveHistory[0].result, 'solved');
+});
+
+test('recordArchiveOutcome: failed → adds to failedPuzzleIds, no totalSolved', () => {
+  const state = us.fresh();
+  us.recordArchiveOutcome(state, { id: 'puzzle-013', date: '2026-05-13' },
+                          { solved: false, wrongGuesses: 5, hintUsed: false });
+  assert.ok(state.failedPuzzleIds.includes('puzzle-013'));
+  assert.equal(state.totalPlayed, 1);
+  assert.equal(state.totalSolved, 0);
+  assert.equal(state.lifetimeSolvedCount, 0);
+  assert.equal(state.solveHistory[0].result, 'failed');
+});
+
+test('recordArchiveOutcome: NEVER changes streak fields', () => {
+  const state = us.fresh();
+  state.currentStreak = 7;
+  state.longestStreak = 12;
+  state.lastSolvedDate = '2026-05-21';
+  state.streakFreezesAvailable = 1;
+
+  us.recordArchiveOutcome(state, { id: 'puzzle-009', date: '2026-05-09' },
+                          { solved: true, wrongGuesses: 1, hintUsed: false });
+  us.recordArchiveOutcome(state, { id: 'puzzle-010', date: '2026-05-10' },
+                          { solved: false, wrongGuesses: 5, hintUsed: true });
+
+  assert.equal(state.currentStreak, 7);
+  assert.equal(state.longestStreak, 12);
+  assert.equal(state.lastSolvedDate, '2026-05-21');
+  assert.equal(state.streakFreezesAvailable, 1);
+});
+
+test('recordArchiveOutcome: replaces existing history entry for the same date', () => {
+  const state = us.fresh();
+  state.solveHistory = [{ date: '2026-05-10', result: 'failed' }];
+
+  us.recordArchiveOutcome(state, { id: 'puzzle-010', date: '2026-05-10' },
+                          { solved: true, wrongGuesses: 0, hintUsed: false });
+
+  const matches = state.solveHistory.filter(h => h.date === '2026-05-10');
+  assert.equal(matches.length, 1);
+  assert.equal(matches[0].result, 'perfect');
+});
+
+test('recordArchiveOutcome: idempotent for same puzzleId — second call is a no-op', () => {
+  const state = us.fresh();
+  us.recordArchiveOutcome(state, { id: 'puzzle-010', date: '2026-05-10' },
+                          { solved: true, wrongGuesses: 1, hintUsed: false });
+  assert.equal(state.totalPlayed, 1);
+  assert.equal(state.totalSolved, 1);
+
+  us.recordArchiveOutcome(state, { id: 'puzzle-010', date: '2026-05-10' },
+                          { solved: true, wrongGuesses: 1, hintUsed: false });
+  assert.equal(state.totalPlayed, 1, 'totalPlayed must not double on repeat call');
+  assert.equal(state.totalSolved, 1);
+  assert.equal(state.lifetimeSolvedCount, 1);
+});
+
+test('recordArchiveOutcome: previously-failed puzzleId cannot be retroactively solved', () => {
+  const state = us.fresh();
+  us.recordArchiveOutcome(state, { id: 'puzzle-010', date: '2026-05-10' },
+                          { solved: false, wrongGuesses: 5, hintUsed: false });
+
+  us.recordArchiveOutcome(state, { id: 'puzzle-010', date: '2026-05-10' },
+                          { solved: true, wrongGuesses: 0, hintUsed: false });
+  assert.equal(state.totalPlayed, 1);
+  assert.equal(state.totalSolved, 0);
+  assert.ok(!state.solvedPuzzleIds.includes('puzzle-010'));
+});
