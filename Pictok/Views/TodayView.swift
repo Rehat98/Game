@@ -4,6 +4,9 @@ struct TodayView: View {
     @Bindable var store: UserStateStore
     let puzzle: Puzzle?            // nil = no puzzle for today (out-of-bundle date)
     let puzzleNumber: Int          // 1-based, passed from PictokApp (via loader)
+    /// The puzzle dated to yesterday in the bundle. Used for the post-solve
+    /// "Yesterday was…" teaser; nil if yesterday is outside the bundle.
+    let yesterdaysPuzzle: Puzzle?
     let onSolveOrFail: () async -> Void   // triggers notification reschedule
     var onPlayEndless: () -> Void = {}
 
@@ -103,6 +106,7 @@ struct TodayView: View {
             BlanksView(answer: puzzle.answer,
                        correctGuesses: blanksCorrectGuesses(for: puzzle),
                        revealedLetter: store.state.todayRevealedLetter)
+            tomorrowFooter
             Spacer(minLength: 0)
             KeyboardView(
                 correctGuesses: Set(store.state.todayCorrectGuesses),
@@ -134,6 +138,60 @@ struct TodayView: View {
                 showResult = true
             }
         }
+    }
+
+    /// Post-solve / post-fail anticipation block: live countdown to the next
+    /// daily + a masked teaser for yesterday's puzzle (curiosity hook into the
+    /// archive). Hidden while the puzzle is still in-flight.
+    @ViewBuilder
+    private var tomorrowFooter: some View {
+        if store.state.todaySolved || store.state.todayFailed {
+            VStack(spacing: 10) {
+                TimelineView(.periodic(from: .now, by: 60)) { context in
+                    Text(countdownText(at: context.date))
+                        .font(.system(size: 13, weight: .heavy, design: .rounded))
+                        .foregroundStyle(Color.pkInk.opacity(0.6))
+                }
+                if let yp = yesterdaysPuzzle {
+                    VStack(spacing: 4) {
+                        Text("Yesterday was")
+                            .font(.system(size: 10, weight: .heavy, design: .rounded))
+                            .foregroundStyle(Color.pkInk.opacity(0.5))
+                            .textCase(.uppercase)
+                            .tracking(0.8)
+                        HStack(spacing: 8) {
+                            Text(yp.emoji).font(.system(size: 22))
+                            Text(maskAnswer(yp.answer))
+                                .font(.system(size: 13, weight: .heavy, design: .monospaced))
+                                .foregroundStyle(Color.pkInk.opacity(0.5))
+                                .tracking(2)
+                        }
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(Color.pkInk.opacity(0.18),
+                                    style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                    )
+                }
+            }
+            .padding(.top, 6)
+        }
+    }
+
+    private func countdownText(at now: Date) -> String {
+        let cal = Calendar.current
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: cal.startOfDay(for: now))!
+        let interval = tomorrow.timeIntervalSince(now)
+        let h = max(0, Int(interval) / 3600)
+        let m = max(0, (Int(interval) % 3600) / 60)
+        return "Next puzzle in \(h)h \(m)m"
+    }
+
+    private func maskAnswer(_ s: String) -> String {
+        s.map { $0 == " " ? "   " : "_" }
+            .joined(separator: " ")
     }
 
     private var topBar: some View {

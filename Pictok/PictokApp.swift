@@ -161,11 +161,14 @@ struct RootView: View {
             let todays: Puzzle? = store.state.ambassadorActive
                 ? loader.allPuzzles.first(where: { $0.id == "puzzle-001" })
                 : loader.puzzle(for: Date())
+            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+            let yesterdays: Puzzle? = yesterday.flatMap { loader.puzzle(for: $0) }
             TabView(selection: $selectedTab) {
                 TodayView(
                     store: store,
                     puzzle: todays,
                     puzzleNumber: todays.map { loader.puzzleNumber(for: $0) } ?? 1,
+                    yesterdaysPuzzle: yesterdays,
                     onSolveOrFail: onSolveOrFail,
                     onPlayEndless: { selectedTab = .endless }
                 )
