@@ -94,6 +94,23 @@ final class ArchiveSessionTests: XCTestCase {
                        "Hint should reveal at least one letter")
     }
 
+    func test_useHint_secondCallIsNoOp() {
+        let store = makeStore()
+        // Use a 3-letter answer so the first hint reveals exactly one letter and
+        // a possible second reveal would be observable.
+        let session = ArchiveSession(puzzle: makePuzzle(answer: "CAT"), store: store)
+
+        session.useHint()
+        let lettersAfterFirstHint = session.correctGuesses
+        XCTAssertEqual(lettersAfterFirstHint.count, 1)
+
+        session.useHint()
+        XCTAssertEqual(session.correctGuesses, lettersAfterFirstHint,
+                       "Second useHint() must not reveal another letter")
+        XCTAssertTrue(session.hintUsedThisPuzzle)
+        XCTAssertEqual(session.hearts, 5)
+    }
+
     func test_oneChanceWarningFiresAt2to1Transition() {
         let store = makeStore()
         let session = ArchiveSession(puzzle: makePuzzle(answer: "AAA"), store: store)
