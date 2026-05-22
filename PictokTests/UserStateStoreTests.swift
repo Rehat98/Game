@@ -142,7 +142,6 @@ final class UserStateStoreTests: XCTestCase {
     }
 
     func test_recordArchiveOutcome_idempotentForSamePuzzleId() {
-        let defaults = UserDefaults(suiteName: "test.\(UUID().uuidString)")!
         let store = UserStateStore(defaults: defaults, now: { Date(timeIntervalSince1970: 0) })
 
         // First solve — counters go up by 1.
@@ -170,7 +169,6 @@ final class UserStateStoreTests: XCTestCase {
     }
 
     func test_recordArchiveOutcome_idempotentForPreviouslyFailedPuzzle() {
-        let defaults = UserDefaults(suiteName: "test.\(UUID().uuidString)")!
         let store = UserStateStore(defaults: defaults, now: { Date(timeIntervalSince1970: 0) })
 
         store.recordArchiveOutcome(puzzleId: "puzzle-010",
