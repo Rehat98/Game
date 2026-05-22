@@ -125,38 +125,39 @@ struct RootView: View {
     let loadError: String?
     let onSolveOrFail: () async -> Void
 
-    @State private var presentingEndless: Bool = {
+    enum Tab: Hashable { case today, endless, stats }
+
+    @State private var selectedTab: Tab = {
         #if DEBUG
-        return CommandLine.arguments.contains("--present-endless")
+        return CommandLine.arguments.contains("--present-endless") ? .endless : .today
         #else
-        return false
+        return .today
         #endif
     }()
 
     var body: some View {
         if let loader {
             let todays = loader.puzzle(for: Date())
-            TabView {
+            TabView(selection: $selectedTab) {
                 TodayView(
                     store: store,
                     puzzle: todays,
                     puzzleNumber: todays.map { loader.puzzleNumber(for: $0) } ?? 1,
                     onSolveOrFail: onSolveOrFail,
-                    onPlayEndless: { presentingEndless = true }
+                    onPlayEndless: { selectedTab = .endless }
                 )
                 .tabItem { Label("Today", systemImage: "calendar") }
+                .tag(Tab.today)
+
+                EndlessView(loader: loader, store: store)
+                    .tabItem { Label("Endless", systemImage: "infinity") }
+                    .tag(Tab.endless)
 
                 StatsView(store: store)
                     .tabItem { Label("Stats", systemImage: "chart.bar") }
+                    .tag(Tab.stats)
             }
             .tint(.pkBlue)
-            .fullScreenCover(isPresented: $presentingEndless) {
-                let today = PuzzleLoader.dateString(for: Date())
-                let session = EndlessSession(allPuzzles: loader.allPuzzles,
-                                             store: store,
-                                             today: today)
-                EndlessView(session: session)
-            }
         } else if let loadError {
             VStack(spacing: 12) {
                 Text("⚠️").font(.system(size: 64))

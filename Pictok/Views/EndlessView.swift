@@ -2,7 +2,13 @@ import SwiftUI
 
 struct EndlessView: View {
     @State var session: EndlessSession
-    @Environment(\.dismiss) private var dismiss
+
+    init(loader: PuzzleLoader, store: UserStateStore) {
+        let today = PuzzleLoader.dateString(for: Date())
+        _session = State(initialValue: EndlessSession(allPuzzles: loader.allPuzzles,
+                                                      store: store,
+                                                      today: today))
+    }
 
     @State private var showWinCelebration: Bool = false
     @State private var showFailCelebration: Bool = false
@@ -111,30 +117,14 @@ struct EndlessView: View {
     }
 
     private var topBar: some View {
-        HStack(alignment: .center) {
-            Button {
-                dismiss()
-            } label: {
-                HStack(spacing: 6) {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 14, weight: .heavy))
-                    Text("End Session")
-                        .font(.system(size: 14, weight: .heavy, design: .rounded))
-                }
-                .foregroundStyle(Color.pkInk)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .sticker(fill: .white, cornerRadius: 16, strokeWidth: 2, shadowOffset: 2)
-            }
-            .buttonStyle(.plain)
-
+        HStack {
             Spacer()
-
             Text(solvedCountLabel)
                 .font(.system(size: 14, weight: .heavy, design: .rounded))
                 .foregroundStyle(Color.pkInk.opacity(0.7))
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
+            Spacer()
         }
     }
 
@@ -162,17 +152,6 @@ struct EndlessView: View {
                         session.advance()
                     }
                 }
-
-                Button {
-                    dismiss()
-                } label: {
-                    Text("End Session")
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
-                        .foregroundStyle(Color.pkInk.opacity(0.5))
-                        .underline()
-                }
-                .buttonStyle(.plain)
-                .padding(.top, 4)
             }
         }
     }
@@ -184,8 +163,6 @@ struct EndlessView: View {
                 .font(.pkBody)
                 .multilineTextAlignment(.center)
                 .padding()
-            Button("Done") { dismiss() }
-                .buttonStyle(.bordered)
         }
     }
 }
