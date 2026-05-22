@@ -148,7 +148,9 @@ struct RootView: View {
 
     @State private var selectedTab: Tab = {
         #if DEBUG
-        return CommandLine.arguments.contains("--present-endless") ? .endless : .today
+        if CommandLine.arguments.contains("--present-endless") { return .endless }
+        if CommandLine.arguments.contains("--present-stats")   { return .stats }
+        return .today
         #else
         return .today
         #endif
