@@ -100,6 +100,7 @@ struct TodayView: View {
     private func content(for puzzle: Puzzle) -> some View {
         VStack(spacing: 16) {
             topBar
+            tutorialOverlay
             EmojiHeader(emoji: puzzle.emoji)
             CategoryChip(category: puzzle.category,
                          subcategory: revealedSubcategory(for: puzzle))
@@ -138,6 +139,54 @@ struct TodayView: View {
                 showResult = true
             }
         }
+    }
+
+    /// First-launch coaching banner shown only during the ambassador puzzle
+    /// (`state.ambassadorActive`). Steps through "tap a letter" → "wrong letters
+    /// cost a heart" → "keep going" → "tap Submit". Disappears the moment the
+    /// player solves or fails the ambassador (ambassadorActive flips to false).
+    @ViewBuilder
+    private var tutorialOverlay: some View {
+        if let message = tutorialMessage {
+            Text(message)
+                .font(.system(size: 13, weight: .heavy, design: .rounded))
+                .foregroundStyle(Color.pkInk)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .frame(maxWidth: .infinity)
+                .background(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(Color.pkYellow.opacity(0.6))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .stroke(Color.pkInk, lineWidth: 2)
+                        )
+                )
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .animation(.easeInOut(duration: 0.25), value: message)
+                .id(message) // forces transition when message text changes
+        }
+    }
+
+    private var tutorialMessage: String? {
+        guard store.state.ambassadorActive else { return nil }
+        guard puzzle != nil else { return nil }
+        if store.state.todaySolved || store.state.todayFailed { return nil }
+
+        let correctCount = store.state.todayCorrectGuesses.count
+        let wrongCount = store.state.todayWrongGuesses.count
+
+        if isSubmitReady {
+            return "All letters revealed — tap Submit ✓ to claim your first solve."
+        }
+        if wrongCount > 0 {
+            return "Wrong letters cost a ❤️. Try ones you think ARE in the answer."
+        }
+        if correctCount > 0 {
+            return "Nice — keep tapping the other letters."
+        }
+        return "Decode the emojis into the title. Tap any letter to start."
     }
 
     /// Post-solve / post-fail anticipation block: live countdown to the next
