@@ -7,6 +7,22 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icon-192.png" />
   <title>Pictok — Daily Emoji Puzzle</title>
+
+  <meta name="description" content="Decode the emoji clue into a real title. One new puzzle a day. No accounts, no ads." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pictok.pages.dev/" />
+  <meta property="og:title" content="Pictok — Daily Emoji Puzzle" />
+  <meta property="og:description" content="Decode the emoji clue into a real title. One new puzzle a day. No accounts, no ads." />
+  <meta property="og:image" content="https://pictok.pages.dev/icon-512.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pictok — Daily Emoji Puzzle" />
+  <meta name="twitter:description" content="Decode the emoji clue into a real title. One new puzzle a day." />
+  <meta name="twitter:image" content="https://pictok.pages.dev/icon-512.png" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -51,12 +67,18 @@
           </div>
         </li>
       </ol>
-      <div class="rail-footer">No accounts. No ads. Just a daily.</div>
+      <div class="rail-footer">
+        <div>No accounts. No ads. Just a daily.</div>
+        <div class="rail-footer-ios">📱 iOS app coming soon</div>
+      </div>
     </aside>
 
     <main id="app">
       <header id="top-bar">
-        <h1>Pictok</h1>
+        <div class="brand">
+          <h1>Pictok</h1>
+          <p class="tagline">Decode the emoji clue. One puzzle a day.</p>
+        </div>
         <nav>
           <button data-screen="today"   class="tab" aria-current="page">Play</button>
           <button data-screen="endless" class="tab">Endless</button>
@@ -70,6 +92,10 @@
 
       <div id="modal-root"></div>
       <div id="toast-root"></div>
+
+      <footer class="app-footer">
+        <span class="ios-coming">📱 iOS app coming soon</span>
+      </footer>
     </main>
 
     <aside class="rail rail-right" id="rail-right">

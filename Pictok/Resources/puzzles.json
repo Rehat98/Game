@@ -200,10 +200,10 @@
   {
     "id": "puzzle-023",
     "date": "2026-06-09",
-    "emoji": "📖🧠",
-    "answer": "BOOK SMART",
+    "emoji": "🌃☀️",
+    "answer": "KNIGHT AND DAY",
     "category": "Movie",
-    "subcategory": "Coming-of-age comedy · 2019",
+    "subcategory": "Cruise & Diaz action-comedy · 2010",
     "difficulty": "medium"
   },
   {
@@ -520,6 +520,15 @@
     "category": "Celeb",
     "subcategory": "Actor · American",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-059",
+    "date": "2026-07-15",
+    "emoji": "🍯🌙",
+    "answer": "HONEYMOON",
+    "category": "Song",
+    "subcategory": "Lana Del Rey · 2015",
+    "difficulty": "medium"
   },
   {
     "id": "puzzle-060",
