@@ -14,7 +14,8 @@ final class ShareCardBuilderTests: XCTestCase {
             url: "pictok.app"
         )
         let expected = """
-        I solved today's Pictok with no hints — perfect run.
+        I solved today's Pictok!
+        ❤️❤️❤️❤️❤️
         Streak: 7
 
         🎯 𝗖𝗮𝗻 𝘆𝗼𝘂 𝗯𝗲𝗮𝘁 𝗺𝗲? 🎯
@@ -33,7 +34,8 @@ final class ShareCardBuilderTests: XCTestCase {
             currentStreak: 7,
             url: "pictok.app"
         )
-        XCTAssertTrue(card.contains("I solved today's Pictok using 1 hint."))
+        XCTAssertTrue(card.contains("❤️❤️❤️❤️❤️ 💡"),
+                      "Expected full hearts with hint marker, got: \(card)")
     }
 
     func test_successCard_oneWrongGuess_noHint() {
@@ -46,8 +48,9 @@ final class ShareCardBuilderTests: XCTestCase {
             currentStreak: 7,
             url: "pictok.app"
         )
-        XCTAssertTrue(card.contains("(1 wrong guess)"),
-                      "Expected singular 'guess', got: \(card)")
+        XCTAssertTrue(card.contains("❤️❤️❤️❤️🖤"),
+                      "Expected 4❤️ + 1🖤, got: \(card)")
+        XCTAssertFalse(card.contains("💡"))
     }
 
     func test_successCard_multipleWrongGuesses_noHint() {
@@ -60,8 +63,8 @@ final class ShareCardBuilderTests: XCTestCase {
             currentStreak: 7,
             url: "pictok.app"
         )
-        XCTAssertTrue(card.contains("(3 wrong guesses)"),
-                      "Expected plural 'guesses', got: \(card)")
+        XCTAssertTrue(card.contains("❤️❤️🖤🖤🖤"),
+                      "Expected 2❤️ + 3🖤, got: \(card)")
     }
 
     func test_successCard_hintAndWrongGuesses() {
@@ -74,8 +77,8 @@ final class ShareCardBuilderTests: XCTestCase {
             currentStreak: 7,
             url: "pictok.app"
         )
-        XCTAssertTrue(card.contains("with 1 hint and 2 wrong guesses"),
-                      "Expected combo framing, got: \(card)")
+        XCTAssertTrue(card.contains("❤️❤️❤️🖤🖤 💡"),
+                      "Expected 3❤️ + 2🖤 + hint marker, got: \(card)")
     }
 
     func test_successCard_includesStreakWithoutPuzzleNumber() {
@@ -106,6 +109,19 @@ final class ShareCardBuilderTests: XCTestCase {
         XCTAssertTrue(card.contains("→ pictok.app"))
     }
 
+    func test_successCard_clampsHeartsRemainingToZeroFive() {
+        let over = ShareCardBuilder.successCard(
+            puzzleNumber: 1, category: .movie, difficulty: .hard,
+            heartsRemaining: 99, hintUsed: false, currentStreak: 1, url: "p"
+        )
+        XCTAssertTrue(over.contains("❤️❤️❤️❤️❤️"))
+        let under = ShareCardBuilder.successCard(
+            puzzleNumber: 1, category: .movie, difficulty: .hard,
+            heartsRemaining: -3, hintUsed: false, currentStreak: 1, url: "p"
+        )
+        XCTAssertTrue(under.contains("🖤🖤🖤🖤🖤"))
+    }
+
     func test_failureCard_format() {
         let card = ShareCardBuilder.failureCard(
             puzzleNumber: 142,
@@ -116,6 +132,7 @@ final class ShareCardBuilderTests: XCTestCase {
         )
         let expected = """
         Today's Pictok beat me.
+        🖤🖤🖤🖤🖤
         Streak: 7 → 0
 
         🎯 𝗧𝗮𝗸𝗲 𝗮 𝘀𝘄𝗶𝗻𝗴? 🎯
