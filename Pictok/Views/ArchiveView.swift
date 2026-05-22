@@ -114,16 +114,26 @@ struct ArchiveView: View {
         }
     }
 
+    private static let dateInFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd"
+        f.timeZone = TimeZone(identifier: "UTC")
+        f.locale = Locale(identifier: "en_US_POSIX")
+        return f
+    }()
+
+    private static let dateOutFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "MMM d"
+        f.timeZone = TimeZone(identifier: "UTC")
+        f.locale = Locale(identifier: "en_US_POSIX")
+        return f
+    }()
+
     private var dateLabel: String {
         // "2026-05-10" → "May 10"
-        let inFormatter = DateFormatter()
-        inFormatter.dateFormat = "yyyy-MM-dd"
-        inFormatter.timeZone = TimeZone(identifier: "UTC")
-        let outFormatter = DateFormatter()
-        outFormatter.dateFormat = "MMM d"
-        outFormatter.timeZone = TimeZone(identifier: "UTC")
-        if let d = inFormatter.date(from: session.puzzle.date) {
-            return outFormatter.string(from: d)
+        if let d = Self.dateInFormatter.date(from: session.puzzle.date) {
+            return Self.dateOutFormatter.string(from: d)
         }
         return session.puzzle.date
     }
