@@ -114,8 +114,25 @@ struct PictokApp: App {
         }
         await scheduler.scheduleDailyReminderIfNeeded(
             now: Date(),
-            alreadySolvedToday: solvedToday
+            alreadySolvedToday: solvedToday,
+            lastValidDate: bundleLastDate()
         )
+    }
+
+    /// The last date a Daily puzzle exists for in the bundle, as a Date at
+    /// 00:00 UTC. Used to stop scheduling 9 AM reminders once the bundle is
+    /// exhausted — otherwise a user opening a stale ping after 2026-07-16
+    /// lands on the "No puzzle today" fallback.
+    private func bundleLastDate() -> Date? {
+        guard let loader else { return nil }
+        let f = DateFormatter()
+        f.calendar = Calendar(identifier: .gregorian)
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.timeZone = TimeZone(identifier: "UTC")
+        f.dateFormat = "yyyy-MM-dd"
+        return loader.allPuzzles
+            .compactMap { f.date(from: $0.date) }
+            .max()
     }
 }
 

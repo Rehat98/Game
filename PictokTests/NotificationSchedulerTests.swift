@@ -19,6 +19,43 @@ final class NotificationSchedulerTests: XCTestCase {
         }
     }
 
+    func test_skipsScheduling_whenNextFireFallsAfterLastValidDate() async {
+        let mock = MockCenter()
+        let scheduler = NotificationScheduler(center: mock,
+                                              calendar: Calendar(identifier: .gregorian),
+                                              timeZone: TimeZone(identifier: "UTC")!)
+        // Now is the last day of the bundle, post-9-AM. Next fire would be tomorrow.
+        let now = ISO8601DateFormatter().date(from: "2026-07-16T15:30:00Z")!
+        let lastValid = ISO8601DateFormatter().date(from: "2026-07-16T00:00:00Z")!
+
+        await scheduler.scheduleDailyReminderIfNeeded(
+            now: now,
+            alreadySolvedToday: false,
+            lastValidDate: lastValid
+        )
+
+        XCTAssertEqual(mock.added.count, 0, "Must not schedule past the bundle end.")
+        XCTAssertEqual(mock.removed, [NotificationScheduler.dailyReminderIdentifier],
+                       "Any stale pending reminder gets cancelled.")
+    }
+
+    func test_schedulesNormally_whenNextFireIsWithinLastValidDate() async {
+        let mock = MockCenter()
+        let scheduler = NotificationScheduler(center: mock,
+                                              calendar: Calendar(identifier: .gregorian),
+                                              timeZone: TimeZone(identifier: "UTC")!)
+        let now = ISO8601DateFormatter().date(from: "2026-07-15T15:30:00Z")!
+        let lastValid = ISO8601DateFormatter().date(from: "2026-07-16T00:00:00Z")!
+
+        await scheduler.scheduleDailyReminderIfNeeded(
+            now: now,
+            alreadySolvedToday: false,
+            lastValidDate: lastValid
+        )
+
+        XCTAssertEqual(mock.added.count, 1, "Next fire is 2026-07-16 9 AM, still within the bundle.")
+    }
+
     func test_schedulesTomorrow9amWhenNothingPending() async {
         let mock = MockCenter()
         let scheduler = NotificationScheduler(center: mock,

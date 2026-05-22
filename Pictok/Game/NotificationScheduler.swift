@@ -55,12 +55,24 @@ struct NotificationScheduler {
     }
 
     /// Schedule the next 9 AM reminder. If `alreadySolvedToday` is true, skip
-    /// today's notification and schedule tomorrow's.
-    func scheduleDailyReminderIfNeeded(now: Date, alreadySolvedToday: Bool) async {
+    /// today's notification and schedule tomorrow's. If `lastValidDate` is set
+    /// and the next fire date falls strictly after it (i.e. the puzzle bundle
+    /// has been exhausted), cancel any pending reminder and don't schedule a
+    /// new one — avoids pinging the user about a dead app.
+    func scheduleDailyReminderIfNeeded(now: Date,
+                                       alreadySolvedToday: Bool,
+                                       lastValidDate: Date? = nil) async {
+        let fireDate = nextFireDate(after: now, skipTodayBecauseSolved: alreadySolvedToday)
+
+        if let last = lastValidDate,
+           calendar.startOfDay(for: fireDate) > calendar.startOfDay(for: last) {
+            await center.remove(identifier: Self.dailyReminderIdentifier)
+            return
+        }
+
         let pending = await center.pendingIdentifiers()
         guard !pending.contains(Self.dailyReminderIdentifier) else { return }
 
-        let fireDate = nextFireDate(after: now, skipTodayBecauseSolved: alreadySolvedToday)
         let comps = calendar.dateComponents([.year, .month, .day, .hour, .minute],
                                             from: fireDate)
         await center.add(identifier: Self.dailyReminderIdentifier, components: comps)
