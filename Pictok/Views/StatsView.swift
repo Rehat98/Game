@@ -2,6 +2,16 @@ import SwiftUI
 
 struct StatsView: View {
     @Bindable var store: UserStateStore
+    let loader: PuzzleLoader
+
+    @State private var archiveTarget: Puzzle? = nil
+    @State private var peekTarget: PeekItem? = nil
+
+    private struct PeekItem: Identifiable {
+        let puzzle: Puzzle
+        let outcome: SolveResult
+        var id: String { puzzle.id }
+    }
 
     var body: some View {
         ScrollView {
@@ -37,13 +47,21 @@ struct StatsView: View {
 
                 section("Last 4 weeks") {
                     CalendarHeatmapView(history: store.state.solveHistory,
-                                        today: PuzzleLoader.dateString(for: Date(), timeZone: .current))
+                                        today: PuzzleLoader.dateString(for: Date(), timeZone: .current),
+                                        onCellTap: handleCellTap)
                 }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 32)
         }
         .background(Color.pkPaper)
+        .fullScreenCover(item: $archiveTarget) { puzzle in
+            ArchiveView(puzzle: puzzle, store: store)
+        }
+        .sheet(item: $peekTarget) { item in
+            AnswerPeekSheet(puzzle: item.puzzle, outcome: item.outcome)
+                .presentationDetents([.medium])
+        }
     }
 
     @ViewBuilder
@@ -110,6 +128,18 @@ struct StatsView: View {
         guard store.state.totalPlayed > 0 else { return "—" }
         let pct = Int(round(Double(store.state.totalSolved) / Double(store.state.totalPlayed) * 100))
         return "\(pct)%"
+    }
+
+    private func handleCellTap(_ cell: CalendarHeatmapView.CalendarCell) {
+        if cell.isToday || cell.isFuture { return }
+        guard let puzzle = loader.allPuzzles.first(where: { $0.date == cell.date }) else {
+            return
+        }
+        if let result = cell.result {
+            peekTarget = PeekItem(puzzle: puzzle, outcome: result)
+        } else {
+            archiveTarget = puzzle
+        }
     }
 
 }
