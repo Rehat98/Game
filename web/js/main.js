@@ -6,6 +6,7 @@ import * as ui from './ui.js';
 import { celebrateWin, celebrateFail, tickCorrect, tickWrong } from './celebration.js';
 import * as stats from './stats.js';
 import * as share from './share.js';
+import { mountArchive } from './archive.js';
 
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -15,6 +16,7 @@ async function boot() {
   const loader = await puzzleLoader.fromUrl('puzzles.json');
   const today = puzzleLoader.dateString(new Date(), TZ);
   const todayPuzzle = loader.puzzleFor(today);
+  const puzzlesByDate = new Map(loader.allPuzzles.map(p => [p.date, p]));
 
   for (const tab of document.querySelectorAll('.tab')) {
     tab.addEventListener('click', () => {
@@ -23,7 +25,7 @@ async function boot() {
         ensureEndlessScreen(loader.allPuzzles, state, today, storage);
       }
       if (tab.dataset.screen === 'stats') {
-        document.querySelector('#screen-stats').replaceChildren(stats.renderStats(state, today));
+        rerenderStats();
       }
     });
   }
@@ -44,6 +46,38 @@ async function boot() {
   // Right rail (Today panel) — only meaningful on wide viewports where it's visible.
   renderRightRail(state, loader, today);
   setInterval(() => renderRightRail(state, loader, today), 60_000);
+
+  function rerenderStats() {
+    const screen = document.querySelector('#screen-stats');
+    if (!screen) return;
+    screen.replaceChildren(stats.renderStats(state, today, {
+      onCellTap: handleCalendarTap,
+    }));
+  }
+
+  function handleCalendarTap(cell) {
+    if (cell.isToday || cell.isFuture) return;
+    const puzzle = puzzlesByDate.get(cell.date);
+    if (!puzzle) return;
+
+    const modalRoot = document.getElementById('modal-root');
+    if (cell.result) {
+      // Already played — show answer peek
+      modalRoot.replaceChildren(
+        stats.renderAnswerPeek(puzzle, cell.result, {
+          onDismiss: () => modalRoot.replaceChildren(),
+        })
+      );
+    } else {
+      // Unplayed past — launch archive game
+      mountArchive(puzzle, state, {
+        storage,
+        onDone: () => {
+          rerenderStats();
+        },
+      });
+    }
+  }
 }
 
 function renderRightRail(state, loader, today) {
