@@ -593,3 +593,107 @@ canvas.celebration {
   opacity: 0.75;
 }
 .legend-item { display: flex; align-items: center; gap: 10px; }
+
+/* Archive: clickable calendar cells + answer-peek modal */
+.calendar-cell {
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+}
+.calendar-cell:disabled,
+.calendar-cell--future,
+.calendar-cell--today {
+  cursor: default;
+}
+
+.peek-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+.peek-modal {
+  width: 100%;
+  max-width: 480px;
+  background: var(--pk-paper);
+  border: 3px solid var(--pk-ink);
+  border-radius: 22px 22px 0 0;
+  padding: 24px 16px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.peek-emoji    { font-size: 48px; }
+.peek-category {
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 0.55;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.peek-answer   {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.peek-outcome  {
+  font-size: 14px;
+  font-weight: 800;
+  opacity: 0.7;
+}
+.peek-outcome--fail {
+  color: var(--pk-red);
+  opacity: 1;
+}
+.peek-close    { margin-top: 8px; }
+
+/* Archive modal — game UI inside the global modal box */
+.archive-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 16px;
+}
+.archive-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.archive-close {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 900;
+  background: #fff;
+  border: 2px solid var(--pk-ink);
+  border-radius: 10px;
+  box-shadow: 2px 2px 0 0 var(--pk-ink);
+  padding: 4px 10px;
+  cursor: pointer;
+  line-height: 1;
+}
+.archive-close:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 0 var(--pk-ink);
+}
+.archive-date {
+  font-size: 13px;
+  font-weight: 800;
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+}
+.archive-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 8px;
+}
+.archive-hint {
+  font-size: 13px;
+  padding: 8px 14px;
+}
+.archive-submit { align-self: center; }

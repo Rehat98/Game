@@ -53,12 +53,12 @@ function msToYMD(ms) {
 
 import { el } from './ui.js';
 
-export function renderStats(state, today) {
+export function renderStats(state, today, { onCellTap = () => {} } = {}) {
   const pct = winPercent(state);
   return el('div', { class: 'stats-screen' }, [
     pairCard('Current streak', state.currentStreak, 'Longest', state.longestStreak),
     pairCard('Lifetime solved', state.lifetimeSolvedCount, 'Win %', `${pct}%`),
-    calendarCard(today, state.solveHistory ?? []),
+    calendarCard(today, state.solveHistory ?? [], onCellTap),
   ]);
 }
 
@@ -77,7 +77,7 @@ function statCell(label, value) {
   ]);
 }
 
-function calendarCard(today, history) {
+function calendarCard(today, history, onCellTap) {
   const grid = buildCalendarGrid(today, history, 4);
   const dayLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   return el('div', { class: 'sticker calendar-card' }, [
@@ -87,9 +87,12 @@ function calendarCard(today, history) {
       ...grid.flatMap(row => row.map(cell => {
         const status = cell.isFuture ? 'future' : (cell.result ?? 'empty');
         const todayMod = cell.isToday ? ' calendar-cell--today' : '';
-        return el('div', {
+        return el('button', {
+          type: 'button',
           class: `calendar-cell calendar-cell--${status}${todayMod}`,
+          'aria-label': cellAriaLabel(cell),
           title: cellTooltip(cell),
+          onclick: () => onCellTap(cell),
         });
       })),
     ]),
@@ -114,4 +117,30 @@ function cellTooltip(cell) {
   if (cell.result === 'solved')  return `${cell.date}: solved`;
   if (cell.result === 'failed')  return `${cell.date}: failed`;
   return `${cell.date}: didn't play`;
+}
+
+function cellAriaLabel(cell) {
+  if (cell.isToday) return `Today, ${cell.date}`;
+  if (cell.isFuture) return `Future, ${cell.date}`;
+  if (cell.result === 'perfect') return `${cell.date}: perfect`;
+  if (cell.result === 'solved')  return `${cell.date}: solved`;
+  if (cell.result === 'failed')  return `${cell.date}: failed`;
+  return `${cell.date}: unplayed`;
+}
+
+export function renderAnswerPeek(puzzle, outcome, { onDismiss } = {}) {
+  const outcomeLine = outcome === 'perfect' ? '✓ Perfect run'
+                    : outcome === 'solved'  ? '✓ Solved'
+                    : outcome === 'failed'  ? '✗ Beat you'
+                    : '';
+  const outcomeClass = outcome === 'failed' ? 'peek-outcome peek-outcome--fail' : 'peek-outcome';
+  return el('div', { class: 'peek-modal-backdrop', onclick: onDismiss }, [
+    el('div', { class: 'peek-modal', onclick: (e) => e.stopPropagation() }, [
+      el('div', { class: 'peek-emoji' }, [puzzle.emoji]),
+      el('div', { class: 'peek-category' }, [`${puzzle.category} · ${puzzle.subcategory}`]),
+      el('div', { class: 'peek-answer' }, [puzzle.answer]),
+      el('div', { class: outcomeClass }, [outcomeLine]),
+      el('button', { type: 'button', class: 'peek-close sticker-button', onclick: onDismiss }, ['Got it']),
+    ]),
+  ]);
 }

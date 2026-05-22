@@ -7,6 +7,9 @@ struct CalendarHeatmapView: View {
     let history: [SolveRecord]
     /// `YYYY-MM-DD` for today in the user's local timezone.
     let today: String
+    /// Tap callback fired with the tapped cell's state. Default is a no-op so
+    /// existing callers (previews, tests) need no change.
+    var onCellTap: (CalendarCell) -> Void = { _ in }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -36,7 +39,12 @@ struct CalendarHeatmapView: View {
             }
             LazyVGrid(columns: columns, spacing: 6) {
                 ForEach(cells.indices, id: \.self) { i in
-                    cellView(cells[i])
+                    Button {
+                        onCellTap(cells[i])
+                    } label: {
+                        cellView(cells[i])
+                    }
+                    .buttonStyle(.plain)
                 }
             }
         }

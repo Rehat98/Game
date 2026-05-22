@@ -153,7 +153,7 @@ struct RootView: View {
                     .tabItem { Label("Endless", systemImage: "infinity") }
                     .tag(Tab.endless)
 
-                StatsView(store: store)
+                StatsView(store: store, loader: loader)
                     .tabItem { Label("Stats", systemImage: "chart.bar") }
                     .tag(Tab.stats)
             }
