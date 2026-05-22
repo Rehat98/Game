@@ -140,4 +140,57 @@ final class UserStateStoreTests: XCTestCase {
         XCTAssertEqual(matches.count, 1)
         XCTAssertEqual(matches.first?.result, .perfect)
     }
+
+    func test_recordArchiveOutcome_idempotentForSamePuzzleId() {
+        let defaults = UserDefaults(suiteName: "test.\(UUID().uuidString)")!
+        let store = UserStateStore(defaults: defaults, now: { Date(timeIntervalSince1970: 0) })
+
+        // First solve — counters go up by 1.
+        store.recordArchiveOutcome(puzzleId: "puzzle-010",
+                                   solved: true,
+                                   wrongGuesses: 1,
+                                   hintUsed: false,
+                                   date: "2026-05-10")
+        XCTAssertEqual(store.state.totalPlayed, 1)
+        XCTAssertEqual(store.state.totalSolved, 1)
+        XCTAssertEqual(store.state.lifetimeSolvedCount, 1)
+        XCTAssertEqual(store.state.guessDistribution[1], 1)
+
+        // Second call for the same puzzleId — no counter changes.
+        store.recordArchiveOutcome(puzzleId: "puzzle-010",
+                                   solved: true,
+                                   wrongGuesses: 1,
+                                   hintUsed: false,
+                                   date: "2026-05-10")
+        XCTAssertEqual(store.state.totalPlayed, 1,
+                       "totalPlayed must not double on repeat recording of same puzzleId")
+        XCTAssertEqual(store.state.totalSolved, 1)
+        XCTAssertEqual(store.state.lifetimeSolvedCount, 1)
+        XCTAssertEqual(store.state.guessDistribution[1], 1)
+    }
+
+    func test_recordArchiveOutcome_idempotentForPreviouslyFailedPuzzle() {
+        let defaults = UserDefaults(suiteName: "test.\(UUID().uuidString)")!
+        let store = UserStateStore(defaults: defaults, now: { Date(timeIntervalSince1970: 0) })
+
+        store.recordArchiveOutcome(puzzleId: "puzzle-010",
+                                   solved: false,
+                                   wrongGuesses: 5,
+                                   hintUsed: false,
+                                   date: "2026-05-10")
+        XCTAssertEqual(store.state.totalPlayed, 1)
+        XCTAssertTrue(store.state.failedPuzzleIds.contains("puzzle-010"))
+
+        // Repeat call — no changes, even with a "solved=true" follow-up
+        // (cell would be locked in the UI; this is defense in depth).
+        store.recordArchiveOutcome(puzzleId: "puzzle-010",
+                                   solved: true,
+                                   wrongGuesses: 0,
+                                   hintUsed: false,
+                                   date: "2026-05-10")
+        XCTAssertEqual(store.state.totalPlayed, 1, "totalPlayed must not bump on repeat")
+        XCTAssertEqual(store.state.totalSolved, 0)
+        XCTAssertFalse(store.state.solvedPuzzleIds.contains("puzzle-010"),
+                       "Puzzle that's been recorded as failed cannot be retroactively solved")
+    }
 }

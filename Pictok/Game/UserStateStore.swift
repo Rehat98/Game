@@ -36,6 +36,11 @@ final class UserStateStore {
                               wrongGuesses: Int,
                               hintUsed: Bool,
                               date: String) {
+        // Idempotent: if this puzzle was already recorded (cell-tap routing
+        // should prevent repeats, but the defense costs nothing), do nothing.
+        if state.solvedPuzzleIds.contains(puzzleId) || state.failedPuzzleIds.contains(puzzleId) {
+            return
+        }
         state.totalPlayed += 1
         if solved {
             state.solvedPuzzleIds.insert(puzzleId)
