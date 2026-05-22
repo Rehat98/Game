@@ -7,6 +7,8 @@ struct TodayView: View {
     let onSolveOrFail: () async -> Void   // triggers notification reschedule
     var onPlayEndless: () -> Void = {}
 
+    @AppStorage("pictok.hasSeenHowToPlay") private var hasSeenHowToPlay: Bool = false
+
     @State private var showHintMenu = false
     @State private var showResult   = false
     @State private var showHowToPlay = false
@@ -68,7 +70,9 @@ struct TodayView: View {
                 ResultSheet(store: store, puzzle: puzzle, puzzleNumber: puzzleNumber)
             }
         }
-        .sheet(isPresented: $showHowToPlay) { HowToPlayView() }
+        .sheet(isPresented: $showHowToPlay, onDismiss: { hasSeenHowToPlay = true }) {
+            HowToPlayView()
+        }
         .sheet(isPresented: $showPermissionPrompt) {
             NotificationPermissionSheet(store: store)
         }
@@ -79,6 +83,13 @@ struct TodayView: View {
         }
         .onChange(of: puzzle?.id) { _, _ in
             hasShownOneChanceWarning = false
+        }
+        .task {
+            // First-ever app open: surface the rebus explainer so the player
+            // doesn't land on raw blanks + emojis with no context.
+            if !hasSeenHowToPlay && puzzle != nil {
+                showHowToPlay = true
+            }
         }
     }
 
