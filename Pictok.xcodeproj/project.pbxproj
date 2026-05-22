@@ -21,6 +21,7 @@
 		26D04137E41B70F10B2F7D13 /* UserStateStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BDC4CC64BB64F51860B7AD /* UserStateStoreTests.swift */; };
 		2FA8E5BA7BCD741C929B06D3 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950DE50423D9B8518D25C03 /* KeyboardView.swift */; };
 		44013AD409B1DFEB6F17BD94 /* GameEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6AC4A474E65EE9832F5126 /* GameEngineTests.swift */; };
+		488EF1ACEB9F1F909877F3D5 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FF8A6C20E5E575563F56FA /* ArchiveView.swift */; };
 		4AD352AF3BCCCD1BA3C1085D /* EndlessSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76F51A4C675058DC58B20BA /* EndlessSessionTests.swift */; };
 		4ADA9B62C7A2A77AC499B06F /* StickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3153578C4A7975ABCAE0CC /* StickerButton.swift */; };
 		4C8E2273340B81ABD01398A0 /* UserStateCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC4A51E89CCD6F4ECB4AC9 /* UserStateCodableTests.swift */; };
@@ -105,6 +106,7 @@
 		9EF3D883269ACDFF313C2543 /* HapticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsService.swift; sourceTree = "<group>"; };
 		A2505F793D42F5DF88BA4465 /* EndlessSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSelectorTests.swift; sourceTree = "<group>"; };
 		A4618C9E2657EAFB2B5B01B0 /* EndlessSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessSelector.swift; sourceTree = "<group>"; };
+		A4FF8A6C20E5E575563F56FA /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		A6BDC4CC64BB64F51860B7AD /* UserStateStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateStoreTests.swift; sourceTree = "<group>"; };
 		AABD7922CDA9DB2F79D874D5 /* FireworksEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireworksEmitter.swift; sourceTree = "<group>"; };
 		AC27D0BF336D5BAB1C75355C /* HeartsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartsRow.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				92CABFE0CC85028404CAACE7 /* Components */,
 				219783C3A79BC7E804A968DA /* Effects */,
 				C454B7F2F9A230FFE2D2425D /* AnswerPeekSheet.swift */,
+				A4FF8A6C20E5E575563F56FA /* ArchiveView.swift */,
 				1E3C770D77B5CE56FA085549 /* EndlessView.swift */,
 				7E5AD70635A5B9CABD91C573 /* HowToPlayView.swift */,
 				413C0E6587F361FB98785EC3 /* NotificationPermissionSheet.swift */,
@@ -384,6 +387,7 @@
 			files = (
 				A7E3DC4D5ECBADCC571D8792 /* AnswerPeekSheet.swift in Sources */,
 				93F59C01C1995A478DB3E995 /* ArchiveSession.swift in Sources */,
+				488EF1ACEB9F1F909877F3D5 /* ArchiveView.swift in Sources */,
 				62FC212BE5236D99CF37DACC /* BlanksView.swift in Sources */,
 				DB95F29EA8ABF327B533BA1E /* CalendarHeatmapView.swift in Sources */,
 				21799DCFD49E3A24B9B54D4B /* CategoryChip.swift in Sources */,
