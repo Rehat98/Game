@@ -59,6 +59,7 @@ struct PictokApp: App {
             store.state.todayFailed = false
             store.state.hasEverSolved = true
             store.state.hasAskedForNotificationPermission = true
+            store.state.ambassadorActive = false
             store.state.solvedPuzzleIds = Set((1...53).filter { ![10, 23, 31, 38, 44, 52].contains($0) }
                 .map { String(format: "puzzle-%03d", $0) })
             store.state.failedPuzzleIds = Set(["puzzle-010", "puzzle-023", "puzzle-031",
@@ -98,6 +99,7 @@ struct PictokApp: App {
         store.state.todayFailed = false
         store.state.hasEverSolved = true
         store.state.hasAskedForNotificationPermission = true
+        store.state.ambassadorActive = false
         store.state.solvedPuzzleIds = Set((1...53).filter { ![10, 23, 31, 38, 44, 52].contains($0) }
             .map { String(format: "puzzle-%03d", $0) })
         store.state.failedPuzzleIds = Set(["puzzle-010", "puzzle-023", "puzzle-031",
