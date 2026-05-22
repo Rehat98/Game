@@ -86,10 +86,20 @@ A new method on `UserStateStore`:
 func recordArchiveOutcome(puzzleId: String,
                          solved: Bool,
                          wrongGuesses: Int,
-                         hintUsed: Bool)
+                         hintUsed: Bool,
+                         date: String)
 ```
 
-This is a deliberate subset of the Daily recorder. It does **not** accept a date parameter (puzzleId is enough to identify) and does **not** update any streak field. It is the single write site for archive outcomes.
+This is a deliberate subset of the Daily recorder. It does **not** update any streak field. It is the single write site for archive outcomes.
+
+The `date` parameter is required because `solveHistory` records are date-keyed and the store has no other path from a puzzleId back to a date. It is also the natural anchor for the dedup-then-append pattern that mirrors the Daily recorder (overwrite any existing entry for the same date).
+
+Counter semantics:
+- `totalPlayed` increments unconditionally.
+- `totalSolved`, `lifetimeSolvedCount`, and `guessDistribution[wrongGuesses]` increment **only when `solved == true`** (matching Daily — the distribution is a per-solve histogram of wrong-guess counts, undefined for failures).
+- `solvedPuzzleIds` / `failedPuzzleIds` are sets — Set inserts are idempotent.
+
+The method is **idempotent for the same puzzleId**: if the puzzle is already recorded as solved or failed, the call early-returns without bumping any counter or history record again. Cell-tap routing already prevents repeat calls in normal use, but the defense costs nothing.
 
 ## Architecture
 
