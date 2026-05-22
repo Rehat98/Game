@@ -84,14 +84,14 @@ final class ArchiveSessionTests: XCTestCase {
         XCTAssertEqual(store.state.longestStreak, 9)
     }
 
-    func test_useHint_revealsOneLetter_butStaysAtFiveHearts() {
+    func test_useHint_revealsExactlyOneLetter_andKeepsAllHearts() {
         let store = makeStore()
         let session = ArchiveSession(puzzle: makePuzzle(), store: store)
         session.useHint()
         XCTAssertTrue(session.hintUsedThisPuzzle)
         XCTAssertEqual(session.hearts, 5)
-        XCTAssertFalse(session.correctGuesses.isEmpty,
-                       "Hint should reveal at least one letter")
+        XCTAssertEqual(session.correctGuesses.count, 1,
+                       "Hint should reveal exactly one letter")
     }
 
     func test_useHint_secondCallIsNoOp() {

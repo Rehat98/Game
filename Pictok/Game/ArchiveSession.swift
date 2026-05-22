@@ -43,7 +43,7 @@ final class ArchiveSession {
             if hearts == 1 && !hasShownOneChanceWarning {
                 hasShownOneChanceWarning = true
             }
-            if hearts <= 0 {
+            if GameEngine.isFailed(lives: hearts) {
                 isFailed = true
                 recordOutcome(solved: false)
             }
@@ -58,10 +58,9 @@ final class ArchiveSession {
 
     func useHint() {
         guard !hintUsedThisPuzzle, !isSolved, !isFailed else { return }
+        guard let letter = GameEngine.letterToReveal(for: puzzle, correctGuesses: correctGuesses) else { return }
+        correctGuesses.insert(letter)
         hintUsedThisPuzzle = true
-        if let letter = GameEngine.letterToReveal(for: puzzle, correctGuesses: correctGuesses) {
-            correctGuesses.insert(letter)
-        }
     }
 
     private func recordOutcome(solved: Bool) {
