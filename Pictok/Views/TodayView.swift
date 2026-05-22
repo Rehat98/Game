@@ -299,6 +299,9 @@ struct TodayView: View {
                 showPermissionPrompt = true
             }
         }
+
+        // Ambassador session is done; subsequent app launches serve date-based puzzles.
+        store.state.ambassadorActive = false
     }
 
     private func applyFailSideEffects() {
@@ -306,6 +309,8 @@ struct TodayView: View {
         store.state.totalPlayed += 1
         let today = PuzzleLoader.dateString(for: Date(), timeZone: .current)
         appendSolveHistory(date: today, result: .failed)
+        // Ambassador session is done even on a fail; user moves on next launch.
+        store.state.ambassadorActive = false
     }
 
     private func appendSolveHistory(date: String, result: SolveResult) {

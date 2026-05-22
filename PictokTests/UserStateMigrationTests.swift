@@ -39,6 +39,36 @@ final class UserStateMigrationTests: XCTestCase {
         XCTAssertEqual(decoded.recentEndlessIds, [])
     }
 
+    func test_legacyPayloadLacksAmbassadorActive_defaultsFalse() throws {
+        // An existing user upgrading to the ambassador-fix build must NOT suddenly
+        // see puzzle-001 as their next puzzle. The legacy payload lacks the new
+        // `ambassadorActive` key; decode must default it to false.
+        let legacy = """
+        {
+          "currentStreak": 2, "longestStreak": 3, "streakFreezesAvailable": 1,
+          "totalSolved": 4, "totalPlayed": 5,
+          "guessDistribution": {},
+          "lives": 5,
+          "todayWrongGuesses": [], "todayCorrectGuesses": [],
+          "todaySolved": false, "todayFailed": false,
+          "hasEverSolved": true, "hasAskedForNotificationPermission": true,
+          "solvedPuzzleIds": ["puzzle-001"], "failedPuzzleIds": [],
+          "lifetimeSolvedCount": 4, "recentEndlessIds": [], "solveHistory": []
+        }
+        """.data(using: .utf8)!
+        let decoded = try JSONDecoder().decode(UserState.self, from: legacy)
+        XCTAssertFalse(decoded.ambassadorActive,
+                       "Legacy payload (no ambassadorActive key) must decode to false.")
+    }
+
+    func test_freshState_hasAmbassadorActiveTrue() {
+        // A truly fresh user (state created via UserState.fresh) must see the
+        // ambassador on their first launch.
+        let fresh = UserState.fresh(at: Date(timeIntervalSince1970: 0))
+        XCTAssertTrue(fresh.ambassadorActive,
+                      "UserState.fresh() arms the ambassador for first-launch users.")
+    }
+
     func test_decodesNewPayload_doesNotBackfill_whenLifetimeFieldPresent() throws {
         let payload = """
         {

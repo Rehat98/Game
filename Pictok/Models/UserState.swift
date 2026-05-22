@@ -56,6 +56,13 @@ struct UserState: Codable, Equatable {
     // last-4-weeks calendar on the Stats screen. Endless plays are NOT recorded.
     var solveHistory: [SolveRecord]
 
+    /// First-launch ambassador: when true, the Daily tab serves `puzzle-001`
+    /// (TOY STORY) regardless of today's date so the first puzzle a new user
+    /// ever sees is a well-vetted ambassador. Cleared on first solve or fail
+    /// (in `TodayView.applySolveSideEffects` / `applyFailSideEffects`). Fresh
+    /// state has it true; existing users upgrading default to false.
+    var ambassadorActive: Bool
+
     static func fresh(at now: Date) -> UserState {
         UserState(
             currentStreak: 0,
@@ -79,7 +86,8 @@ struct UserState: Codable, Equatable {
             failedPuzzleIds: [],
             lifetimeSolvedCount: 0,
             recentEndlessIds: [],
-            solveHistory: []
+            solveHistory: [],
+            ambassadorActive: true
         )
     }
 }
@@ -95,6 +103,7 @@ extension UserState {
         case hasEverSolved, hasAskedForNotificationPermission
         case solvedPuzzleIds, failedPuzzleIds, lifetimeSolvedCount, recentEndlessIds
         case solveHistory
+        case ambassadorActive
     }
 
     init(from decoder: Decoder) throws {
@@ -129,6 +138,9 @@ extension UserState {
         lifetimeSolvedCount    = try c.decodeIfPresent(Int.self, forKey: .lifetimeSolvedCount) ?? totalSolved
         recentEndlessIds       = try c.decodeIfPresent([String].self, forKey: .recentEndlessIds) ?? []
         solveHistory           = try c.decodeIfPresent([SolveRecord].self, forKey: .solveHistory) ?? []
+        // Defaults to false for existing users (pre-fix saved state has no key).
+        // Truly fresh state goes through `UserState.fresh()` which sets it true.
+        ambassadorActive       = try c.decodeIfPresent(Bool.self, forKey: .ambassadorActive) ?? false
     }
 
     func encode(to encoder: Encoder) throws {
@@ -155,5 +167,6 @@ extension UserState {
         try c.encode(lifetimeSolvedCount, forKey: .lifetimeSolvedCount)
         try c.encode(recentEndlessIds,    forKey: .recentEndlessIds)
         try c.encode(solveHistory,        forKey: .solveHistory)
+        try c.encode(ambassadorActive,    forKey: .ambassadorActive)
     }
 }

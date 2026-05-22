@@ -137,7 +137,13 @@ struct RootView: View {
 
     var body: some View {
         if let loader {
-            let todays = loader.puzzle(for: Date())
+            // Ambassador override: a brand-new user gets `puzzle-001` (TOY STORY)
+            // as their very first puzzle, regardless of today's actual date — so
+            // first impressions land on a vetted clue, not whatever Hard puzzle
+            // happens to fall on install day. Cleared on first solve/fail.
+            let todays: Puzzle? = store.state.ambassadorActive
+                ? loader.allPuzzles.first(where: { $0.id == "puzzle-001" })
+                : loader.puzzle(for: Date())
             TabView(selection: $selectedTab) {
                 TodayView(
                     store: store,
