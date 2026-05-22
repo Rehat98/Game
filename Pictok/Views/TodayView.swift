@@ -19,6 +19,7 @@ struct TodayView: View {
     @State private var showWinCelebration: Bool = false
     @State private var showFailCelebration: Bool = false
     @State private var showFirstSolveBanner: Bool = false
+    @State private var streakMilestone: Int? = nil
     @State private var hasShownOneChanceWarning: Bool = false
     @State private var showOneChanceAlert: Bool = false
 
@@ -57,6 +58,22 @@ struct TodayView: View {
                 firstSolveBanner
                     .transition(.opacity)
                     .zIndex(11)
+            }
+
+            if let milestone = streakMilestone {
+                streakMilestoneOverlay(milestone)
+                    .transition(.scale.combined(with: .opacity))
+                    .zIndex(12)
+            }
+        }
+        .onChange(of: store.state.currentStreak) { _, new in
+            if [3, 7, 14, 30, 100].contains(new) {
+                // Wait for the standard win celebration to clear before showing.
+                DispatchQueue.main.asyncAfter(deadline: .now() + WinCelebrationView.totalDuration + 0.3) {
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                        streakMilestone = new
+                    }
+                }
             }
         }
         .onChange(of: store.state.todaySolved) { _, solved in
@@ -154,6 +171,54 @@ struct TodayView: View {
             if store.state.todaySolved || store.state.todayFailed {
                 showResult = true
             }
+        }
+    }
+
+    /// Streak milestone celebration triggered when currentStreak hits a
+    /// landmark value (3 / 7 / 14 / 30 / 100). Duolingo-style overlay with
+    /// milestone-specific emoji + copy. Tap "Keep going" to dismiss.
+    private func streakMilestoneOverlay(_ n: Int) -> some View {
+        VStack(spacing: 16) {
+            Text(streakMilestoneEmoji(n))
+                .font(.system(size: 96))
+            Text("\(n)-day streak!")
+                .font(.system(size: 34, weight: .black, design: .rounded))
+                .foregroundStyle(Color.pkInk)
+            Text(streakMilestoneCopy(n))
+                .font(.system(size: 15, weight: .heavy, design: .rounded))
+                .foregroundStyle(Color.pkInk.opacity(0.7))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            StickerButton(title: "Keep going", icon: nil, fill: .pkGreen) {
+                withAnimation(.easeOut(duration: 0.25)) {
+                    streakMilestone = nil
+                }
+            }
+            .padding(.top, 12)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.pkPaper.opacity(0.96).ignoresSafeArea())
+    }
+
+    private func streakMilestoneEmoji(_ n: Int) -> String {
+        switch n {
+        case 3:   return "🌶️"
+        case 7:   return "🔥"
+        case 14:  return "⚡"
+        case 30:  return "💎"
+        case 100: return "👑"
+        default:  return "🔥"
+        }
+    }
+
+    private func streakMilestoneCopy(_ n: Int) -> String {
+        switch n {
+        case 3:   return "Three days in a row.\nYou're catching the habit."
+        case 7:   return "A full week.\nThe Pictok ritual is yours."
+        case 14:  return "Two weeks straight.\nYour puzzle-brain is sharpening."
+        case 30:  return "Thirty days.\nYou're a Pictok mainstay."
+        case 100: return "ONE HUNDRED DAYS.\nThat's elite territory."
+        default:  return ""
         }
     }
 
