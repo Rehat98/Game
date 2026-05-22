@@ -18,6 +18,7 @@ struct TodayView: View {
     @State private var showPermissionPrompt = false
     @State private var showWinCelebration: Bool = false
     @State private var showFailCelebration: Bool = false
+    @State private var showFirstSolveBanner: Bool = false
     @State private var hasShownOneChanceWarning: Bool = false
     @State private var showOneChanceAlert: Bool = false
 
@@ -51,12 +52,27 @@ struct TodayView: View {
                     .transition(.opacity)
                     .zIndex(10)
             }
+
+            if showFirstSolveBanner {
+                firstSolveBanner
+                    .transition(.opacity)
+                    .zIndex(11)
+            }
         }
         .onChange(of: store.state.todaySolved) { _, solved in
             if solved {
                 showWinCelebration = true
+                // `totalSolved` is already incremented by applySolveSideEffects
+                // before this onChange fires, so == 1 means this is the very
+                // first solve in the user's lifetime.
+                let isFirstSolveEver = store.state.totalSolved == 1
                 DispatchQueue.main.asyncAfter(deadline: .now() + WinCelebrationView.totalDuration) {
                     showWinCelebration = false
+                    if isFirstSolveEver {
+                        withAnimation(.easeIn(duration: 0.25)) {
+                            showFirstSolveBanner = true
+                        }
+                    }
                 }
             }
         }
@@ -139,6 +155,33 @@ struct TodayView: View {
                 showResult = true
             }
         }
+    }
+
+    /// One-time "Day 1 streak" celebration shown after a user's very first
+    /// Daily solve. Replaces the standard ResultSheet for a moment so the
+    /// milestone lands; tapping "Let's go" dismisses and reveals the sheet
+    /// underneath (with the share card).
+    private var firstSolveBanner: some View {
+        VStack(spacing: 16) {
+            Text("🔥")
+                .font(.system(size: 96))
+            Text("Day 1 streak")
+                .font(.system(size: 34, weight: .black, design: .rounded))
+                .foregroundStyle(Color.pkInk)
+            Text("Welcome to Pictok.\nNew puzzle every midnight.")
+                .font(.system(size: 15, weight: .heavy, design: .rounded))
+                .foregroundStyle(Color.pkInk.opacity(0.7))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            StickerButton(title: "Let's go", icon: nil, fill: .pkGreen) {
+                withAnimation(.easeOut(duration: 0.25)) {
+                    showFirstSolveBanner = false
+                }
+            }
+            .padding(.top, 12)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.pkPaper.opacity(0.96).ignoresSafeArea())
     }
 
     /// First-launch coaching banner shown only during the ambassador puzzle
