@@ -29,6 +29,14 @@ Below the Daily, tap "Continue Playing" to keep going with more puzzles.
 - Tap the ✕ in the top-left to quit back to Today.
 - Endless solves don't change your streak — only the Daily does.
 
+📚 ARCHIVE (CATCH-UP)
+Open the Stats tab and tap a calendar cell from a past day:
+- An unplayed past day → opens that day's puzzle so you can play it now.
+- A day you already solved or failed → opens a small "answer peek" sheet showing the emoji clue and the answer.
+- Today's cell and future cells are inert (today is reachable via the Today tab).
+- Archive plays update your lifetime stats and colour the calendar cell — but they do NOT touch your streak (the streak stays sacred to the Daily ritual).
+- Archive uses the same hearts + hint mechanics as Daily. Once played, the cell locks — no replay.
+
 🎉 WIN / FAIL ANIMATIONS
 - Solving any puzzle: fireworks burst + "Solved!" text bounce + win sound.
 - Failing any puzzle (5 wrong letters): rain animation + "Oops, better luck next time!" + sad bell sound.
