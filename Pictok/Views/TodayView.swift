@@ -355,17 +355,40 @@ struct TodayView: View {
         HStack {
             HeartsRow(remaining: store.state.lives)
             Spacer()
-            Button { showHintMenu = true } label: { Text("💡").font(.system(size: 26)) }
-                .disabled(store.state.todayHintUsed != nil || store.state.todaySolved || store.state.todayFailed)
-                .confirmationDialog("Pick a hint", isPresented: $showHintMenu) {
-                    Button("Reveal category (−1 ❤️)") { useHint(.category) }
-                        .disabled(store.state.lives < 1)
-                    Button("Reveal a letter (−2 ❤️)") { useHint(.letter) }
-                        .disabled(store.state.lives < 2)
-                    Button("Cancel", role: .cancel) {}
+            Button { showHintMenu = true } label: {
+                HStack(spacing: 5) {
+                    Text("💡").font(.system(size: 18))
+                    Text("Hint")
+                        .font(.system(size: 13, weight: .heavy, design: .rounded))
+                        .foregroundStyle(Color.pkInk)
                 }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .sticker(fill: .pkYellow, cornerRadius: 14, strokeWidth: 2, shadowOffset: 2)
+            }
+            .buttonStyle(.plain)
+            .disabled(hintDisabled)
+            .opacity(hintDisabled ? 0.4 : 1.0)
+            .confirmationDialog("Pick a hint", isPresented: $showHintMenu) {
+                Button("Reveal category (−1 ❤️)") { useHint(.category) }
+                    .disabled(store.state.lives < 1)
+                Button("Reveal a letter (−2 ❤️)") { useHint(.letter) }
+                    .disabled(store.state.lives < 2)
+                Button("Cancel", role: .cancel) {}
+            }
             Button { showHowToPlay = true } label: { Text("⚙️").font(.system(size: 24)) }
         }
+    }
+
+    /// Hint button is unavailable when:
+    /// - The hint has already been used this puzzle
+    /// - The puzzle is finished (solved or failed)
+    /// - All letters are already revealed (Submit ✓ is the move, not Hint)
+    private var hintDisabled: Bool {
+        store.state.todayHintUsed != nil
+            || store.state.todaySolved
+            || store.state.todayFailed
+            || isSubmitReady
     }
 
     // MARK: Derived
