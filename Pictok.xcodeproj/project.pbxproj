@@ -333,11 +333,11 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					8AD5D776F894CD4DC57AD86D = {
-						DevelopmentTeam = 97S862UPYS;
+						DevelopmentTeam = 339X8FLFXX;
 						ProvisioningStyle = Automatic;
 					};
 					BB70BEE75D86B147D69F7F99 = {
-						DevelopmentTeam = 97S862UPYS;
+						DevelopmentTeam = 339X8FLFXX;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -532,7 +532,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 97S862UPYS;
+				DEVELOPMENT_TEAM = 339X8FLFXX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Pictok;
@@ -556,7 +556,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 97S862UPYS;
+				DEVELOPMENT_TEAM = 339X8FLFXX;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -636,7 +636,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 97S862UPYS;
+				DEVELOPMENT_TEAM = 339X8FLFXX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Pictok;
@@ -660,7 +660,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 97S862UPYS;
+				DEVELOPMENT_TEAM = 339X8FLFXX;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

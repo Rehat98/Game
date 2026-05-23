@@ -39,7 +39,7 @@ targets:
         ENABLE_PREVIEWS: "YES"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
-        DEVELOPMENT_TEAM: "97S862UPYS"
+        DEVELOPMENT_TEAM: "339X8FLFXX"
         CODE_SIGN_STYLE: Automatic
 
   PictokTests:
@@ -54,7 +54,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.rehatchugh.pictok.tests
         TARGETED_DEVICE_FAMILY: "1"
         GENERATE_INFOPLIST_FILE: "YES"
-        DEVELOPMENT_TEAM: "97S862UPYS"
+        DEVELOPMENT_TEAM: "339X8FLFXX"
         CODE_SIGN_STYLE: Automatic
 
 schemes:
