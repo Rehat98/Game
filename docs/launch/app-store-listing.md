@@ -1,160 +1,136 @@
 # Pictok — App Store Listing Copy
 
-Drafted 2026-05-18 in advance of submission. Substitute placeholders before going live.
+Last updated 2026-05-23. URLs still pending domain setup (see "Open inputs" at the end).
 
 ---
 
-## App name
-**Pictok**
+## App name (30 char limit)
+**Pictok** (6 chars)
 
-## Subtitle (max 30 chars)
-**Daily emoji puzzles**
+## Subtitle (30 char limit)
+**A daily emoji rebus puzzle** (26 chars)
 
-(28 chars; passes Apple's limit. Backup option: "Decode the daily puzzle" — 23 chars.)
+Backups: `Decode an emoji clue daily` · `One emoji puzzle every day`.
 
-## Promotional text (max 170 chars, editable post-launch)
-**A new emoji puzzle every day. Decode rebus-style clues — bee + leaf = belief — and keep your streak alive. Spoiler-free share card lets you brag responsibly.**
+(Note: avoid "Wordle" anywhere — Apple has been flagging that trademark on submission.)
 
-(169 chars.)
+## Promotional text (170 char limit, editable post-launch without resubmit)
+**Themes update is live: pick Movies, Songs, Books, Brands, Food, TV, or Celebs and play 136+ puzzles your way. New daily emoji rebus every morning at midnight.** (168 chars)
 
-## Description (max 4000 chars)
-
-```
-Solve one emoji puzzle a day. Or many.
-
-Pictok gives you a fresh emoji riddle every morning — a movie, song, book, brand, or celeb hidden inside a tiny string of emojis. Each emoji represents a word in the answer. Some are literal. Some are clever rebus puns. All of them want to be figured out.
-
-🐝 + 🍃 = BE-LIEF
-🅰️ + 🐝 + 🛣️ = ABBEY ROAD
-🐻 + 🦶 = BARE-FOOT
-🪡 + 🏃 = TAYLOR SWIFT
-
-Solve today's Daily for your streak — that's the social anchor, with a spoiler-free share card. Then tap Continue Playing to keep going with more puzzles in Endless mode, as many as you want, no time gates.
-
-Built for the 30-second-to-2-minute solve — that satisfying "oh" moment when the answer clicks.
-
-WHY YOU'LL COME BACK TOMORROW
-• A new Daily puzzle every day, hand-curated
-• Build your streak — miss a day and the free streak-freeze rescues you once
-• Endless mode lets you binge extras without breaking the daily anchor
-• Share your spoiler-free result to text threads, group chats, anywhere
-• Track streak, lifetime solves, win rate, and guess distribution
-
-WHAT'S DIFFERENT
-• No ads. No tracking. No accounts.
-• Everything stays on your device.
-• No "energy bars," no IAP gotchas. Just the puzzle.
-
-WHAT YOU GET
-• 60 hand-curated puzzles in v1 (~2 months of Daily content)
-• Medium and Hard difficulty — every puzzle requires real thinking
-• Word-by-word reveal: solve one word before the next opens up
-• Free hint per Endless puzzle to nudge you when stuck
-• Fireworks celebration when you solve. Gentle rain when you don't.
-• Optional daily reminder so you don't lose your streak
-• Sticker/paper-craft visual style — no generic UI templates here
-• Built for iPhone, looks great on iOS 17+
-
-Wordle gave the world daily 5-letter guessing. Pictok gives you daily emoji decoding — and lets you keep playing when you're hooked.
-
-Tap to play. Solve. Share. Repeat tomorrow.
-```
-
-(~2,300 chars — comfortably under the 4,000 limit.)
-
-## Keywords (max 100 chars, comma-separated)
+## Description (4000 char limit)
 
 ```
-puzzle,daily,emoji,word,rebus,riddle,decode,guess,streak,brain,wordle,trivia
+Decode the emojis. Solve the puzzle. Come back tomorrow.
+
+Pictok is a daily emoji rebus game. Every morning at midnight, a new picture puzzle drops — two or three emojis that, decoded together, spell out a movie, song, book, brand, food, TV show, or celebrity. You guess one letter at a time. You have five hearts. Get the answer before they run out.
+
+ONE PUZZLE A DAY. BUILD A STREAK.
+
+Pictok is built around the daily ritual. Each day's puzzle is the same one for every player in the world, so you can compare with friends. Solve enough days in a row and your streak grows. Miss a day, and the Archive lets you catch up.
+
+THEMES: PLAY YOUR FAVORITE CATEGORY.
+
+Not in the mood for today's puzzle? Hop into Themes and pick a category — Movies, Songs, Books, Brands, Food, TV Shows, or Celebs — and play through endless puzzles in just that theme. Over 136 puzzles ship at launch, with more arriving regularly.
+
+HINTS WHEN YOU NEED THEM.
+
+Stuck? Trade hearts for a clue. Reveal the category for one heart, or reveal a letter for two. Use both if you really need to — the puzzle stays winnable as long as you have a heart left.
+
+STATS THAT ACTUALLY MEAN SOMETHING.
+
+See your current streak, your longest streak, your guess distribution, and a ten-day calendar showing how you did. No vanity metrics, no leaderboards, no dark patterns.
+
+DESIGNED FOR THE WAY YOU ACTUALLY PLAY.
+
+No accounts. No login. No email. No ads. No in-app purchases. No notifications you didn't ask for. Pictok runs entirely on your device — your stats, your streak, and your solve history live only on your phone and never leave it. Data Not Collected, period.
+
+TRY THE WEB VERSION FIRST.
+
+Pictok also lives on the web at pictok.pages.dev. Same puzzles, same daily rotation, played from any browser. No install required.
+
+WHAT MAKES A GOOD PICTOK PUZZLE?
+
+Some are direct compounds: a heart and a foot equals BAREFOOT. Some are phonetic plays: a number one and a deer reads "won-deer" for WONDER. Some are homophones: a bee and a leaf reads "be-leaf" for BELIEF. The category chip and difficulty stars help you calibrate. The best puzzles surprise you with how obvious they were once you see it.
+
+Three minutes a day. A streak worth keeping. One emoji puzzle, every morning, free forever.
 ```
 
-(76 chars. Apple deduplicates against the app name + category, so "pictok" and "word" aren't worth burning a slot on if they're already strong matches elsewhere.)
+(~2,650 chars — well under limit, leaves room for future updates.)
 
-## Primary category
-**Games → Word**
+## Keywords (100 char limit, comma-separated, NO spaces)
 
-## Secondary category (optional)
-**Games → Trivia**
+```
+emoji,rebus,puzzle,daily,wordgame,brain,trivia,guess,decode,picturepuzzle,emojigame,wordpuzzle
+```
+
+(94 chars. App name `Pictok` and subtitle words ("daily", "emoji", "rebus", "puzzle") are auto-indexed by Apple, but partial-match boosting still helps for compound keywords like `wordpuzzle` vs separate `word puzzle`.)
+
+## Categories
+- **Primary:** Games → **Puzzle** (rebus puzzles fit Puzzle better than Word)
+- **Secondary:** Games → **Word**
 
 ## Age rating
-**4+**
+**4+** — no objectionable content, no violence, no UGC, no third-party content. Trivial to clear.
 
-(No violence, no mature themes, no UGC. Trivial to clear.)
+## What's New (Version 1.0)
 
-## Support URL
-**[YOUR_SUPPORT_URL]**
+```
+Welcome to Pictok. 136 emoji rebus puzzles to launch with — one new puzzle every morning. Three modes: Today's daily puzzle, Themes for browsing by category, and Archive for catching up on days you missed. Stats track your streak, perfect runs, and last ten days. No ads, no accounts, no tracking.
+```
 
-(Until you have one: a simple GitHub repo README, a Notion public page, or a one-page site at pictok.app/support is fine.)
+## App Privacy questionnaire (App Store Connect → App Privacy)
 
-## Marketing URL (optional)
-**[YOUR_MARKETING_URL]**
+**Q: Does your app collect data from this app?** → **No, we do not collect data from this app.**
 
-## Privacy policy URL (required)
-**[YOUR_PRIVACY_POLICY_URL]**
+That single answer ends the entire questionnaire. Apple defines "collect" as transmitting off-device to your servers or third parties. Pictok stores everything via UserDefaults locally and makes zero network calls. Resulting App Store badge: **"Data Not Collected"**.
 
-(Use `docs/launch/privacy-policy.md` in this repo. Host as static HTML on GitHub Pages or pictok.app/privacy.)
+## Other questionnaire answers
+- **Encryption export compliance:** Pre-answered NO via `INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: "NO"` in `project.yml`. App Store Connect won't prompt.
+- **Content rights:** "Does your app contain, show, or access third-party content?" → **No** (all puzzles original).
+- **Made for Kids:** **No** (we're 4+ but not in the Kids category — adult-targeted app that happens to be rated 4+).
 
-## Privacy contact email
-**[YOUR_PRIVACY_EMAIL]**
+## Price
+**Free** — no IAP, no ads.
 
 ---
 
-## Screenshot plan (6.7" iPhone — required)
+## URLs needed (still TBD)
 
-Apple wants 1290×2796 PNGs. Minimum 3, maximum 10. Recommend 5–6 in this order:
+| Field | Value | Status |
+|-------|-------|--------|
+| Marketing URL (optional) | `https://pictok.pages.dev/` | Live now |
+| Support URL (required) | `https://pictok.pages.dev/support` | TODO: write `web/support.html` |
+| Privacy Policy URL (required) | `https://pictok.pages.dev/privacy` | TODO: write `web/privacy.html` |
+| Support contact email (required for privacy page) | `support@pictok.app` | TODO: register pictok.app + set up Cloudflare Email Routing |
 
-1. **Hero — puzzle mid-solve**
-   - Show 🍓🌾 with `S T R A W B E R R Y / F _ E L D S` blanks
-   - Hearts: 4/5, 1 wrong guess
-   - Caption overlay: "One emoji puzzle. Every day."
+All four can collapse to `pictok.app/...` once the domain is set up and pointed at Cloudflare Pages (Pages → Custom Domains → add pictok.app).
 
-2. **Result celebration**
-   - Solved state of a hard puzzle (e.g., ABBEY ROAD)
-   - Share card visible
-   - Streak count: 🔥 7
-   - Caption: "Solve. Share. Brag responsibly."
-
-3. **Variety**
-   - Show 4 thumbnail puzzles across categories: 🐱🐟 / 💍🔥 / 🌴📖 / ⭐💵
-   - Caption: "Movies, songs, books, brands. All decoded."
-
-4. **Stats**
-   - Stats screen with a real streak and the guess distribution chart populated
-   - Caption: "Build your streak. Don't break it."
-
-5. **No-fluff promise**
-   - Today screen, very clean, no UI clutter
-   - Caption: "No ads. No accounts. Just the puzzle."
-
-6. (Optional) **How to play**
-   - One of the 3 onboarding cards
-   - Caption: "Each emoji is a word."
-
-## App Store screenshot text overlay style guide
-- Use Pictok's brand fonts (chunky rounded sans-serif, ~64pt for headlines)
-- Cream paper background (`#FEF3D9`) behind the device frame
-- Black-on-cream text only — match the in-app sticker aesthetic
-- Avoid stock photography or hand silhouettes — let the app speak
+---
 
 ## Pre-launch checklist (App Store Connect)
-- [ ] Bundle ID matches the Xcode target (`com.yourname.pictok`)
-- [ ] App icon uploaded (1024×1024, opaque, no rounded corners — iOS rounds them)
-- [ ] All 5+ screenshots uploaded
-- [ ] App description proofread for typos
-- [ ] Keywords saved
-- [ ] Privacy policy URL is live and returns 200
-- [ ] Support URL is live
-- [ ] Age rating set to 4+
-- [ ] Price set to Free
-- [ ] Localizations: English only for v1
-- [ ] Build uploaded via Xcode Organizer
-- [ ] TestFlight tested by at least 3 humans for 1 week
-- [ ] Submitted for review with a release type chosen (manual recommended for first submission)
+
+- [x] Bundle ID matches the Xcode target (`com.rehatchugh.pictok`)
+- [x] App icon uploaded (1024×1024, opaque, no rounded corners — `Pictok/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png`)
+- [x] Privacy manifest (`Pictok/PrivacyInfo.xcprivacy`) — declares UserDefaults / CA92.1, no tracking, no data collected
+- [x] 5 screenshots ready (`docs/launch/screenshots/01-today-tab.png` … `05-solved-result.png`, 1320×2868)
+- [x] App description proofread
+- [x] Keywords drafted
+- [x] Age rating: 4+
+- [x] Price: Free
+- [x] Localizations: English (US) only for v1
+- [ ] Privacy Policy URL is live and returns 200 (blocked on pictok.app email setup → can ship with placeholder for now, swap in before submission)
+- [ ] Support URL is live and returns 200 (same)
+- [ ] Apple Developer Program membership active (BLOCKER — user pending purchase)
+- [ ] Xcode installed + first archive built locally
+- [ ] Build uploaded via Xcode Organizer or `xcrun altool`
+- [ ] TestFlight tested by ≥3 humans for ~1 week
+- [ ] Submit for review with **manual release** selected
 
 ## Suggested launch sequence
+
 1. Submit to App Store Connect with **manual release** selected
 2. Wait for "Ready for Sale" notification (typically 24–72h after approval)
 3. Tweet/post the App Store link only after the listing is live
-4. Day 1: Post to r/iOSProgramming (build process), r/iosgaming (the game itself), Hacker News if you have a strong narrative angle
+4. Day 1: post to r/iOSProgramming (build process angle), r/iosgaming (the game itself), Hacker News if you have a strong narrative
 5. Submit to Product Hunt for the following Monday
 6. Track installs daily in App Store Connect → Analytics
