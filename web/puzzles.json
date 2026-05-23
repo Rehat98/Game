@@ -718,5 +718,50 @@
     "category": "TV",
     "subcategory": "AMC zombie drama · 2010",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-081",
+    "date": "2026-08-06",
+    "emoji": "🐔🏃",
+    "answer": "CHICKEN RUN",
+    "category": "Movie",
+    "subcategory": "Aardman stop-motion · 2000",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-082",
+    "date": "2026-08-07",
+    "emoji": "🔥🦊",
+    "answer": "FIREFOX",
+    "category": "Brand",
+    "subcategory": "Mozilla browser",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-083",
+    "date": "2026-08-08",
+    "emoji": "🟡🚢",
+    "answer": "YELLOW SUBMARINE",
+    "category": "Song",
+    "subcategory": "The Beatles · 1966",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-084",
+    "date": "2026-08-09",
+    "emoji": "👴🌊",
+    "answer": "THE OLD MAN AND THE SEA",
+    "category": "Book",
+    "subcategory": "Ernest Hemingway · 1952",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-085",
+    "date": "2026-08-10",
+    "emoji": "💨🌊",
+    "answer": "SMOKE ON THE WATER",
+    "category": "Song",
+    "subcategory": "Deep Purple · 1972",
+    "difficulty": "hard"
   }
 ]
