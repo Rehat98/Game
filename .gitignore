@@ -15,3 +15,4 @@ xcuserdata/
 
 # Wrangler local cache (not deployed)
 web/.wrangler/
+.wrangler/
