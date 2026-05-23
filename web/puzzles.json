@@ -538,5 +538,185 @@
     "category": "Celeb",
     "subcategory": "Actor · American",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-061",
+    "date": "2026-07-17",
+    "emoji": "🐟🥚",
+    "answer": "CAVIAR",
+    "category": "Food",
+    "subcategory": "Russian delicacy",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-062",
+    "date": "2026-07-18",
+    "emoji": "⬛🪞",
+    "answer": "BLACK MIRROR",
+    "category": "TV",
+    "subcategory": "Netflix sci-fi anthology · 2011",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-063",
+    "date": "2026-07-19",
+    "emoji": "🐑🥧",
+    "answer": "SHEPHERDS PIE",
+    "category": "Food",
+    "subcategory": "British comfort food",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-064",
+    "date": "2026-07-20",
+    "emoji": "🦑🎮",
+    "answer": "SQUID GAME",
+    "category": "TV",
+    "subcategory": "Netflix Korean thriller · 2021",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-065",
+    "date": "2026-07-21",
+    "emoji": "🖤🍮",
+    "answer": "BLACK PUDDING",
+    "category": "Food",
+    "subcategory": "British breakfast staple",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-066",
+    "date": "2026-07-22",
+    "emoji": "🏠🃏",
+    "answer": "HOUSE OF CARDS",
+    "category": "TV",
+    "subcategory": "Netflix political drama · 2013",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-067",
+    "date": "2026-07-23",
+    "emoji": "🌶️🌭",
+    "answer": "CHILI DOG",
+    "category": "Food",
+    "subcategory": "American street food",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-068",
+    "date": "2026-07-24",
+    "emoji": "🐍🥋",
+    "answer": "COBRA KAI",
+    "category": "TV",
+    "subcategory": "Karate Kid sequel · 2018",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-069",
+    "date": "2026-07-25",
+    "emoji": "🦀🎂",
+    "answer": "CRAB CAKE",
+    "category": "Food",
+    "subcategory": "Maryland classic",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-070",
+    "date": "2026-07-26",
+    "emoji": "🐻🪢",
+    "answer": "TED LASSO",
+    "category": "TV",
+    "subcategory": "Apple TV+ sports comedy · 2020",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-071",
+    "date": "2026-07-27",
+    "emoji": "☕🎂",
+    "answer": "COFFEE CAKE",
+    "category": "Food",
+    "subcategory": "Coffee-shop classic",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-072",
+    "date": "2026-07-28",
+    "emoji": "👯⛰️",
+    "answer": "TWIN PEAKS",
+    "category": "TV",
+    "subcategory": "David Lynch cult classic · 1990",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-073",
+    "date": "2026-07-29",
+    "emoji": "🇫🇷🍞",
+    "answer": "FRENCH TOAST",
+    "category": "Food",
+    "subcategory": "Breakfast classic",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-074",
+    "date": "2026-07-30",
+    "emoji": "🦟🛍️",
+    "answer": "FLEABAG",
+    "category": "TV",
+    "subcategory": "Phoebe Waller-Bridge · 2016",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-075",
+    "date": "2026-07-31",
+    "emoji": "🌽🌭",
+    "answer": "CORN DOG",
+    "category": "Food",
+    "subcategory": "US state-fair staple",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-076",
+    "date": "2026-08-01",
+    "emoji": "👨🤖",
+    "answer": "MR ROBOT",
+    "category": "TV",
+    "subcategory": "USA Network cyberpunk · 2015",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-077",
+    "date": "2026-08-02",
+    "emoji": "🍿🐔",
+    "answer": "POPCORN CHICKEN",
+    "category": "Food",
+    "subcategory": "Bite-size fried chicken",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-078",
+    "date": "2026-08-03",
+    "emoji": "🏠🐉",
+    "answer": "HOUSE OF THE DRAGON",
+    "category": "TV",
+    "subcategory": "HBO GoT prequel · 2022",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-079",
+    "date": "2026-08-04",
+    "emoji": "🦞🥪",
+    "answer": "LOBSTER ROLL",
+    "category": "Food",
+    "subcategory": "New England sandwich",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-080",
+    "date": "2026-08-05",
+    "emoji": "🚶💀",
+    "answer": "THE WALKING DEAD",
+    "category": "TV",
+    "subcategory": "AMC zombie drama · 2010",
+    "difficulty": "hard"
   }
 ]

@@ -83,7 +83,7 @@ export function renderHearts(remaining, max = 5) {
 }
 
 export function renderCategoryChip(category, subcategory) {
-  const icons = { Movie: '🎬', Song: '🎵', Book: '📚', Brand: '🏷️', Celeb: '🎤' };
+  const icons = { Movie: '🎬', Song: '🎵', Book: '📚', Brand: '🏷️', Celeb: '🎤', Food: '🍕', TV: '📺' };
   const text = subcategory ? `${category} · ${subcategory}` : category;
   return el('div', { class: 'category-chip' }, [`${icons[category] ?? ''} ${text}`]);
 }

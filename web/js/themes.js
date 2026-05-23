@@ -9,6 +9,8 @@ const CATEGORY_ICONS = {
   Book:  '📚',
   Brand: '🏷️',
   Celeb: '🎤',
+  Food:  '🍕',
+  TV:    '📺',
 };
 
 const CATEGORY_LABELS = {
@@ -17,9 +19,11 @@ const CATEGORY_LABELS = {
   Book:  'Books',
   Brand: 'Brands',
   Celeb: 'Celebs',
+  Food:  'Food',
+  TV:    'TV Shows',
 };
 
-const CATEGORIES = ['Movie', 'Song', 'Book', 'Brand', 'Celeb'];
+const CATEGORIES = ['Movie', 'Song', 'Book', 'Brand', 'Celeb', 'Food', 'TV'];
 
 /**
  * Renders the picker into `root`. Each card invokes `onPick(category)` on tap;

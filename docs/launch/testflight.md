@@ -99,7 +99,7 @@ What you'd do:
 - (Optional) Tap "Continue Playing" to play extra puzzles in Endless mode
 - Email me anything weird, broken, or annoying
 
-It's a Wordle-style daily game where you decode emoji puzzles into words. Like 🐱🐟 = CATFISH, or 🐝🍃 = BELIEF (bee-leaf → "be-lief"). 60 puzzles in v1, takes a minute or two each.
+It's a Wordle-style daily game where you decode emoji puzzles into words. Like 🐱🐟 = CATFISH, or 🐝🍃 = BELIEF (bee-leaf → "be-lief"). 80 puzzles in v1, takes a minute or two each.
 
 Invite link: [TESTFLIGHT_PUBLIC_LINK]
 (Apple makes you install TestFlight first, then this link puts Pictok in there.)
@@ -146,7 +146,7 @@ One Daily puzzle for your streak, plus an Endless mode for as many extra puzzles
 - 🐝🍃 → BELIEF (bee-leaf → "be-lief")
 - 🪡⚡ → TAYLOR SWIFT (tailor + swift)
 
-There are 60 puzzles in v1 — about 2 months of Daily content, or a binge afternoon if you go Endless.
+There are 80 puzzles in v1 — about 2 months of Daily content, or a binge afternoon if you go Endless.
 
 WHAT I NEED FROM YOU
 - Play once a day for a week

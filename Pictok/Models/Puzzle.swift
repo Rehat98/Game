@@ -16,6 +16,8 @@ enum Category: String, Codable, CaseIterable {
     case book  = "Book"
     case brand = "Brand"
     case celeb = "Celeb"
+    case food  = "Food"
+    case tv    = "TV"
 
     var icon: String {
         switch self {
@@ -24,6 +26,8 @@ enum Category: String, Codable, CaseIterable {
         case .book:  return "📚"
         case .brand: return "🏷️"
         case .celeb: return "🎤"
+        case .food:  return "🍕"
+        case .tv:    return "📺"
         }
     }
 }

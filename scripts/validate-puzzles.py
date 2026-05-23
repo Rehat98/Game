@@ -5,7 +5,7 @@ import sys
 import collections
 
 REQUIRED_FIELDS = {"id", "date", "emoji", "answer", "category", "subcategory", "difficulty"}
-VALID_CATEGORIES = {"Movie", "Song", "Book", "Brand", "Celeb"}
+VALID_CATEGORIES = {"Movie", "Song", "Book", "Brand", "Celeb", "Food", "TV"}
 VALID_DIFFICULTIES = {"medium", "hard"}
 
 

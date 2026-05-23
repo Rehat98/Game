@@ -31,6 +31,8 @@ struct EndlessView: View {
         case .book:  return "Books"
         case .brand: return "Brands"
         case .celeb: return "Celebs"
+        case .food:  return "Food"
+        case .tv:    return "TV Shows"
         }
     }
 
