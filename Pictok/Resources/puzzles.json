@@ -1114,5 +1114,41 @@
     "category": "TV",
     "subcategory": "Starz pirate drama · 2014",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-125",
+    "date": "2026-09-19",
+    "emoji": "🧊🍵",
+    "answer": "ICE T",
+    "category": "Celeb",
+    "subcategory": "Rapper & actor · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-126",
+    "date": "2026-09-20",
+    "emoji": "🐅🥧",
+    "answer": "LIFE OF PI",
+    "category": "Book",
+    "subcategory": "Yann Martel · 2001",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-127",
+    "date": "2026-09-21",
+    "emoji": "🍦🧊",
+    "answer": "VANILLA ICE",
+    "category": "Celeb",
+    "subcategory": "Ice Ice Baby rapper · 1990",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-128",
+    "date": "2026-09-22",
+    "emoji": "🗼🏨",
+    "answer": "PARIS HILTON",
+    "category": "Celeb",
+    "subcategory": "Heiress & DJ · American",
+    "difficulty": "medium"
   }
 ]
