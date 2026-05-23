@@ -46,25 +46,7 @@ struct PictokApp: App {
         let today = PuzzleLoader.dateString(for: Date())
         switch preset {
         case "populated":
-            store.state.currentStreak = 7
-            store.state.longestStreak = 12
-            store.state.lastSolvedDate = "2026-05-18"
-            store.state.streakFreezesAvailable = 1
-            store.state.totalSolved = 47
-            store.state.totalPlayed = 53
-            store.state.guessDistribution = [0: 8, 1: 14, 2: 12, 3: 7, 4: 4, 5: 2]
-            store.state.lives = 5
-            store.state.todayPuzzleId = "puzzle-002"
-            store.state.todaySolved = false
-            store.state.todayFailed = false
-            store.state.hasEverSolved = true
-            store.state.hasAskedForNotificationPermission = true
-            store.state.ambassadorActive = false
-            store.state.solvedPuzzleIds = Set((1...53).filter { ![10, 23, 31, 38, 44, 52].contains($0) }
-                .map { String(format: "puzzle-%03d", $0) })
-            store.state.failedPuzzleIds = Set(["puzzle-010", "puzzle-023", "puzzle-031",
-                                                "puzzle-038", "puzzle-044", "puzzle-052"])
-            store.state.lifetimeSolvedCount = 47
+            applyScreenshotPresetIfRequested_populatedBase()
         case "midSolve":
             applyScreenshotPresetIfRequested_populatedBase()
             if let loader = self.loader,
@@ -103,7 +85,14 @@ struct PictokApp: App {
             applyScreenshotPresetIfRequested_populatedBase()
             store.state.currentStreak = 8
             store.state.lastSolvedDate = today
-            store.state.todayCorrectGuesses = ["I", "R", "O", "B", "T"]
+            // Fill in every distinct letter of today's answer so blanks
+            // render fully revealed in the solved state.
+            if let todays = loader?.puzzle(for: Date()) {
+                store.state.todayPuzzleId = todays.id
+                store.state.todayCorrectGuesses = Array(Set(
+                    todays.answer.uppercased().filter { $0.isLetter }
+                ))
+            }
             store.state.todayWrongGuesses = []
             store.state.todaySolved = true
             store.state.totalSolved = 48
@@ -123,7 +112,9 @@ struct PictokApp: App {
         store.state.totalPlayed = 53
         store.state.guessDistribution = [0: 8, 1: 14, 2: 12, 3: 7, 4: 4, 5: 2]
         store.state.lives = 5
-        store.state.todayPuzzleId = "puzzle-002"
+        // Target today's actual puzzle so TodayView doesn't detect a stale
+        // todayPuzzleId and silently reset state on first render.
+        store.state.todayPuzzleId = loader?.puzzle(for: Date())?.id ?? "puzzle-002"
         store.state.todaySolved = false
         store.state.todayFailed = false
         store.state.hasEverSolved = true

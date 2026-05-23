@@ -16,9 +16,9 @@ struct KeyboardView: View {
     ]
 
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(spacing: 8) {
             ForEach(0..<Self.rows.count, id: \.self) { r in
-                HStack(spacing: 4) {
+                HStack(spacing: 5) {
                     ForEach(Self.rows[r], id: \.self) { letter in
                         key(letter)
                     }
@@ -48,11 +48,11 @@ struct KeyboardView: View {
                 .font(.pkKey)
                 .foregroundStyle(isGuessed ? Color.pkInk.opacity(0.3) : Color.pkInk)
                 .strikethrough(isGuessed)
-                .frame(width: 30, height: 38)
+                .frame(width: 36, height: 46)
         }
         .buttonStyle(.plain)
         .sticker(fill: activeFill,
-                 cornerRadius: 6,
+                 cornerRadius: 8,
                  strokeWidth: 2,
                  shadowOffset: isGuessed && !isFlashing ? 0 : 2)
         .offset(x: (isFlashing && !flashIsCorrect) ? shakeOffset : 0)
