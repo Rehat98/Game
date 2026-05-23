@@ -907,5 +907,68 @@
     "category": "Food",
     "subcategory": "Southern dessert",
     "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-102",
+    "date": "2026-08-27",
+    "emoji": "🐝🍃",
+    "answer": "BELIEF",
+    "category": "Song",
+    "subcategory": "Justin Bieber era · 2012",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-103",
+    "date": "2026-08-28",
+    "emoji": "🐻🦶",
+    "answer": "BAREFOOT",
+    "category": "Movie",
+    "subcategory": "Neil Simon play & 1967 film",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-104",
+    "date": "2026-08-29",
+    "emoji": "🐻🐝",
+    "answer": "BARBIE",
+    "category": "Brand",
+    "subcategory": "Mattel toy & Greta Gerwig film · 2023",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-105",
+    "date": "2026-08-30",
+    "emoji": "1️⃣🦌👩",
+    "answer": "WONDER WOMAN",
+    "category": "Movie",
+    "subcategory": "DC superhero · 2017",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-106",
+    "date": "2026-08-31",
+    "emoji": "1️⃣🐝",
+    "answer": "WANNABE",
+    "category": "Song",
+    "subcategory": "Spice Girls · 1996",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-107",
+    "date": "2026-09-01",
+    "emoji": "🦅👁️",
+    "answer": "EAGLE EYE",
+    "category": "Movie",
+    "subcategory": "Shia LaBeouf thriller · 2008",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-108",
+    "date": "2026-09-02",
+    "emoji": "🌧️🏹",
+    "answer": "RAINBOW",
+    "category": "Song",
+    "subcategory": "Mariah Carey · 1999",
+    "difficulty": "hard"
   }
 ]
