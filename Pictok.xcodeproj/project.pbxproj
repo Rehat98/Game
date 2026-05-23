@@ -39,6 +39,7 @@
 		8C28463D2D653E9FD0BF4330 /* PuzzleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC809FFAE31499658C91AEA /* PuzzleLoader.swift */; };
 		8F32B3FEC94BC5D6EEC83FB0 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE69DC4F410F20449AB55464 /* StatsView.swift */; };
 		93F59C01C1995A478DB3E995 /* ArchiveSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7100AE60FA4A75E36DCC98E6 /* ArchiveSession.swift */; };
+		95333FCB7712F018028BBCD7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F81EE08FC88CEC6CE97D13AE /* PrivacyInfo.xcprivacy */; };
 		993B68AEE1B7227CBCAAD048 /* SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05028FD518A160175B3AF316 /* SoundService.swift */; };
 		99A09D1492EC6E0160F21F22 /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = D317115F4C77FC1155F3BF13 /* correct.wav */; };
 		A2330B67A365CB46FF09704D /* UserStateMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D028777F6BC1AE088C73016D /* UserStateMigrationTests.swift */; };
@@ -127,6 +128,7 @@
 		EF40436B6B5C44CC58037435 /* ShareCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardBuilder.swift; sourceTree = "<group>"; };
 		F1703FB8EEBE690DE896C960 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		F792ADC96F923C0EC036126D /* puzzles.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = puzzles.json; sourceTree = "<group>"; };
+		F81EE08FC88CEC6CE97D13AE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		FA2FDE6D06FA7F266BCEFF61 /* CalendarHeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeatmapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +152,7 @@
 				694520971215EA51FA99502D /* Resources */,
 				B10A3429F54C444EBC167A27 /* Views */,
 				0BF7A7BF6F338B281CC2F8FA /* PictokApp.swift */,
+				F81EE08FC88CEC6CE97D13AE /* PrivacyInfo.xcprivacy */,
 			);
 			path = Pictok;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B1C27E92963089DDDF493C9 /* Assets.xcassets in Resources */,
+				95333FCB7712F018028BBCD7 /* PrivacyInfo.xcprivacy in Resources */,
 				99A09D1492EC6E0160F21F22 /* correct.wav in Resources */,
 				D90C7BEA895520B75E70C9B9 /* fail.wav in Resources */,
 				54B46C73462E6DD6279E7DC0 /* puzzles.json in Resources */,
