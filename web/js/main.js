@@ -7,6 +7,7 @@ import { celebrateWin, celebrateFail, tickCorrect, tickWrong } from './celebrati
 import * as stats from './stats.js';
 import * as share from './share.js';
 import { mountArchive } from './archive.js';
+import { renderThemesPicker, categoryLabel } from './themes.js';
 
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -21,8 +22,8 @@ async function boot() {
   for (const tab of document.querySelectorAll('.tab')) {
     tab.addEventListener('click', () => {
       ui.showScreen(tab.dataset.screen);
-      if (tab.dataset.screen === 'endless') {
-        ensureEndlessScreen(loader.allPuzzles, state, today, storage);
+      if (tab.dataset.screen === 'themes') {
+        ensureThemesScreen(loader.allPuzzles, state, today, storage);
       }
       if (tab.dataset.screen === 'stats') {
         rerenderStats();
@@ -34,7 +35,7 @@ async function boot() {
     document.querySelector('#screen-today').replaceChildren(
       ui.el('div', { class: 'sticker' }, [
         ui.el('h2', {}, ["No puzzle today"]),
-        ui.el('p', {}, ["The Daily bundle ends here for now. Try Endless mode while we cook up more puzzles."]),
+        ui.el('p', {}, ["The Daily bundle ends here for now. Try Themes while we cook up more puzzles."]),
       ])
     );
     return;
@@ -139,8 +140,11 @@ function maskAnswer(answer) {
 }
 
 function goToEndless(allPuzzles, state, today, storage) {
-  ui.showScreen('endless');
-  ensureEndlessScreen(allPuzzles, state, today, storage);
+  // "Continue Playing" from the Today screen drops straight into the All
+  // themes rotation (the legacy Endless behaviour) rather than the picker.
+  currentThemeCategory = ALL_KEY;
+  ui.showScreen('themes');
+  ensureThemesScreen(allPuzzles, state, today, storage);
 }
 
 function renderToday(session, state, today, allPuzzles, storage) {
@@ -290,44 +294,76 @@ if ('serviceWorker' in navigator) {
 
 boot();
 
-let endlessRendered = false;
-function ensureEndlessScreen(allPuzzles, state, today, storage) {
-  if (endlessRendered) return;
-  endlessRendered = true;
-  const session = createEndlessSession(allPuzzles, state, today, storage);
-  const root = document.querySelector('#screen-endless');
+// Themes tab — picker landing + category-filtered endless rotation. A single
+// session is cached per category key (or ALL_KEY for "All themes") so tab
+// switches preserve in-flight game state.
+const ALL_KEY = '__all__';
+const themeSessions = new Map();   // categoryKey → session
+let currentThemeCategory = null;   // null = picker; ALL_KEY or Category string = game
+
+function ensureThemesScreen(allPuzzles, state, today, storage) {
+  const root = document.querySelector('#screen-themes');
+  if (currentThemeCategory === null) {
+    renderThemesPicker(root, {
+      allPuzzles,
+      onPick: (cat) => {
+        currentThemeCategory = cat ?? ALL_KEY;
+        ensureThemesScreen(allPuzzles, state, today, storage);
+      },
+    });
+    return;
+  }
+  const key = currentThemeCategory;
+  if (!themeSessions.has(key)) {
+    const pool = key === ALL_KEY
+      ? allPuzzles
+      : allPuzzles.filter(p => p.category === key);
+    themeSessions.set(key, createEndlessSession(pool, state, today, storage));
+  }
+  renderThemesGame(root, themeSessions.get(key), key, allPuzzles, state, today, storage);
+}
+
+function renderThemesGame(root, session, categoryKey, allPuzzles, state, today, storage) {
+  const eyebrow = categoryKey === ALL_KEY ? 'ALL THEMES' : categoryLabel(categoryKey).toUpperCase();
 
   function rerender(awaitingNext = false) {
     if (!session.currentPuzzle) {
-      ui.setChildren(root, ui.el('div', { class: 'sticker' }, [
-        ui.el('h2', {}, ['🎉 You\'ve played every puzzle!']),
-        ui.el('p', {}, ['Come back tomorrow for a fresh Daily.']),
-      ]));
+      const themeName = categoryKey === ALL_KEY ? '' : categoryLabel(categoryKey) + ' ';
+      ui.setChildren(root,
+        ui.el('div', { class: 'endless-topbar' }, [backButton()]),
+        ui.el('div', { class: 'sticker' }, [
+          ui.el('h2', {}, [`🎉 You've played every ${themeName}puzzle!`]),
+          ui.el('p', {}, ['Pick another theme or come back tomorrow for the Daily.']),
+        ]),
+      );
       return;
     }
     if (awaitingNext) {
-      ui.setChildren(root, ui.el('div', { class: 'next-overlay' }, [
-        ui.el('p', { class: 'next-overlay-text' }, [
-          session.solvedThisSession === 0 ? 'Better luck next round.' : 'Nice. Keep going?'
+      ui.setChildren(root,
+        ui.el('div', { class: 'endless-topbar' }, [backButton()]),
+        ui.el('div', { class: 'next-overlay' }, [
+          ui.el('p', { class: 'next-overlay-text' }, [
+            session.solvedThisSession === 0 ? 'Better luck next round.' : 'Nice. Keep going?'
+          ]),
+          ui.el('button', {
+            class: 'btn-sticker btn-sticker--green',
+            onclick: () => { session.advance(); rerender(false); },
+          }, ['Next puzzle →']),
         ]),
-        ui.el('button', {
-          class: 'btn-sticker btn-sticker--green',
-          onclick: () => { session.advance(); rerender(false); },
-        }, ['Next puzzle →']),
-      ]));
+      );
       return;
     }
     const p = session.currentPuzzle;
     ui.setChildren(root,
       ui.el('div', { class: 'endless-topbar' }, [
-        ui.el('button', {
-          class: 'btn-sticker btn-sticker--sm',
-          onclick: () => ui.showScreen('today'),
-        }, ['✕ End Session']),
-        ui.el('span', { class: 'endless-counter' }, [
-          session.solvedThisSession === 0 ? 'Just started'
-            : session.solvedThisSession === 1 ? '1 solved'
-            : `${session.solvedThisSession} solved`
+        backButton(),
+        ui.el('div', { class: 'endless-counter-block' }, [
+          ui.el('span', { class: 'endless-eyebrow' }, [eyebrow]),
+          ui.el('span', { class: 'endless-counter' }, [
+            session.solvedThisSession === 0 ? 'Just started'
+              : session.solvedThisSession === 1 ? '1 solved'
+              : `${session.solvedThisSession} solved`
+          ]),
         ]),
       ]),
       ui.renderHearts(session.hearts),
@@ -337,7 +373,7 @@ function ensureEndlessScreen(allPuzzles, state, today, storage) {
       ui.el('div', { class: 'action-row' }, [
         ui.el('button', {
           class: 'btn-sticker btn-sticker--yellow btn-sticker--sm',
-          disabled: session.hintUsed || session.solved || session.failed,
+          disabled: session.hintUsed || session.solved || session.failed || session.needsSubmit,
           onclick: () => { session.useHint(); afterAction(); },
         }, ['💡 Hint']),
       ]),
@@ -357,6 +393,16 @@ function ensureEndlessScreen(allPuzzles, state, today, storage) {
         },
       }),
     );
+  }
+
+  function backButton() {
+    return ui.el('button', {
+      class: 'btn-sticker btn-sticker--sm',
+      onclick: () => {
+        currentThemeCategory = null;
+        ensureThemesScreen(allPuzzles, state, today, storage);
+      },
+    }, ['‹ Themes']);
   }
 
   function afterAction() {

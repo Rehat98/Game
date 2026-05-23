@@ -1,6 +1,6 @@
 // Pictok service worker. Cache-first for all listed assets.
 
-const CACHE = 'pictok-v13';
+const CACHE = 'pictok-v14';
 const ASSETS = [
   '/',
   '/index.html',
@@ -27,6 +27,7 @@ const ASSETS = [
   '/js/share.js',
   '/js/archive-session.js',
   '/js/archive.js',
+  '/js/themes.js',
 ];
 
 self.addEventListener('install', (e) => {

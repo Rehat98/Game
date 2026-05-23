@@ -697,3 +697,52 @@ canvas.celebration {
   padding: 8px 14px;
 }
 .archive-submit { align-self: center; }
+
+/* Themes picker */
+.themes-screen { display: flex; flex-direction: column; gap: 10px; padding: 4px 0 12px; }
+.themes-title {
+  margin: 8px 0 0 0;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: var(--pk-ink);
+}
+.themes-sub {
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  font-weight: 800;
+  opacity: 0.6;
+}
+.theme-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  background: #fff;
+  border: 2px solid var(--pk-ink);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 0 var(--pk-ink);
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 60ms ease, box-shadow 60ms ease;
+}
+.theme-card:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 0 var(--pk-ink);
+}
+.theme-icon { font-size: 32px; line-height: 1; flex-shrink: 0; }
+.theme-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.theme-name { font-size: 17px; font-weight: 900; color: var(--pk-ink); }
+.theme-count { font-size: 12px; font-weight: 700; opacity: 0.6; }
+.theme-chev { font-size: 24px; font-weight: 900; opacity: 0.4; }
+
+/* Endless top-bar counter block (eyebrow + count) */
+.endless-counter-block { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.endless-eyebrow {
+  font-size: 9px;
+  font-weight: 900;
+  opacity: 0.45;
+  letter-spacing: 1.2px;
+}
