@@ -45,7 +45,7 @@ struct StatsView: View {
                     )
                 }
 
-                section("Last 4 weeks") {
+                section("Last 10 days") {
                     CalendarHeatmapView(history: store.state.solveHistory,
                                         today: PuzzleLoader.dateString(for: Date(), timeZone: .current),
                                         onCellTap: handleCellTap)
@@ -125,7 +125,7 @@ struct StatsView: View {
     }
 
     private var winPercentText: String {
-        guard store.state.totalPlayed > 0 else { return "—" }
+        guard store.state.totalPlayed > 0 else { return "0%" }
         let pct = Int(round(Double(store.state.totalSolved) / Double(store.state.totalPlayed) * 100))
         return "\(pct)%"
     }

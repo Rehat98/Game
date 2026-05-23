@@ -23,7 +23,7 @@ struct ResultSheet: View {
             HStack(spacing: 24) {
                 stat("Wrong", value: "\(store.state.todayWrongGuesses.count)")
                 stat("❤️ left", value: "\(store.state.lives)")
-                stat("Hint", value: store.state.todayHintUsed == nil ? "—" : "✓")
+                stat("Hint", value: store.state.todayHintUsed == nil ? "No" : "✓")
                 stat("🔥", value: "\(store.state.currentStreak)")
             }
 

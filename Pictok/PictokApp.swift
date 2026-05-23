@@ -134,6 +134,27 @@ struct PictokApp: App {
         store.state.failedPuzzleIds = Set(["puzzle-010", "puzzle-023", "puzzle-031",
                                             "puzzle-038", "puzzle-044", "puzzle-052"])
         store.state.lifetimeSolvedCount = 47
+        store.state.solveHistory = Self.fakeSolveHistory()
+    }
+
+    /// 10 days of plausible-looking history (today and recent days populated)
+    /// so the Stats calendar in the populated preset shows colour, not a wall
+    /// of empty cells.
+    private static func fakeSolveHistory() -> [SolveRecord] {
+        let pattern: [(daysAgo: Int, result: SolveResult)] = [
+            (9, .perfect), (8, .solved), (7, .perfect), (6, .failed),
+            (5, .perfect), (4, .perfect), (3, .solved),  (2, .perfect),
+            (1, .perfect),
+        ]
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd"
+        f.timeZone = TimeZone(identifier: "UTC")
+        let cal = Calendar(identifier: .gregorian)
+        let now = Date()
+        return pattern.compactMap { entry in
+            guard let d = cal.date(byAdding: .day, value: -entry.daysAgo, to: now) else { return nil }
+            return SolveRecord(date: f.string(from: d), result: entry.result)
+        }
     }
     #endif
 

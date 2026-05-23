@@ -12,7 +12,6 @@ struct TodayView: View {
 
     @AppStorage("pictok.hasSeenHowToPlay") private var hasSeenHowToPlay: Bool = false
 
-    @State private var showHintMenu = false
     @State private var showResult   = false
     @State private var showHowToPlay = false
     @State private var showPermissionPrompt = false
@@ -31,7 +30,7 @@ struct TodayView: View {
                 content(for: puzzle)
             } else {
                 VStack(spacing: 16) {
-                    Text("No puzzle for today — check back tomorrow.")
+                    Text("No puzzle for today. Check back tomorrow.")
                         .font(.pkSubtitle)
                         .multilineTextAlignment(.center)
                     StickerButton(title: "Continue Playing", icon: "▶️", fill: .pkGreen) {
@@ -115,7 +114,7 @@ struct TodayView: View {
         .alert("One chance left", isPresented: $showOneChanceAlert) {
             Button("OK") { showOneChanceAlert = false }
         } message: {
-            Text("Make it count — one more wrong guess ends the puzzle.")
+            Text("Make it count. One more wrong guess ends the puzzle.")
         }
         .onChange(of: puzzle?.id) { _, _ in
             hasShownOneChanceWarning = false
@@ -286,13 +285,13 @@ struct TodayView: View {
         let wrongCount = store.state.todayWrongGuesses.count
 
         if isSubmitReady {
-            return "All letters revealed — tap Submit ✓ to claim your first solve."
+            return "All letters revealed. Tap Submit ✓ to claim your first solve."
         }
         if wrongCount > 0 {
             return "Wrong letters cost a ❤️. Try ones you think ARE in the answer."
         }
         if correctCount > 0 {
-            return "Nice — keep tapping the other letters."
+            return "Nice. Keep tapping the other letters."
         }
         return "Decode the emojis into the title. Tap any letter to start."
     }
@@ -355,29 +354,42 @@ struct TodayView: View {
         HStack {
             HeartsRow(remaining: store.state.lives)
             Spacer()
-            Button { showHintMenu = true } label: {
-                HStack(spacing: 5) {
-                    Text("💡").font(.system(size: 18))
-                    Text("Hint")
-                        .font(.system(size: 13, weight: .heavy, design: .rounded))
-                        .foregroundStyle(Color.pkInk)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .sticker(fill: .pkYellow, cornerRadius: 14, strokeWidth: 2, shadowOffset: 2)
-            }
-            .buttonStyle(.plain)
-            .disabled(hintDisabled)
-            .opacity(hintDisabled ? 0.4 : 1.0)
-            .confirmationDialog("Pick a hint", isPresented: $showHintMenu) {
-                Button("Reveal category (−1 ❤️)") { useHint(.category) }
-                    .disabled(store.state.lives < 1)
-                Button("Reveal a letter (−2 ❤️)") { useHint(.letter) }
-                    .disabled(store.state.lives < 2)
-                Button("Cancel", role: .cancel) {}
-            }
+            hintMenu
             Button { showHowToPlay = true } label: { Text("⚙️").font(.system(size: 24)) }
         }
+    }
+
+    /// Native SwiftUI Menu is more reliable than confirmationDialog inside a
+    /// button whose disabled state re-renders often. Picking either option
+    /// fires useHint immediately; the menu closes automatically.
+    private var hintMenu: some View {
+        Menu {
+            Button {
+                useHint(.category)
+            } label: {
+                Label("Reveal category (1 heart)", systemImage: "tag")
+            }
+            .disabled(store.state.lives < 1)
+
+            Button {
+                useHint(.letter)
+            } label: {
+                Label("Reveal a letter (2 hearts)", systemImage: "textformat")
+            }
+            .disabled(store.state.lives < 2)
+        } label: {
+            HStack(spacing: 5) {
+                Text("💡").font(.system(size: 18))
+                Text("Hint")
+                    .font(.system(size: 13, weight: .heavy, design: .rounded))
+                    .foregroundStyle(Color.pkInk)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .sticker(fill: .pkYellow, cornerRadius: 14, strokeWidth: 2, shadowOffset: 2)
+        }
+        .disabled(hintDisabled)
+        .opacity(hintDisabled ? 0.4 : 1.0)
     }
 
     /// Hint button is unavailable when:

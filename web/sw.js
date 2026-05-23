@@ -1,6 +1,6 @@
 // Pictok service worker. Cache-first for all listed assets.
 
-const CACHE = 'pictok-v14';
+const CACHE = 'pictok-v15';
 const ASSETS = [
   '/',
   '/index.html',

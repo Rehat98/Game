@@ -51,7 +51,7 @@ struct ArchiveView: View {
         .alert("One chance left", isPresented: $showOneChanceAlert) {
             Button("OK") { showOneChanceAlert = false }
         } message: {
-            Text("Make it count — one more wrong guess ends the puzzle.")
+            Text("Make it count. One more wrong guess ends the puzzle.")
         }
     }
 

@@ -97,7 +97,7 @@ function renderRightRail(state, loader, today) {
     ui.el('div', { class: 'rail-block' }, [
       ui.el('div', { class: 'rail-block-eyebrow' }, ['Streak']),
       ui.el('div', { class: 'rail-block-value' }, [
-        state.currentStreak === 0 ? '—' : `🔥 ${state.currentStreak}`,
+        state.currentStreak === 0 ? '0' : `🔥 ${state.currentStreak}`,
       ]),
       ui.el('div', { class: 'rail-block-sub' }, [
         state.longestStreak > state.currentStreak ? `Best: ${state.longestStreak}` : 'Keep it alive',
@@ -212,7 +212,7 @@ function showOneChanceModal() {
   ui.showModal(({ close }) => ui.el('div', { class: 'modal-body' }, [
     ui.el('div', { class: 'modal-eyebrow' }, ['Heads up']),
     ui.el('h2', { class: 'modal-title' }, ['One chance left']),
-    ui.el('p', { class: 'modal-body-text' }, ['Make it count — one more wrong guess ends the puzzle.']),
+    ui.el('p', { class: 'modal-body-text' }, ['Make it count. One more wrong guess ends the puzzle.']),
     ui.el('button', { class: 'btn-sticker btn-sticker--green btn-block', onclick: close }, ['OK']),
   ]));
 }
@@ -234,7 +234,7 @@ function showResultModal(session, state, success, allPuzzles, today, storage) {
   const eyebrow = success ? "Today's Pictok" : "Today's Pictok";
   const statusLine = success
     ? successStatusLine(state, session)
-    : "Tough one — beat me today.";
+    : "Tough one. Beat me today.";
   const streakLine = success
     ? `Streak: ${state.currentStreak}`
     : `Streak: ${Math.max(state.currentStreak, state.longestStreak)} → 0`;
@@ -255,7 +255,7 @@ function showResultModal(session, state, success, allPuzzles, today, storage) {
       class: 'btn-sticker btn-sticker--green btn-block',
       onclick: async () => {
         const r = await share.shareText(shareTextValue, {
-          onClipboardSuccess: () => ui.showToast('Copied — paste it anywhere!'),
+          onClipboardSuccess: () => ui.showToast('Copied. Paste it anywhere!'),
         });
         if (r === 'failed') ui.showToast('Share unavailable');
       },
@@ -270,7 +270,7 @@ function showResultModal(session, state, success, allPuzzles, today, storage) {
 
 function successStatusLine(state, session) {
   const heartsLost = Math.max(0, Math.min(5, 5 - state.lives));
-  if (!session.hintUsed && heartsLost === 0) return 'Perfect run — no hints, no wrong guesses.';
+  if (!session.hintUsed && heartsLost === 0) return 'Perfect run. No hints, no wrong guesses.';
   if (session.hintUsed && heartsLost === 0) return 'Solved with 1 hint.';
   if (!session.hintUsed) return `Solved with ${heartsLost} wrong ${heartsLost === 1 ? 'guess' : 'guesses'}.`;
   return `Solved with 1 hint and ${heartsLost} wrong ${heartsLost === 1 ? 'guess' : 'guesses'}.`;
