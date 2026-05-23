@@ -2,12 +2,36 @@ import SwiftUI
 
 struct EndlessView: View {
     @State var session: EndlessSession
+    /// Optional category title shown in the top bar (e.g. "Movies") + a back
+    /// button beside it. Set when the view is launched from the Themes picker;
+    /// nil for the "All" themed mode.
+    let categoryTitle: String?
+    /// Callback for the back-to-Themes button. Nil hides the button.
+    var onBack: (() -> Void)?
 
-    init(loader: PuzzleLoader, store: UserStateStore) {
+    init(loader: PuzzleLoader,
+         store: UserStateStore,
+         category: Category? = nil,
+         onBack: (() -> Void)? = nil) {
         let today = PuzzleLoader.dateString(for: Date())
-        _session = State(initialValue: EndlessSession(allPuzzles: loader.allPuzzles,
+        let pool = category == nil
+            ? loader.allPuzzles
+            : loader.allPuzzles.filter { $0.category == category }
+        _session = State(initialValue: EndlessSession(allPuzzles: pool,
                                                       store: store,
                                                       today: today))
+        self.categoryTitle = category.map(Self.title(for:))
+        self.onBack = onBack
+    }
+
+    private static func title(for category: Category) -> String {
+        switch category {
+        case .movie: return "Movies"
+        case .song:  return "Songs"
+        case .book:  return "Books"
+        case .brand: return "Brands"
+        case .celeb: return "Celebs"
+        }
     }
 
     @State private var showWinCelebration: Bool = false
@@ -118,13 +142,41 @@ struct EndlessView: View {
 
     private var topBar: some View {
         HStack {
+            if let onBack {
+                Button { onBack() } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 12, weight: .heavy))
+                        Text("Themes")
+                            .font(.system(size: 13, weight: .heavy, design: .rounded))
+                    }
+                    .foregroundStyle(Color.pkInk)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .sticker(fill: .white, cornerRadius: 14, strokeWidth: 2, shadowOffset: 2)
+                }
+                .buttonStyle(.plain)
+            }
             Spacer()
-            Text(solvedCountLabel)
-                .font(.system(size: 14, weight: .heavy, design: .rounded))
-                .foregroundStyle(Color.pkInk.opacity(0.7))
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
+            VStack(spacing: 2) {
+                if let categoryTitle {
+                    Text(categoryTitle.uppercased())
+                        .font(.system(size: 10, weight: .heavy, design: .rounded))
+                        .foregroundStyle(Color.pkInk.opacity(0.5))
+                        .tracking(1.2)
+                }
+                Text(solvedCountLabel)
+                    .font(.system(size: 14, weight: .heavy, design: .rounded))
+                    .foregroundStyle(Color.pkInk.opacity(0.7))
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
             Spacer()
+            // Reserved right slot — matches the left back button width so the
+            // counter stays visually centred whether the back button is shown.
+            if onBack != nil {
+                Color.clear.frame(width: 86, height: 1)
+            }
         }
     }
 

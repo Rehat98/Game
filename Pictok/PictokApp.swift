@@ -173,11 +173,13 @@ struct RootView: View {
     let loadError: String?
     let onSolveOrFail: () async -> Void
 
-    enum Tab: Hashable { case today, endless, stats }
+    enum Tab: Hashable { case today, themes, stats }
 
     @State private var selectedTab: Tab = {
         #if DEBUG
-        if CommandLine.arguments.contains("--present-endless") { return .endless }
+        // `--present-endless` kept for back-compat with the screenshot scripts.
+        if CommandLine.arguments.contains("--present-themes")  { return .themes }
+        if CommandLine.arguments.contains("--present-endless") { return .themes }
         if CommandLine.arguments.contains("--present-stats")   { return .stats }
         return .today
         #else
@@ -203,14 +205,14 @@ struct RootView: View {
                     puzzleNumber: todays.map { loader.puzzleNumber(for: $0) } ?? 1,
                     yesterdaysPuzzle: yesterdays,
                     onSolveOrFail: onSolveOrFail,
-                    onPlayEndless: { selectedTab = .endless }
+                    onPlayEndless: { selectedTab = .themes }
                 )
                 .tabItem { Label("Today", systemImage: "calendar") }
                 .tag(Tab.today)
 
-                EndlessView(loader: loader, store: store)
-                    .tabItem { Label("Endless", systemImage: "infinity") }
-                    .tag(Tab.endless)
+                ThemesView(store: store, loader: loader)
+                    .tabItem { Label("Themes", systemImage: "square.grid.2x2.fill") }
+                    .tag(Tab.themes)
 
                 StatsView(store: store, loader: loader)
                     .tabItem { Label("Stats", systemImage: "chart.bar") }
