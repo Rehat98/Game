@@ -970,5 +970,86 @@
     "category": "Song",
     "subcategory": "Mariah Carey · 1999",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-109",
+    "date": "2026-09-03",
+    "emoji": "1️⃣🦌",
+    "answer": "WONDER",
+    "category": "Book",
+    "subcategory": "R.J. Palacio · 2012",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-110",
+    "date": "2026-09-04",
+    "emoji": "🍋🥧",
+    "answer": "LEMON PIE",
+    "category": "Food",
+    "subcategory": "Citrus dessert classic",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-111",
+    "date": "2026-09-05",
+    "emoji": "🃏🤍",
+    "answer": "JACK WHITE",
+    "category": "Celeb",
+    "subcategory": "White Stripes founder · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-112",
+    "date": "2026-09-06",
+    "emoji": "🐯👑",
+    "answer": "TIGER KING",
+    "category": "TV",
+    "subcategory": "Netflix docuseries · 2020",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-113",
+    "date": "2026-09-07",
+    "emoji": "🖤👸",
+    "answer": "BLACK BEAUTY",
+    "category": "Book",
+    "subcategory": "Anna Sewell · 1877",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-114",
+    "date": "2026-09-08",
+    "emoji": "🍒🥧",
+    "answer": "CHERRY PIE",
+    "category": "Food",
+    "subcategory": "American classic dessert",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-115",
+    "date": "2026-09-09",
+    "emoji": "🤍🏰",
+    "answer": "WHITE CASTLE",
+    "category": "Brand",
+    "subcategory": "US slider burger chain · 1921",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-116",
+    "date": "2026-09-10",
+    "emoji": "🥬🌯",
+    "answer": "LETTUCE WRAP",
+    "category": "Food",
+    "subcategory": "Low-carb sandwich alternative",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-117",
+    "date": "2026-09-11",
+    "emoji": "🦃🥪",
+    "answer": "TURKEY SANDWICH",
+    "category": "Food",
+    "subcategory": "Deli lunch classic",
+    "difficulty": "medium"
   }
 ]
