@@ -1051,5 +1051,68 @@
     "category": "Food",
     "subcategory": "Deli lunch classic",
     "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-118",
+    "date": "2026-09-12",
+    "emoji": "🍬🦷",
+    "answer": "SWEET TOOTH",
+    "category": "TV",
+    "subcategory": "Netflix series · 2021",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-119",
+    "date": "2026-09-13",
+    "emoji": "🍔👑",
+    "answer": "BURGER KING",
+    "category": "Brand",
+    "subcategory": "Fast-food chain · 1954",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-120",
+    "date": "2026-09-14",
+    "emoji": "🤍🪷",
+    "answer": "WHITE LOTUS",
+    "category": "TV",
+    "subcategory": "HBO anthology · 2021",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-121",
+    "date": "2026-09-15",
+    "emoji": "🌮🔔",
+    "answer": "TACO BELL",
+    "category": "Brand",
+    "subcategory": "Mexican-American chain · 1962",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-122",
+    "date": "2026-09-16",
+    "emoji": "🤍👔",
+    "answer": "WHITE COLLAR",
+    "category": "TV",
+    "subcategory": "USA Network · 2009",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-123",
+    "date": "2026-09-17",
+    "emoji": "🍕🏠",
+    "answer": "PIZZA HUT",
+    "category": "Brand",
+    "subcategory": "American pizza chain · 1958",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-124",
+    "date": "2026-09-18",
+    "emoji": "🖤⛵",
+    "answer": "BLACK SAILS",
+    "category": "TV",
+    "subcategory": "Starz pirate drama · 2014",
+    "difficulty": "hard"
   }
 ]

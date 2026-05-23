@@ -32,9 +32,9 @@ test('dateString: formats YYYY-MM-DD in given timezone', () => {
   assert.equal(loader.dateString(d2, 'America/Los_Angeles'), '2026-05-21');
 });
 
-test('puzzles.json on disk parses and has 117 puzzles', async () => {
+test('puzzles.json on disk parses and has 124 puzzles', async () => {
   const path = fileURLToPath(new URL('../puzzles.json', import.meta.url));
   const data = JSON.parse(await readFile(path, 'utf-8'));
-  assert.equal(data.length, 117);
+  assert.equal(data.length, 124);
   assert.ok(data.every(p => p.id && p.date && p.answer));
 });
