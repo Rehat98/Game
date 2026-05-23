@@ -1,6 +1,6 @@
 # TestFlight Submission Checklist — Pictok v1
 
-Step-by-step from "build is green on simulator" to "testers tap install on their phones." Last refreshed 2026-05-19.
+Step-by-step from "build is green on simulator" to "testers tap install on their phones." Last refreshed 2026-05-23.
 
 This document is the **operator's checklist** — what you click, type, and upload. The tester-facing copy lives in [`testflight.md`](./testflight.md); the App Store listing copy lives in [`app-store-listing.md`](./app-store-listing.md).
 
@@ -18,16 +18,10 @@ These are one-time per developer + per app. Skip steps you've already done.
 
 ### 1.2 Team ID
 
-- [ ] In Developer Portal → Membership → copy your **Team ID** (10-character alphanumeric, e.g., `A1B2C3D4E5`)
-- [ ] Open `/Users/rehatchugh/emoji-decode/project.yml`
-- [ ] Replace both occurrences of `DEVELOPMENT_TEAM: ""` with your Team ID:
+- [x] Already set: `DEVELOPMENT_TEAM: "339X8FLFXX"` in both Pictok and PictokTests targets (rehatachugh@gmail.com, fixed on 2026-05-23 — see commit `7fe9dd8`).
+- [x] xcodegen regenerated and pbxproj contains the new team id.
 
-```yaml
-DEVELOPMENT_TEAM: "A1B2C3D4E5"
-```
-
-- [ ] Regenerate the Xcode project: `cd /Users/rehatchugh/emoji-decode && xcodegen generate`
-- [ ] Commit (do NOT push to a public repo with this in cleartext — keep `project.yml` private or use a `.local.yml` override): `git commit -am "Wire Apple Developer Team ID for signing"`
+If you ever publish under a different team, swap the value in `project.yml` and re-run `xcodegen generate`.
 
 ### 1.3 App ID (Bundle Identifier)
 
@@ -99,9 +93,11 @@ CURRENT_PROJECT_VERSION: "2"   # was 1, bump to 2 for second TestFlight upload
 
 ### 3.2 Verify the build is shippable
 
-- [ ] Run the full test suite: `xcodebuild test -project Pictok.xcodeproj -scheme Pictok -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet` → all 80 tests pass
-- [ ] Launch on simulator → confirm puzzle loads, Continue Playing works, fireworks/rain play, sounds play, Stats tab renders
-- [ ] Confirm `Info.plist` includes `ITSAppUsesNonExemptEncryption = NO` (already done in commit history)
+- [ ] Run the full test suite: `xcodebuild test -project Pictok.xcodeproj -scheme Pictok -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=latest' -quiet` → all 89 tests pass
+- [ ] Run the web tests too: `cd web && npm test` → 64/64 pass
+- [ ] Launch on simulator → confirm puzzle loads, Themes picker opens, Archive cell launches the catch-up game, Stats calendar shows colored cells, hint Menu offers both Category and Letter
+- [x] `INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: "NO"` is already set in `project.yml` line 38
+- [x] `PrivacyInfo.xcprivacy` shipped (commit `93d7ff6`) — declares no tracking, no data collected, UserDefaults access with reason CA92.1
 
 ### 3.3 Archive
 
@@ -198,12 +194,13 @@ For friends, public link, or anyone not on your team's App Store Connect account
 
 You don't have to do these before TestFlight, but they're blockers for App Store submission. Knock them out during beta.
 
-- [ ] **Privacy Policy URL**: host `docs/launch/privacy-policy.md` as static HTML somewhere (GitHub Pages, Vercel, Netlify; `pictok.app/privacy` if you bought the domain). Required field in App Store Connect.
-- [ ] **Support URL**: a one-page site or GitHub Issues link. Required field.
-- [ ] **Screenshots** (1290×2796 PNGs, 6.7" iPhone): produce per the plan in [`app-store-listing.md`](./app-store-listing.md) §"Screenshot plan" — minimum 3, recommended 5–6.
-- [ ] **App preview video** (optional, max 30s, .mov): nice-to-have, skip for v1 launch.
+- [ ] **Privacy Policy URL**: blocked on `pictok.app` domain + `support@pictok.app` email setup. Once those are live, `web/privacy.html` ships to `pictok.pages.dev/privacy` (or `pictok.app/privacy` if the custom domain is wired). Required field in App Store Connect.
+- [ ] **Support URL**: blocked on same email setup. `web/support.html` ships to the same domain at `/support`. Required field.
+- [x] **Screenshots** (1320×2868 PNGs, 6.9" iPhone Pro Max, Apple's current preferred size): 5 ready at `docs/launch/screenshots/` — `01-today-tab` / `02-mid-solve` / `03-themes-picker` / `04-stats-tab` / `05-solved-result`. Matching framed marketing versions at `docs/launch/screenshots/framed/`.
+- [x] **App preview video** (optional, max 30s, .mov): `docs/launch/preview-video/preview.mp4` (14.4s, 1290×2796, H.264 baseline) — optional upload.
 - [ ] **Age rating questionnaire**: 4+ (no questionable content). Fill in App Store Connect → Pictok → App Information → Age Rating.
 - [ ] **Pricing**: Free. Pictok → Pricing and Availability → set tier 0.
+- [ ] **App Privacy questionnaire**: single answer — "No, we do not collect data from this app." Resulting badge: **Data Not Collected**. (See `app-store-listing.md` § "App Privacy questionnaire".)
 - [ ] **Trademark clearance**: USPTO TESS + App Store name search for "Pictok". Flagged in v1 spec — do this before App Store submission, not before TestFlight.
 
 ---
@@ -212,16 +209,17 @@ You don't have to do these before TestFlight, but they're blockers for App Store
 
 | Item | Where it lives | Status |
 |------|----------------|--------|
-| Apple Developer membership | https://developer.apple.com | One-time setup |
-| Team ID | Developer Portal → Membership | Paste into `project.yml` |
-| Bundle ID `com.rehatchugh.pictok` | Developer Portal → Identifiers | Register once |
-| App Store Connect record | https://appstoreconnect.apple.com | Create once |
+| Apple Developer membership | https://developer.apple.com | TODO — real TestFlight blocker |
+| Team ID | `project.yml` DEVELOPMENT_TEAM | ✅ 339X8FLFXX |
+| Bundle ID `com.rehatchugh.pictok` | Developer Portal → Identifiers | Register once after Dev Program is active |
+| App Store Connect record | https://appstoreconnect.apple.com | Create once after Dev Program is active |
 | App icon 1024×1024 | `Pictok/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png` | ✅ Done |
-| Privacy policy URL | Host `docs/launch/privacy-policy.md` somewhere | TODO |
-| Support URL | Any public URL that can receive bug reports | TODO |
-| Screenshots (5–6) | Capture on iPhone simulator at 1290×2796 | TODO |
+| Privacy manifest | `Pictok/PrivacyInfo.xcprivacy` | ✅ Done |
+| Privacy policy URL | `web/privacy.html` → pictok.pages.dev/privacy | Blocked on email setup |
+| Support URL | `web/support.html` → pictok.pages.dev/support | Blocked on email setup |
+| Screenshots (5) | `docs/launch/screenshots/0[1-5]-*.png` at 1320×2868 | ✅ Done |
 | Test notes | `docs/launch/testflight.md` | ✅ Refreshed 2026-05-19 |
-| Listing copy | `docs/launch/app-store-listing.md` | ✅ Refreshed 2026-05-19 |
+| Listing copy | `docs/launch/app-store-listing.md` | ✅ Refreshed 2026-05-23 |
 
 ---
 
