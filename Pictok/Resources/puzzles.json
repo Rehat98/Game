@@ -844,5 +844,68 @@
     "category": "Movie",
     "subcategory": "Macaulay Culkin · 1990",
     "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-095",
+    "date": "2026-08-20",
+    "emoji": "🍌🍞",
+    "answer": "BANANA BREAD",
+    "category": "Food",
+    "subcategory": "Classic quick bread",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-096",
+    "date": "2026-08-21",
+    "emoji": "🃏🖤",
+    "answer": "JACK BLACK",
+    "category": "Celeb",
+    "subcategory": "Actor & musician · American",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-097",
+    "date": "2026-08-22",
+    "emoji": "🥑🍞",
+    "answer": "AVOCADO TOAST",
+    "category": "Food",
+    "subcategory": "Brunch classic",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-098",
+    "date": "2026-08-23",
+    "emoji": "🆕👧",
+    "answer": "NEW GIRL",
+    "category": "TV",
+    "subcategory": "Fox sitcom · 2011",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-099",
+    "date": "2026-08-24",
+    "emoji": "🌽🥖",
+    "answer": "CORN BREAD",
+    "category": "Food",
+    "subcategory": "Southern US staple",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-100",
+    "date": "2026-08-25",
+    "emoji": "👑⛰️",
+    "answer": "KING OF THE HILL",
+    "category": "TV",
+    "subcategory": "Fox animated · 1997",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-101",
+    "date": "2026-08-26",
+    "emoji": "🥥🍰",
+    "answer": "COCONUT CAKE",
+    "category": "Food",
+    "subcategory": "Southern dessert",
+    "difficulty": "medium"
   }
 ]
