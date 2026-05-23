@@ -1150,5 +1150,77 @@
     "category": "Celeb",
     "subcategory": "Heiress & DJ · American",
     "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-129",
+    "date": "2026-09-23",
+    "emoji": "🐟🌮",
+    "answer": "FISH TACO",
+    "category": "Food",
+    "subcategory": "Baja-style classic",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-130",
+    "date": "2026-09-24",
+    "emoji": "🪰👑",
+    "answer": "LORD OF THE FLIES",
+    "category": "Book",
+    "subcategory": "William Golding · 1954",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-131",
+    "date": "2026-09-25",
+    "emoji": "🤫🐶",
+    "answer": "HUSH PUPPIES",
+    "category": "Brand",
+    "subcategory": "Shoe brand · 1958",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-132",
+    "date": "2026-09-26",
+    "emoji": "📏👦",
+    "answer": "BIG BOI",
+    "category": "Celeb",
+    "subcategory": "OutKast rapper · American",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-133",
+    "date": "2026-09-27",
+    "emoji": "🥩🌮",
+    "answer": "STEAK TACO",
+    "category": "Food",
+    "subcategory": "Mexican classic",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-134",
+    "date": "2026-09-28",
+    "emoji": "🤍🐋",
+    "answer": "MOBY DICK",
+    "category": "Book",
+    "subcategory": "Herman Melville · 1851",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-135",
+    "date": "2026-09-29",
+    "emoji": "🐰🕳️",
+    "answer": "RABBIT HOLE",
+    "category": "TV",
+    "subcategory": "Apple TV+ thriller · 2023",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-136",
+    "date": "2026-09-30",
+    "emoji": "🔵🔔",
+    "answer": "BLUE BELL",
+    "category": "Brand",
+    "subcategory": "Texas ice cream · 1907",
+    "difficulty": "hard"
   }
 ]
