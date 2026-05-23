@@ -763,5 +763,86 @@
     "category": "Song",
     "subcategory": "Deep Purple · 1972",
     "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-086",
+    "date": "2026-08-11",
+    "emoji": "👑🦍",
+    "answer": "KING KONG",
+    "category": "Movie",
+    "subcategory": "Skull Island ape · 1933",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-087",
+    "date": "2026-08-12",
+    "emoji": "👶🏃",
+    "answer": "BORN TO RUN",
+    "category": "Song",
+    "subcategory": "Bruce Springsteen · 1975",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-088",
+    "date": "2026-08-13",
+    "emoji": "🤏👩👩",
+    "answer": "LITTLE WOMEN",
+    "category": "Book",
+    "subcategory": "Louisa May Alcott · 1868",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-089",
+    "date": "2026-08-14",
+    "emoji": "🏔️💧",
+    "answer": "MOUNTAIN DEW",
+    "category": "Brand",
+    "subcategory": "PepsiCo soft drink",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-090",
+    "date": "2026-08-15",
+    "emoji": "🖤🐆",
+    "answer": "BLACK PANTHER",
+    "category": "Movie",
+    "subcategory": "Marvel superhero · 2018",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-091",
+    "date": "2026-08-16",
+    "emoji": "🔥🏠",
+    "answer": "BURNING DOWN THE HOUSE",
+    "category": "Song",
+    "subcategory": "Talking Heads · 1983",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-092",
+    "date": "2026-08-17",
+    "emoji": "💪🆕🌍",
+    "answer": "BRAVE NEW WORLD",
+    "category": "Book",
+    "subcategory": "Aldous Huxley · 1932",
+    "difficulty": "hard"
+  },
+  {
+    "id": "puzzle-093",
+    "date": "2026-08-18",
+    "emoji": "🌶️🛞",
+    "answer": "HOT WHEELS",
+    "category": "Brand",
+    "subcategory": "Mattel die-cast toys · 1968",
+    "difficulty": "medium"
+  },
+  {
+    "id": "puzzle-094",
+    "date": "2026-08-19",
+    "emoji": "🏠🧍",
+    "answer": "HOME ALONE",
+    "category": "Movie",
+    "subcategory": "Macaulay Culkin · 1990",
+    "difficulty": "medium"
   }
 ]
