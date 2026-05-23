@@ -23,7 +23,7 @@ struct ResultSheet: View {
             HStack(spacing: 24) {
                 stat("Wrong", value: "\(store.state.todayWrongGuesses.count)")
                 stat("❤️ left", value: "\(store.state.lives)")
-                stat("Hint", value: store.state.todayHintUsed == nil ? "No" : "✓")
+                stat("Hint", value: (store.state.todayCategoryHintUsed || store.state.todayLetterHintUsed) ? "✓" : "No")
                 stat("🔥", value: "\(store.state.currentStreak)")
             }
 
@@ -74,7 +74,7 @@ struct ResultSheet: View {
                 category: puzzle.category,
                 difficulty: puzzle.difficulty,
                 heartsRemaining: store.state.lives,
-                hintUsed: store.state.todayHintUsed != nil,
+                hintUsed: store.state.todayCategoryHintUsed || store.state.todayLetterHintUsed,
                 currentStreak: store.state.currentStreak,
                 url: "pictok.pages.dev"
             )

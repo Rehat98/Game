@@ -35,7 +35,8 @@ struct UserState: Codable, Equatable {
     var todayPuzzleId: String?
     var todayWrongGuesses: [Character]
     var todayCorrectGuesses: [Character]
-    var todayHintUsed: HintType?
+    var todayCategoryHintUsed: Bool
+    var todayLetterHintUsed: Bool
     var todayRevealedLetter: Character?
     var todaySolved: Bool
     var todayFailed: Bool
@@ -76,7 +77,8 @@ struct UserState: Codable, Equatable {
             todayPuzzleId: nil,
             todayWrongGuesses: [],
             todayCorrectGuesses: [],
-            todayHintUsed: nil,
+            todayCategoryHintUsed: false,
+            todayLetterHintUsed: false,
             todayRevealedLetter: nil,
             todaySolved: false,
             todayFailed: false,
@@ -99,7 +101,9 @@ extension UserState {
         case totalSolved, totalPlayed, guessDistribution
         case lives
         case todayPuzzleId, todayWrongGuesses, todayCorrectGuesses
-        case todayHintUsed, todayRevealedLetter, todaySolved, todayFailed
+        // `todayHintUsed` kept for one-way migration from pre-split saved state.
+        case todayHintUsed, todayCategoryHintUsed, todayLetterHintUsed
+        case todayRevealedLetter, todaySolved, todayFailed
         case hasEverSolved, hasAskedForNotificationPermission
         case solvedPuzzleIds, failedPuzzleIds, lifetimeSolvedCount, recentEndlessIds
         case solveHistory
@@ -123,7 +127,15 @@ extension UserState {
         let correctStrings      = try c.decode([String].self, forKey: .todayCorrectGuesses)
         todayCorrectGuesses     = correctStrings.compactMap { $0.first }
 
-        todayHintUsed           = try c.decodeIfPresent(HintType.self, forKey: .todayHintUsed)
+        if let cat = try c.decodeIfPresent(Bool.self, forKey: .todayCategoryHintUsed),
+           let ltr = try c.decodeIfPresent(Bool.self, forKey: .todayLetterHintUsed) {
+            todayCategoryHintUsed = cat
+            todayLetterHintUsed   = ltr
+        } else {
+            let legacy = try c.decodeIfPresent(HintType.self, forKey: .todayHintUsed)
+            todayCategoryHintUsed = (legacy == .category)
+            todayLetterHintUsed   = (legacy == .letter)
+        }
         if let revealedString   = try c.decodeIfPresent(String.self, forKey: .todayRevealedLetter) {
             todayRevealedLetter = revealedString.first
         } else {
@@ -156,7 +168,8 @@ extension UserState {
         try c.encodeIfPresent(todayPuzzleId, forKey: .todayPuzzleId)
         try c.encode(todayWrongGuesses.map  { String($0) }, forKey: .todayWrongGuesses)
         try c.encode(todayCorrectGuesses.map { String($0) }, forKey: .todayCorrectGuesses)
-        try c.encodeIfPresent(todayHintUsed, forKey: .todayHintUsed)
+        try c.encode(todayCategoryHintUsed, forKey: .todayCategoryHintUsed)
+        try c.encode(todayLetterHintUsed,   forKey: .todayLetterHintUsed)
         try c.encodeIfPresent(todayRevealedLetter.map { String($0) }, forKey: .todayRevealedLetter)
         try c.encode(todaySolved,            forKey: .todaySolved)
         try c.encode(todayFailed,            forKey: .todayFailed)

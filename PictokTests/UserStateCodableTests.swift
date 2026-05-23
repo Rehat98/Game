@@ -25,7 +25,8 @@ final class UserStateCodableTests: XCTestCase {
         XCTAssertNil(s.todayPuzzleId)
         XCTAssertEqual(s.todayWrongGuesses, [])
         XCTAssertEqual(s.todayCorrectGuesses, [])
-        XCTAssertNil(s.todayHintUsed)
+        XCTAssertFalse(s.todayCategoryHintUsed)
+        XCTAssertFalse(s.todayLetterHintUsed)
         XCTAssertNil(s.todayRevealedLetter)
     }
 
@@ -42,7 +43,8 @@ final class UserStateCodableTests: XCTestCase {
         s.todayPuzzleId = "2026-05-18"
         s.todayWrongGuesses = ["X", "Z"]
         s.todayCorrectGuesses = ["E", "I"]
-        s.todayHintUsed = .category
+        s.todayCategoryHintUsed = true
+        s.todayLetterHintUsed = true
         s.todayRevealedLetter = nil
 
         let data = try JSONEncoder().encode(s)

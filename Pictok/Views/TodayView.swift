@@ -369,14 +369,14 @@ struct TodayView: View {
             } label: {
                 Label("Reveal category (1 heart)", systemImage: "tag")
             }
-            .disabled(store.state.lives < 1)
+            .disabled(store.state.todayCategoryHintUsed || store.state.lives < 1)
 
             Button {
                 useHint(.letter)
             } label: {
                 Label("Reveal a letter (2 hearts)", systemImage: "textformat")
             }
-            .disabled(store.state.lives < 2)
+            .disabled(store.state.todayLetterHintUsed || store.state.lives < 2)
         } label: {
             HStack(spacing: 5) {
                 Text("💡").font(.system(size: 18))
@@ -393,11 +393,12 @@ struct TodayView: View {
     }
 
     /// Hint button is unavailable when:
-    /// - The hint has already been used this puzzle
+    /// - BOTH hints (category + letter) have been used this puzzle
     /// - The puzzle is finished (solved or failed)
     /// - All letters are already revealed (Submit ✓ is the move, not Hint)
     private var hintDisabled: Bool {
-        store.state.todayHintUsed != nil
+        let bothHintsUsed = store.state.todayCategoryHintUsed && store.state.todayLetterHintUsed
+        return bothHintsUsed
             || store.state.todaySolved
             || store.state.todayFailed
             || isSubmitReady
@@ -418,7 +419,7 @@ struct TodayView: View {
     }
 
     private func revealedSubcategory(for puzzle: Puzzle) -> String? {
-        store.state.todayHintUsed == .category ? puzzle.subcategory : nil
+        store.state.todayCategoryHintUsed ? puzzle.subcategory : nil
     }
 
     // MARK: Actions
@@ -427,7 +428,8 @@ struct TodayView: View {
         store.state.todayPuzzleId = puzzleId
         store.state.todayWrongGuesses = []
         store.state.todayCorrectGuesses = []
-        store.state.todayHintUsed = nil
+        store.state.todayCategoryHintUsed = false
+        store.state.todayLetterHintUsed = false
         store.state.todayRevealedLetter = nil
         store.state.todaySolved = false
         store.state.todayFailed = false
@@ -460,11 +462,17 @@ struct TodayView: View {
     }
 
     private func useHint(_ hint: HintType) {
-        guard store.state.todayHintUsed == nil else { return }
+        switch hint {
+        case .category: guard !store.state.todayCategoryHintUsed else { return }
+        case .letter:   guard !store.state.todayLetterHintUsed   else { return }
+        }
         let cost = GameEngine.heartCost(for: hint)
         guard store.state.lives >= cost else { return }
         store.state.lives -= cost
-        store.state.todayHintUsed = hint
+        switch hint {
+        case .category: store.state.todayCategoryHintUsed = true
+        case .letter:   store.state.todayLetterHintUsed = true
+        }
         if hint == .letter, let puzzle = currentPuzzleSnapshot() {
             store.state.todayRevealedLetter = GameEngine.letterToReveal(
                 for: puzzle,
@@ -538,7 +546,7 @@ struct TodayView: View {
         let wrongs = store.state.todayWrongGuesses.count
         store.state.guessDistribution[wrongs, default: 0] += 1
 
-        let hintUsed = store.state.todayHintUsed != nil
+        let hintUsed = store.state.todayCategoryHintUsed || store.state.todayLetterHintUsed
         let result: SolveResult = (wrongs == 0 && !hintUsed) ? .perfect : .solved
         appendSolveHistory(date: today, result: result)
 
